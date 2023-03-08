@@ -1,3 +1,6 @@
+// TODO: 08/03/2023 Add the new textures for the new ingredients e.g. tuna = image of tuna
+
+
 package com.mygdx.game.ingredient;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -33,10 +36,19 @@ public final class IngredientTextures {
         put(IngredientName.BUNS_UNTOASTED, new Texture("ingredient_bun_untoasted.png"));
         put(IngredientName.BUNS_TOASTED, new Texture("ingredient_bun_toasted.png"));
 
+        //put(IngredientName.JACKET_POTATOE_UNCOOKED, new Texture("ingredient_sausage_raw.png"));
+        //put(IngredientName.JACKET_POTATOE_COOKED, new Texture("ingredient_sausage_cooked.png"));
+
+        //put(IngredientName.TUNA, new Texture("ingredient_sausage_raw.png"));
+        //put(IngredientName.CHEESE, new Texture("ingredient_sausage_cooked.png"));
+
 
         // Assembled foods
         put(IngredientName.BURGER, new Texture("ingredient_burger.png"));
         put(IngredientName.SALAD, new Texture("ingredient_salad.png"));
+
+        //put(IngredientName.PIZZA, new Texture("ingredient_burger.png"));
+        //put(IngredientName.JACKET_POTATOE_FINISHED, new Texture("ingredient_salad.png"));
     }};
 
 

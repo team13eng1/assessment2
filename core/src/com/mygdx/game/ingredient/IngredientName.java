@@ -24,8 +24,17 @@ public enum IngredientName {
     PATTY_RAW,
     TOMATO_CUT,
     TOMATO_UNCUT,
+    JACKET_POTATO_UNCOOKED,
+    JACKET_POTATO_COOKED,
+    TUNA,
+    CHEESE,
+    PIZZA_BASE,
 
     // Assembled Foods
     BURGER,
-    SALAD
+    SALAD,
+    JACKET_POTATO_FINISHED,
+    PIZZA
+
+
 }
