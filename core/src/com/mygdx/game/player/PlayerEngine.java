@@ -2,15 +2,14 @@ package com.mygdx.game.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.ingredient.IngredientName;
+import com.mygdx.game.GameScreen;
 import com.mygdx.game.ingredient.IngredientTextures;
 import com.mygdx.game.interact.InteractEngine;
-
-import java.util.LinkedList;
+import com.mygdx.game.player.PowerUps.PowerUpBase;
+import com.mygdx.game.player.PowerUps.PowerUpEngine;
 
 /**
  * 
@@ -25,18 +24,21 @@ public final class PlayerEngine {
 
 	static SpriteBatch batch;
 
+	static GameScreen gameScreen;
+
 	static Player[] chefs;
 	static Player activeChef;
 	static Rectangle[] interactableColliders;
 
-	
 	//==========================================================\\
 	//                      INITIALISER                         \\
 	//==========================================================\\
 
-	public static void initialise(SpriteBatch gameBatch)
+	public static void initialise(SpriteBatch gameBatch, GameScreen scrn)
 	{
 		batch = gameBatch;
+
+		gameScreen = scrn;
 
 		chefs = new Player[3];
 		chefs[0] = new Player(0,  175,  350, "temp_chef_1.png");
@@ -78,6 +80,7 @@ public final class PlayerEngine {
 		}
 		
 		activeChef.handleMovement(interactableColliders);
+		activeChef.handlePowerUps(gameScreen.masterTimer);
 		
 		// Chef Quick-Switch with 'Q'
 		if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
@@ -99,6 +102,9 @@ public final class PlayerEngine {
 		{
 			InteractEngine.interact();
 		}
+
+		PowerUpEngine.interact();
+
 	}
 	
 	
@@ -110,4 +116,7 @@ public final class PlayerEngine {
 
 	public static void setColliders(Rectangle[] colliders) { interactableColliders = colliders; }
 
+	public static float getMasterTime() {
+		return gameScreen.masterTimer;
+	}
 }

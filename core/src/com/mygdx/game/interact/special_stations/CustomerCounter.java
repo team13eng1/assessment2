@@ -77,4 +77,10 @@ public class CustomerCounter extends Counter {
         this.customer = customer;
         this.requiredIngredient = requiredIngredient;
     }
+
+    public void resetCounter(){
+        customer.completeOrder();
+        storedIngredient = null;
+        customer = null;
+    }
 }

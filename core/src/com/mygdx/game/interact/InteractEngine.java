@@ -13,7 +13,7 @@ import com.mygdx.game.interact.special_stations.Counter;
 import com.mygdx.game.interact.special_stations.CustomerCounter;
 import com.mygdx.game.interact.special_stations.assembly_stations.BurgerStation;
 import com.mygdx.game.interact.special_stations.assembly_stations.JacketPotatoStation;
-import com.mygdx.game.interact.special_stations.assembly_stations.PizzaStation;
+import com.mygdx.game.interact.special_stations.assembly_stations.PizzaRawStation;
 import com.mygdx.game.interact.special_stations.assembly_stations.SaladStation;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
@@ -74,7 +74,7 @@ public final class InteractEngine {
 				new BurgerStation(270, 170),
 				new SaladStation(270, 240),
 				new JacketPotatoStation(340, 170),
-				new PizzaStation(340, 240),
+				new PizzaRawStation(340, 240),
 
 				new TomatoStation(570, 210),
 				new CheeseStation(570, 280),
@@ -178,5 +178,9 @@ public final class InteractEngine {
 		}
 
 		System.out.println("INTERACTION ENDED");
+	}
+
+	public static InteractableBase[] getStations() {
+		return interactables;
 	}
 }

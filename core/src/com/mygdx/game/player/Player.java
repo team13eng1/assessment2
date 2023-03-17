@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game._convenience.IngredientStack;
 import com.mygdx.game.ingredient.IngredientName;
+import com.mygdx.game.player.PowerUps.PowerUpBase;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -33,6 +35,8 @@ public class Player {
 	// Determines if the player is able to move
 	private boolean movementEnabled;
 
+	private ArrayList<PowerUpBase> powerUps;
+
 
 	//==========================================================\\
 	//                      CONSTRUCTOR                         \\
@@ -50,6 +54,8 @@ public class Player {
 		previousPosX = startX;
 		previousPosY = startY;
 		collisionRect = new Rectangle(posX, posY, sprite.getTexture().getWidth() * 0.75f, sprite.getTexture().getHeight() * 0.75f);
+
+		powerUps = new ArrayList<PowerUpBase>();
 	}
 	
 	
@@ -77,6 +83,15 @@ public class Player {
 					posY = previousPosY;
 					collisionRect.setPosition(posX, posY);
 				}
+			}
+		}
+	}
+
+	public void handlePowerUps(float masterTime){
+		for (PowerUpBase powerUp : powerUps){
+			if (masterTime - powerUp.getStartTime() > powerUp.getAllowedDuration()){
+				powerUp.endInteraction();
+				powerUps.remove(powerUp);
 			}
 		}
 	}

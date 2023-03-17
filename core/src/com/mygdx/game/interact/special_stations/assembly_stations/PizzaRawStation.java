@@ -7,18 +7,18 @@ import com.mygdx.game.ingredient.IngredientName;
  *
  * Assembly station for a Pizza
  */
-public class PizzaStation extends AssemblyStation {
+public class PizzaRawStation extends AssemblyStation {
 
     // Pizza Recipe
     IngredientName[] recipe = new IngredientName[] {
             IngredientName.PIZZA_BASE,
             IngredientName.TOMATO_CUT,
-            IngredientName.CHEESE
+            IngredientName.CHEESE,
     };
 
-    IngredientName outputIngredient = IngredientName.PIZZA;
+    IngredientName outputIngredient = IngredientName.PIZZA_RAW;
 
-    public PizzaStation(float xPos, float yPos) {
+    public PizzaRawStation(float xPos, float yPos) {
 
         super(xPos, yPos, "station_assembly_pizza.png");
         setRecipe(recipe, outputIngredient);

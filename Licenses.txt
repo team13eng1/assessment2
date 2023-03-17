@@ -1,0 +1,14 @@
+LibGDX License
+================
+
+Copyright (c) 2009-2021 Mario Zechner, Nate Ostrowski, Ryan Gardner, and Elijah Cornell.
+
+The LibGDX library is licensed under the Apache License, Version 2.0. This means that the library can be used, copied, modified, merged, published, distributed, sublicensed, and/or sold, free of charge, for any purpose, commercial or non-commercial. However, any use of the library must be subject to the following conditions:
+
+1. The above copyright notice and this permission notice must be included in all copies or substantial portions of the software.
+
+2. All changes made to the LibGDX source code must be clearly marked.
+
+3. Any redistributions of the library in binary form must reproduce the above copyright notice, this list of conditions, and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THE LIBGDX LIBRARY IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE LIBGDX LIBRARY OR THE USE OR OTHER DEALINGS IN THE LIBGDX LIBRARY.

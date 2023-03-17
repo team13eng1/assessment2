@@ -23,12 +23,18 @@ public class Customer {
     CustomerCounter counter;
     IngredientName requiredIngredient;
 
+    float startTime;
+    float reputationLimitTime;
+
+    boolean finished;
 
     //==========================================================\\
     //                      CONSTRUCTOR                         \\
     //==========================================================\\
-    public Customer(CustomerCounter counter, IngredientName requiredIngredient)
+    public Customer(CustomerCounter counter, IngredientName requiredIngredient, float startTime, float reputationLimitTime)
     {
+        this.startTime = startTime;
+        this.reputationLimitTime = reputationLimitTime;
         this.counter = counter;
         this.requiredIngredient = requiredIngredient;
 
@@ -36,6 +42,8 @@ public class Customer {
         posY = counter.getYPos();
 
         counterOffset = 70f;
+
+        finished = false;
     }
 
 
@@ -80,4 +88,11 @@ public class Customer {
         orderComplete = true;
     }
 
+    public boolean isWaitTooLong(float mainTime){
+        return (mainTime - startTime > reputationLimitTime);
+    }
+
+    public void finishWithThisCustomer() {
+        finished = true;
+    }
 }

@@ -36,12 +36,17 @@ public final class CustomerEngine {
 
     static Texture customerTexture;
 
+    static GameScreen mainGameScreen;
+
+    static int numReputationPoints;
+
 
     //==========================================================\\
     //                      INITIALISER                         \\
     //==========================================================\\
 
-    public static void initialise(SpriteBatch gameBatch, String startGameMode) {
+    public static void initialise(SpriteBatch gameBatch, String startGameMode, int scenarioNumCust, GameScreen gameScreen) {
+        mainGameScreen = gameScreen;
         batch = gameBatch;
 
         // Recipes is the array of items a customer can order
@@ -58,10 +63,12 @@ public final class CustomerEngine {
         minTimeGap = 2f;
         maxTimeGap = 10f;
         timer = 0f;
+        numberOfCustomers = 3;
+        numReputationPoints = 3;
 
         if (startGameMode.equals("Scenario")) {
             maxCustomers = 1;
-            numberOfCustomers = 5;
+            numberOfCustomers = scenarioNumCust;
         }
         //Means must be Endless mode
         else {
@@ -75,16 +82,27 @@ public final class CustomerEngine {
     //==========================================================\\
 
     public static void update() {
+        System.out.print(getReputationPointsRemaining());
+        if (getReputationPointsRemaining() <= 0){
+            mainGameScreen.loseGame();
+        }
+
         // Render the customers
         for (Customer c : customers) {
             c.update();
             batch.draw(customerTexture, c.getXPos(), c.getYPos());
+            System.out.printf("Master timer value: %.2f\n", mainGameScreen.masterTimer - c.startTime);
+            if (c.isWaitTooLong(mainGameScreen.masterTimer) && !c.finished){
+                c.finishWithThisCustomer();
+                c.counter.resetCounter();
+                removeReputationPoint();
+            }
         }
         if (timer <= 0 && customers.size() < maxCustomers && numberOfCustomers != 0) {
 
             int random = (int) (Math.random() * recipes.length);
             CustomerCounter freeCounter = getFreeCounter();
-            Customer customer = new Customer(freeCounter, recipes[random]);
+            Customer customer = new Customer(freeCounter, recipes[random], mainGameScreen.masterTimer, 20f);
             customers.add(customer);
             timer = minTimeGap + ((float) Math.random() * (maxTimeGap - minTimeGap));
         }
@@ -122,5 +140,13 @@ public final class CustomerEngine {
 
     public static void setEndlessMaxCustomers(Integer maxCust) {
         maxCustomers = maxCust;
+    }
+
+    public static void removeReputationPoint(){
+        numReputationPoints--;
+    }
+
+    public static int getReputationPointsRemaining() {
+        return numReputationPoints;
     }
 }

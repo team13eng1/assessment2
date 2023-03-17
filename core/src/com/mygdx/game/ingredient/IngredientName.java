@@ -30,11 +30,25 @@ public enum IngredientName {
     CHEESE,
     PIZZA_BASE,
 
+    PIZZA_RAW,
+
     // Assembled Foods
     BURGER,
     SALAD,
     JACKET_POTATO_FINISHED,
-    PIZZA
+    PIZZA,
+
+
+    // Burnt Foods
+
+    PIZZA_BURNT,
+
+    POTATO_BURNT,
+
+    PATTY_BURNT,
+
+    BUNS_BURNT
+
 
 
 }

@@ -40,15 +40,23 @@ public final class IngredientTextures {
         put(IngredientName.PIZZA_BASE, new Texture("ingredient_pizza_base.png"));
         put(IngredientName.CHEESE, new Texture("ingredient_cheese.png"));
 
-
+        put(IngredientName.PIZZA_RAW, new Texture("ingredient_pizza_raw.png"));
 
         // Assembled foods
 
         put(IngredientName.BURGER, new Texture("ingredient_burger.png"));
         put(IngredientName.SALAD, new Texture("ingredient_salad.png"));
 
-        put(IngredientName.PIZZA, new Texture("ingredient_pizza.png"));
+        put(IngredientName.PIZZA, new Texture("ingredient_cooked_pizza.png"));
         put(IngredientName.JACKET_POTATO_FINISHED, new Texture("ingredient_jacket_potato.png"));
+
+        // Burnt Foods
+
+        put(IngredientName.BUNS_BURNT, new Texture("ingredient_bun_burnt.png"));
+        put(IngredientName.PATTY_BURNT, new Texture("ingredient_patty_burnt.png"));
+
+        put(IngredientName.POTATO_BURNT, new Texture("ingredient_potato_burnt.png"));
+        put(IngredientName.PIZZA_BURNT, new Texture("ingredient_pizza_burnt.png"));
     }};
 
 
