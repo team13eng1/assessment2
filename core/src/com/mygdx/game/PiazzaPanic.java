@@ -15,10 +15,11 @@ public class PiazzaPanic extends Game {
 		setScreen(menuScreen);
 	}
 
-	public void startGame()
+	public void startGame(String gameMode)
 	{
 		System.out.println("GAME STARTED");
 		gameScreen = new GameScreen(this);
+		gameScreen.gameMode = gameMode;
 		setScreen(gameScreen);
 	}
 

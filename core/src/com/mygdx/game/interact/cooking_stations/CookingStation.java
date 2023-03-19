@@ -14,6 +14,8 @@ public class CookingStation extends InteractableBase {
     static IngredientMap ingredientMap = new IngredientMap() {{
 
         put(IngredientName.PATTY_RAW, IngredientName.PATTY_COOKED);
+        put(IngredientName.BUNS_UNTOASTED, IngredientName.BUNS_TOASTED);
+        put(IngredientName.POTATO_UNCOOKED, IngredientName.POTATO_COOKED);
 
     }};
 

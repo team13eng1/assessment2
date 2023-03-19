@@ -30,6 +30,7 @@ public class GameScreen extends InputAdapter implements Screen {
 	Stage stage;
 	SpriteBatch batch;
 
+	String gameMode;
 	OrthographicCamera camera;
 	Viewport viewport;
 	final static float WORLD_WIDTH = 1600;
@@ -70,7 +71,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
 		// Initialise Engine scripts
 		PlayerEngine.initialise(batch);
-		CustomerEngine.initialise(batch);
+		CustomerEngine.initialise(batch, gameMode);
 		InteractEngine.initialise(batch);
 
 		masterTimer = 0f;
@@ -92,7 +93,7 @@ public class GameScreen extends InputAdapter implements Screen {
 	//==========================================================\\
 	@Override
 	public void render(float delta) {
-		
+
 		// Clear the screen and begin drawing process
 		Gdx.gl.glClearColor(1, 1, 1, 0);
 		ScreenUtils.clear(1, 1, 1, 0);
@@ -109,9 +110,21 @@ public class GameScreen extends InputAdapter implements Screen {
 		// End the process
 		batch.end();
 
+
 		// Increment the timer and update UI
 		masterTimer += Gdx.graphics.getDeltaTime();
 		timerLabel.setText((int) masterTimer);
+
+		//Will only change the variables for endless mode
+		if (gameMode.equals("Endless")){
+			if (masterTimer > 30 && masterTimer < 70){
+				CustomerEngine.setEndlessMaxCustomers(2);
+			} else if( masterTimer >= 70) {
+				CustomerEngine.setEndlessMaxCustomers(3);
+			} else {
+				CustomerEngine.setEndlessMaxCustomers(1);
+			}
+		}
 
 		// Check for game over state
 		if(CustomerEngine.getCustomersRemaining() == 0 && main != null)
@@ -128,7 +141,10 @@ public class GameScreen extends InputAdapter implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		viewport.update(width, height);
-		camera.position.set(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, 0);
+		camera.position.set(viewport.getWorldWidth() / 2f, viewport.getWorldHeight() / 2f, 0);
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+
 	}
 
 	@Override

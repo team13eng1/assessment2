@@ -17,7 +17,7 @@ import com.mygdx.game.player.PlayerEngine;
 public class CustomerCounter extends Counter {
 
     IngredientName requiredIngredient;
-    Customer customer;
+    public Customer customer;
     Texture blank = new Texture("_blank.png");
 
 
@@ -66,7 +66,7 @@ public class CustomerCounter extends Counter {
         else
         {
             Sprite sprite = new Sprite(IngredientTextures.getTexture(requiredIngredient));
-            sprite.setColor(60f, 60f, 60f, 0.25f);
+            sprite.setColor(60f, 60f, 60f, 0.7f);
             sprite.setScale(0.8f, 0.8f);
             return sprite;
         }

@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -48,6 +49,8 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     @Override
     public void show() {
+        System.out.print(Gdx.graphics.getWidth());
+        System.out.print(Gdx.graphics.getHeight());
         stage = new Stage();
 
         // Set up camera
@@ -60,32 +63,51 @@ public class MenuScreen extends InputAdapter implements Screen {
         try
         {
             BitmapFont font = new BitmapFont();
+            font.getData().setScale(2.5f);
             buttonAtlas = new TextureAtlas();
             skin = new Skin();
             skin.addRegions(buttonAtlas);
-            TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-            textButtonStyle.font = font;
-            playButton = new TextButton("Click here to play", textButtonStyle);
-            playButton.setPosition((stage.getWidth() - playButton.getWidth()) / 2, (stage.getHeight() / 2) - 100f);
-            playButton.addListener(new ClickListener() {
+            TextButton.TextButtonStyle textButtonStyleEndless = new TextButton.TextButtonStyle();
+            textButtonStyleEndless.fontColor = Color.RED;
+            textButtonStyleEndless.font = font;
+
+            // Create Endless Mode button
+            TextButton endlessModeButton = new TextButton("Endless Mode", textButtonStyleEndless);
+            endlessModeButton.setPosition((stage.getWidth() - endlessModeButton.getWidth()) - 370f , (stage.getHeight() / 2) - 100f);
+            endlessModeButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y)
                 {
-                    main.startGame();
+                    main.startGame("Endless");
                 }
             });
-            stage.addActor(playButton);
+            stage.addActor(endlessModeButton);
+
+            // Create Scenario Mode button
+            TextButton.TextButtonStyle textButtonStyleScenario = new TextButton.TextButtonStyle();
+            textButtonStyleScenario.fontColor = Color.CYAN;
+            textButtonStyleScenario.font = font;
+            TextButton scenarioModeButton = new TextButton("Scenario Mode", textButtonStyleScenario);
+            scenarioModeButton.setPosition((stage.getWidth() - scenarioModeButton.getWidth() - 70f), (stage.getHeight() / 2) - 100f);
+            scenarioModeButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y)
+                {
+                    main.startGame("Scenario");
+                }
+            });
+            stage.addActor(scenarioModeButton);
         }
         catch(Exception e)
         {
             System.out.println(e);
         }
 
-
         Gdx.input.setInputProcessor(stage);
 
         batch = new SpriteBatch();
     }
+
 
     @Override
     public void render(float delta) {
@@ -103,12 +125,15 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         batch.end();
     }
-
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        viewport.setWorldSize(WORLD_WIDTH, WORLD_HEIGHT);
+        viewport.setScreenSize(width, height);
+        viewport.apply();
         camera.position.set(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, 0);
+        stage.getViewport().update(width, height, true);
     }
+
 
     @Override
     public void pause() {

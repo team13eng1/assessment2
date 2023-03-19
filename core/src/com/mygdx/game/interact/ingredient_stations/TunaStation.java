@@ -1,5 +1,3 @@
-// TODO: 08/03/2023 change images for tunaSation
-
 package com.mygdx.game.interact.ingredient_stations;
 
 import com.mygdx.game.ingredient.IngredientName;

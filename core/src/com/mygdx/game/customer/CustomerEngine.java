@@ -31,7 +31,6 @@ public final class CustomerEngine {
     static float maxTimeGap;
     static float timer;
 
-
     // This will need to be changed when the customer count can be altered. For endless mode this can be set to -1
     static int numberOfCustomers;
 
@@ -42,14 +41,15 @@ public final class CustomerEngine {
     //                      INITIALISER                         \\
     //==========================================================\\
 
-    public static void initialise(SpriteBatch gameBatch)
-    {
+    public static void initialise(SpriteBatch gameBatch, String startGameMode) {
         batch = gameBatch;
 
         // Recipes is the array of items a customer can order
-        recipes = new IngredientName[] {
+        recipes = new IngredientName[]{
                 IngredientName.BURGER,
-                IngredientName.SALAD
+                IngredientName.SALAD,
+                IngredientName.PIZZA,
+                IngredientName.JACKET_POTATO_FINISHED
         };
 
         customerTexture = new Texture("customer.png");
@@ -59,8 +59,14 @@ public final class CustomerEngine {
         maxTimeGap = 10f;
         timer = 0f;
 
-        maxCustomers = 1;
-        numberOfCustomers = 5;
+        if (startGameMode.equals("Scenario")) {
+            maxCustomers = 1;
+            numberOfCustomers = 5;
+        }
+        //Means must be Endless mode
+        else {
+            numberOfCustomers = -1;
+        }
     }
 
 
@@ -68,24 +74,31 @@ public final class CustomerEngine {
     //                         UPDATE                           \\
     //==========================================================\\
 
-    public static void update()
-    {
+    public static void update() {
         // Render the customers
-        for(Customer c : customers)
-        {
+        for (Customer c : customers) {
             c.update();
             batch.draw(customerTexture, c.getXPos(), c.getYPos());
         }
+        if (timer <= 0 && customers.size() < maxCustomers && numberOfCustomers != 0) {
 
-        if(timer <= 0 && customers.size() < maxCustomers && numberOfCustomers != 0)
-        {
-            int random = (int)(Math.random() * recipes.length);
-            Customer customer = new Customer(customerCounters.get(0), recipes[random]);
+            int random = (int) (Math.random() * recipes.length);
+            CustomerCounter freeCounter = getFreeCounter();
+            Customer customer = new Customer(freeCounter, recipes[random]);
             customers.add(customer);
-            timer = minTimeGap + ((float)Math.random() * (maxTimeGap - minTimeGap));
+            timer = minTimeGap + ((float) Math.random() * (maxTimeGap - minTimeGap));
         }
 
         timer -= Gdx.graphics.getDeltaTime();
+    }
+
+    private static CustomerCounter getFreeCounter(){
+        for(CustomerCounter counter : customerCounters){
+            if (counter.customer == null) {
+                return counter;
+            }
+        }
+        return null;
     }
 
 
@@ -93,21 +106,21 @@ public final class CustomerEngine {
     //                    GETTERS & SETTERS                     \\
     //==========================================================\\
 
-    public static void addCustomerCounter(CustomerCounter counter)
-    {
+    public static void addCustomerCounter(CustomerCounter counter) {
         customerCounters.add(counter);
     }
 
 
-    public static void removeCustomer(Customer customer)
-    {
+    public static void removeCustomer(Customer customer) {
         customers.remove(customer);
         numberOfCustomers--;
     }
 
-    public static int getCustomersRemaining()
-    {
+    public static int getCustomersRemaining() {
         return numberOfCustomers;
     }
 
+    public static void setEndlessMaxCustomers(Integer maxCust) {
+        maxCustomers = maxCust;
+    }
 }

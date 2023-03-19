@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.interact.cooking_stations.BakingStation;
 import com.mygdx.game.interact.cooking_stations.CookingStation;
 import com.mygdx.game.interact.cooking_stations.CuttingStation;
 import com.mygdx.game.interact.ingredient_stations.*;
@@ -13,6 +12,8 @@ import com.mygdx.game.interact.special_stations.Bin;
 import com.mygdx.game.interact.special_stations.Counter;
 import com.mygdx.game.interact.special_stations.CustomerCounter;
 import com.mygdx.game.interact.special_stations.assembly_stations.BurgerStation;
+import com.mygdx.game.interact.special_stations.assembly_stations.JacketPotatoStation;
+import com.mygdx.game.interact.special_stations.assembly_stations.PizzaStation;
 import com.mygdx.game.interact.special_stations.assembly_stations.SaladStation;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
@@ -54,38 +55,38 @@ public final class InteractEngine {
 
 		interactables = new InteractableBase[] {
 
-			new CustomerCounter(70, 140),
-			new CustomerCounter(70, 210),
-			new CustomerCounter(70, 280),
+				new CustomerCounter(70, 140),
+				new CustomerCounter(70, 210),
+				new CustomerCounter(70, 280),
 
-			new Counter(70, 350),
-			new Counter(70, 70),
-			new Counter(420, 420),
-			new Counter(420, 0),
-			new Counter(490, 420),
-			new Counter(490, 0),
+				new Counter(70, 350),
+				new Counter(70, 70),
+				new Counter(350, 0),
 
-			new CookingStation(140, 420),
-			new CookingStation(280, 420),
-			new BakingStation(210, 420),
-			new BakingStation(350, 420),
-			new CuttingStation(140, 0),
-			new CuttingStation(210, 0),
-			new CuttingStation(280, 0),
-			new CuttingStation(350, 0),
+				new CookingStation(140, 420),
+				new CookingStation(280, 420),
+				new CookingStation(210, 420),
 
-			new BurgerStation(210, 210),
-			new SaladStation(280, 210),
+				new CuttingStation(140, 0),
+				new CuttingStation(210, 0),
+				new CuttingStation(280, 0),
 
-			new PattyStation(350, 210),
-			new BunStation(420, 210),
-			new LettuceStation(560, 210),
-			new TomatoStation(560, 280),
-			new OnionStation(560, 140),
+				new BurgerStation(270, 170),
+				new SaladStation(270, 240),
+				new JacketPotatoStation(340, 170),
+				new PizzaStation(340, 240),
 
-			new Bin(560, 420),
-			new Bin(560, 0)
+				new TomatoStation(570, 210),
+				new CheeseStation(570, 280),
+				new LettuceStation(570, 140),
+				new OnionStation(570, 70),
+				new PattyStation(420, 420),
+				new BunStation(490, 420),
+				new PotatoRawStation(490, 0),
+				new TunaStation(350, 420),
+				new PizzaBaseStation(570, 350),
 
+				new Bin(420, 0),
 		};
 
 		interactRange = 85f;

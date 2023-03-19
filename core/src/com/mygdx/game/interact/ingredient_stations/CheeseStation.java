@@ -1,5 +1,3 @@
-// TODO: 08/03/2023 change image of  to the actual station
-
 package com.mygdx.game.interact.ingredient_stations;
 
 import com.mygdx.game.ingredient.IngredientName;
@@ -17,6 +15,6 @@ public class CheeseStation extends InteractableBase {
     //==========================================================\\
 
     public CheeseStation(float xPos, float yPos) {
-        super(xPos, yPos, "station_.png", IngredientName.CHEESE);
+        super(xPos, yPos, "station_cheese.png", IngredientName.CHEESE);
     }
 }

@@ -1,6 +1,3 @@
-// TODO: 08/03/2023 Skins here aswell
-
-
 package com.mygdx.game.interact.special_stations.assembly_stations;
 
 import com.mygdx.game.ingredient.IngredientName;
