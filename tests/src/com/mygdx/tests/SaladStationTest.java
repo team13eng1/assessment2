@@ -12,27 +12,37 @@ public class SaladStationTest {
 
     @Test
     public void testSaladStationCreation() {
-        float xPos = 1.0f;
-        float yPos = 2.0f;
+        Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
-        SaladStation saladStation = new SaladStation(xPos, yPos);
+        SaladStation saladStation = new SaladStation(1, 2);
 
-        Assert.assertEquals(xPos, saladStation.getXPos(), 0.0f);
-        Assert.assertEquals(yPos, saladStation.getYPos(), 0.0f);
-        //assertArrayEquals(new IngredientName[]{IngredientName.LETTUCE_CUT, IngredientName.ONION_CUT, IngredientName.TOMATO_CUT}, saladStation.getRecipe());
-        //assertEquals(IngredientName.SALAD, saladStation.getOutputIngredient());
+        Assert.assertEquals(1, saladStation.getXPos(), 0.0f);
+        Assert.assertEquals(2, saladStation.getYPos(), 0.0f);
     }
 
     @Test
     public void testSetRecipe() {
-        SaladStation saladStation = new SaladStation(0.0f, 0.0f);
+        Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
-        IngredientName[] recipe = new IngredientName[]{IngredientName.TOMATO_CUT, IngredientName.LETTUCE_CUT};
-        //IngredientName outputIngredient = IngredientName.TOMATO_SALAD;
+        SaladStation saladStation = new SaladStation(1, 2);
 
-        
+        IngredientName[] actual = new IngredientName[] {
+                IngredientName.LETTUCE_CUT,
+                IngredientName.ONION_CUT,
+                IngredientName.TOMATO_CUT
+        };
 
-        //assertArrayEquals(recipe, saladStation.getRecipe());
-        //assertEquals(outputIngredient, saladStation.getOutputIngredient());
+        Assert.assertArrayEquals(actual, saladStation.recipe);
+    }
+
+    @Test
+    public void testOutputIngredient() {
+        Utility.initialiseGame(); // initialise all engines & fresh start for tests
+
+        SaladStation saladStation = new SaladStation(1, 2);
+
+        IngredientName actual = IngredientName.SALAD;
+
+        Assert.assertEquals(actual, saladStation.outputIngredient);
     }
 }
