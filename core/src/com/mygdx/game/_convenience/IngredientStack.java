@@ -2,6 +2,7 @@ package com.mygdx.game._convenience;
 
 import com.mygdx.game.ingredient.IngredientName;
 
+import java.util.EmptyStackException;
 import java.util.LinkedList;
 
 /**

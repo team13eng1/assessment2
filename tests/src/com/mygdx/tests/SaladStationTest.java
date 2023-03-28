@@ -7,7 +7,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.mygdx.game.ingredient.IngredientName;
+import org.junit.runner.RunWith;
 
+@RunWith(GdxTestRunner.class)
 public class SaladStationTest {
 
     @Test
