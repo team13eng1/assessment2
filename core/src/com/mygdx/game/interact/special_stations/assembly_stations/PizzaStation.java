@@ -13,13 +13,13 @@ import com.mygdx.game.ingredient.IngredientName;
 public class PizzaStation extends AssemblyStation {
 
     // Pizza Recipe
-    IngredientName[] recipe = new IngredientName[] {
+    public IngredientName[] recipe = new IngredientName[] {
             IngredientName.PIZZA_BASE,
             IngredientName.TOMATO_CUT,
             IngredientName.CHEESE
     };
 
-    IngredientName outputIngredient = IngredientName.PIZZA;
+    public IngredientName outputIngredient = IngredientName.PIZZA;
 
     public PizzaStation(float xPos, float yPos) {
 

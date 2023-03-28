@@ -5,18 +5,18 @@ import com.mygdx.game.ingredient.IngredientName;
 /**
  * @author Thomas McCarthy
  *
- * Assembly station for a Burger
+ * Assembly station for a Salad
  */
 public class SaladStation extends AssemblyStation {
 
     // Salad recipe
-    IngredientName[] recipe = new IngredientName[] {
+    public IngredientName[] recipe = new IngredientName[] {
             IngredientName.LETTUCE_CUT,
             IngredientName.ONION_CUT,
             IngredientName.TOMATO_CUT
     };
 
-    IngredientName outputIngredient = IngredientName.SALAD;
+    public IngredientName outputIngredient = IngredientName.SALAD;
 
     public SaladStation(float xPos, float yPos) {
 
