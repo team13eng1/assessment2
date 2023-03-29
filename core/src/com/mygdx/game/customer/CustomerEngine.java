@@ -82,7 +82,6 @@ public final class CustomerEngine {
     //==========================================================\\
 
     public static void update() {
-        System.out.print(getReputationPointsRemaining());
         if (getReputationPointsRemaining() <= 0){
             mainGameScreen.loseGame();
         }
@@ -91,7 +90,6 @@ public final class CustomerEngine {
         for (Customer c : customers) {
             c.update();
             batch.draw(customerTexture, c.getXPos(), c.getYPos());
-            System.out.printf("Master timer value: %.2f\n", mainGameScreen.masterTimer - c.startTime);
             if (c.isWaitTooLong(mainGameScreen.masterTimer) && !c.finished){
                 c.finishWithThisCustomer();
                 c.counter.resetCounter();
@@ -132,6 +130,14 @@ public final class CustomerEngine {
     public static void removeCustomer(Customer customer) {
         customers.remove(customer);
         numberOfCustomers--;
+    }
+
+    public static void increasePatience(float patienceBonus) {
+        if (customers.size() > 0){
+            for (Customer customer : customers){
+                customer.reputationLimitTime += patienceBonus;
+            }
+        }
     }
 
     public static int getCustomersRemaining() {
