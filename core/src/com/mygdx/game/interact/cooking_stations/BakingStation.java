@@ -11,7 +11,7 @@ import com.mygdx.game.interact.InteractableBase;
  */
 public class BakingStation extends InteractableBase {
 
-    static IngredientMap ingredientMap = new IngredientMap() {{
+    static public IngredientMap ingredientMap = new IngredientMap() {{
 
         put(IngredientName.BUNS_UNTOASTED, IngredientName.BUNS_TOASTED);
 

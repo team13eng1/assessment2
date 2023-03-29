@@ -1,4 +1,4 @@
-package com.mygdx.tests;
+package com.mygdx.tests.SpecialStationsTests;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,8 @@ import com.mygdx.game.customer.CustomerEngine;
 import com.mygdx.game.interact.special_stations.Bin;
 import com.mygdx.game.interact.special_stations.Counter;
 import com.mygdx.game.player.PlayerEngine;
+import com.mygdx.tests.GdxTestRunner;
+import com.mygdx.tests.Utility;
 import org.junit.Assert;
 import org.junit.Test;
 

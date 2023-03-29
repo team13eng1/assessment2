@@ -17,6 +17,6 @@ public class CheeseStation extends InteractableBase {
     //==========================================================\\
 
     public CheeseStation(float xPos, float yPos) {
-        super(xPos, yPos, "station_.png", IngredientName.CHEESE);
+        super(xPos, yPos, "station_cheese.png", IngredientName.CHEESE);
     }
 }

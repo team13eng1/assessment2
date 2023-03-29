@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mygdx.tests.SaladStationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-03-28T22:41:35" hostname="BAILEY-LAPTOP" time="0.082">
-  <properties/>
-  <testcase name="testSaladStationCreation" classname="com.mygdx.tests.SaladStationTest" time="0.033"/>
-  <testcase name="testOutputIngredient" classname="com.mygdx.tests.SaladStationTest" time="0.016"/>
-  <testcase name="testSetRecipe" classname="com.mygdx.tests.SaladStationTest" time="0.016"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
