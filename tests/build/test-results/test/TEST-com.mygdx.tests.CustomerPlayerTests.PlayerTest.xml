@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mygdx.tests.CustomerPlayerTests.PlayerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-03-29T15:04:59" hostname="BAILEY-LAPTOP" time="0.039">
+  <properties/>
+  <testcase name="testMovement" classname="com.mygdx.tests.CustomerPlayerTests.PlayerTest" time="0.019"/>
+  <testcase name="testConstructor" classname="com.mygdx.tests.CustomerPlayerTests.PlayerTest" time="0.02"/>
+  <system-out><![CDATA[10.0
+10.0
+34.953247
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

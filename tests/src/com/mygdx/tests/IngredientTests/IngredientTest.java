@@ -1,8 +1,9 @@
-package com.mygdx.tests;
+package com.mygdx.tests.IngredientTests;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.ingredient.IngredientTextures;
+import com.mygdx.tests.GdxTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

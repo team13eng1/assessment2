@@ -1,10 +1,12 @@
-package com.mygdx.tests;
+package com.mygdx.tests.CustomerPlayerTests;
 
 import static org.junit.Assert.*;
 
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.customer.Customer;
 import com.mygdx.game.customer.CustomerEngine;
+import com.mygdx.tests.GdxTestRunner;
+import com.mygdx.tests.Utility;
 import org.junit.Assert;
 import org.junit.Test;
 

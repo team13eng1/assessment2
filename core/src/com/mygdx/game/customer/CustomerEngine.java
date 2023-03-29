@@ -24,7 +24,7 @@ public final class CustomerEngine {
     static SpriteBatch batch;
 
     static IngredientName[] recipes;
-    static LinkedList<CustomerCounter> customerCounters;
+    public static LinkedList<CustomerCounter> customerCounters;
     static LinkedList<Customer> customers;
     static int maxCustomers;
     static float minTimeGap;
