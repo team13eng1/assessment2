@@ -1,4 +1,4 @@
-package com.mygdx.tests.StationTests;
+package com.mygdx.tests.BasicConstructorTests.StationTests;
 
 import static org.junit.Assert.*;
 

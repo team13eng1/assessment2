@@ -178,4 +178,8 @@ public final class InteractEngine {
 
 		System.out.println("INTERACTION ENDED");
 	}
+
+	public static InteractableBase[] getInteractables() {
+		return interactables;
+	}
 }

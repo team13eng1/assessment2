@@ -1,4 +1,4 @@
-package com.mygdx.tests.StationTests;
+package com.mygdx.tests.BasicConstructorTests.StationTests;
 
 import com.mygdx.game.interact.special_stations.assembly_stations.BurgerStation;
 import com.mygdx.game.interact.special_stations.assembly_stations.PizzaStation;

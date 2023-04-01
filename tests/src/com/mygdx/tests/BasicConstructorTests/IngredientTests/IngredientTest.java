@@ -1,4 +1,4 @@
-package com.mygdx.tests.IngredientTests;
+package com.mygdx.tests.BasicConstructorTests.IngredientTests;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.ingredient.IngredientName;

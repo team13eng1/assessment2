@@ -1,4 +1,4 @@
-package com.mygdx.tests.CustomerPlayerTests;
+package com.mygdx.tests.BasicConstructorTests.CustomerPlayerTests;
 
 import static org.junit.Assert.*;
 
