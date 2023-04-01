@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mygdx.tests.StationTests.BurgerStationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-03-29T15:04:59" hostname="BAILEY-LAPTOP" time="0.083">
-  <properties/>
-  <testcase name="testOutputIngredient" classname="com.mygdx.tests.StationTests.BurgerStationTest" time="0.019"/>
-  <testcase name="testBurgerStationCreation" classname="com.mygdx.tests.StationTests.BurgerStationTest" time="0.013"/>
-  <testcase name="testSetRecipe" classname="com.mygdx.tests.StationTests.BurgerStationTest" time="0.031"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
