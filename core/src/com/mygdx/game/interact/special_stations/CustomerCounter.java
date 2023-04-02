@@ -6,7 +6,6 @@ import com.mygdx.game.customer.Customer;
 import com.mygdx.game.customer.CustomerEngine;
 import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.ingredient.IngredientTextures;
-import com.mygdx.game.player.PlayerEngine;
 
 /**
  * @author Thomas McCarthy
@@ -61,7 +60,14 @@ public class CustomerCounter extends Counter {
     {
         if(customer == null)
         {
-            return new Sprite(blank);
+            if (this.storedIngredient == null){
+                return new Sprite(blank);
+            } else {
+                Sprite sprite = new Sprite(IngredientTextures.getTexture(storedIngredient));
+                sprite.setColor(60f, 60f, 60f, 0.4f);
+                sprite.setScale(0.8f, 0.8f);
+                return sprite;
+            }
         }
         else
         {
@@ -82,5 +88,9 @@ public class CustomerCounter extends Counter {
         customer.completeOrder();
         storedIngredient = null;
         customer = null;
+    }
+
+    public IngredientName getRequiredIngredient() {
+        return requiredIngredient;
     }
 }

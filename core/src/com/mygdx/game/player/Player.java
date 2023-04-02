@@ -125,5 +125,7 @@ public class Player {
 		this.movementEnabled = movementEnabled;
 		System.out.println("CHEF " + (getID() + 1) + " MOVEMENT SET TO " + movementEnabled);
 	}
+
+	public void setSpeed(float speed){this.speed = speed;}
 	
 }

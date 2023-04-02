@@ -40,6 +40,8 @@ public final class CustomerEngine {
 
     static int numReputationPoints;
 
+    static Customer mostRecentCustomer;
+
 
     //==========================================================\\
     //                      INITIALISER                         \\
@@ -102,6 +104,7 @@ public final class CustomerEngine {
             CustomerCounter freeCounter = getFreeCounter();
             Customer customer = new Customer(freeCounter, recipes[random], mainGameScreen.masterTimer, 20f);
             customers.add(customer);
+            mostRecentCustomer = customer;
             timer = minTimeGap + ((float) Math.random() * (maxTimeGap - minTimeGap));
         }
 
@@ -154,5 +157,13 @@ public final class CustomerEngine {
 
     public static int getReputationPointsRemaining() {
         return numReputationPoints;
+    }
+
+    public static Customer getRecentCustomer() {
+        return mostRecentCustomer;
+    }
+
+    public static void gainRepPoint() {
+        numReputationPoints ++;
     }
 }

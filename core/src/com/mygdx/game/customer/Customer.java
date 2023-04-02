@@ -95,4 +95,8 @@ public class Customer {
     public void finishWithThisCustomer() {
         finished = true;
     }
+
+    public CustomerCounter getCounter() {
+        return counter;
+    }
 }

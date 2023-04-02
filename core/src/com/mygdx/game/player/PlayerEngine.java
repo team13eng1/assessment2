@@ -119,4 +119,8 @@ public final class PlayerEngine {
 	public static float getMasterTime() {
 		return gameScreen.masterTimer;
 	}
+
+	public static Player[] getAllChefs() {
+		return chefs;
+	}
 }

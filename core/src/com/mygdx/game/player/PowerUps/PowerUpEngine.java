@@ -38,7 +38,7 @@ public class PowerUpEngine {
         interactRange = 50f;
 
         //Todo ADD POWER UPS HERE
-        allPowerUps = new String[] {"NoBurning", "IncreasedPatience"};
+        allPowerUps = new String[] {"NoBurning", "IncreasedPatience", "ChefSpeedIncrease", "AutoCompleteDish", "GainRepPoint"};
 
 
     }
@@ -61,6 +61,12 @@ public class PowerUpEngine {
                     interactables.add(new NoBurning(randomSpawnX, randomSpawnY));
                 } else if (selectedPowerUp.equals("IncreasedPatience")) {
                     interactables.add(new HighPatience(randomSpawnX, randomSpawnY));
+                } else if (selectedPowerUp.equals("ChefSpeedIncrease")) {
+                    interactables.add(new SpeedIncrease(randomSpawnX, randomSpawnY));
+                } else if (selectedPowerUp.equals("AutoCompleteDish")) {
+                    interactables.add(new AutoCompleteDish(randomSpawnX, randomSpawnY));
+                }  else if (selectedPowerUp.equals("GainRepPoint")) {
+                interactables.add(new GainReputationPoint(randomSpawnX, randomSpawnY));
                 }
                 coolDown = 10f;
             }
