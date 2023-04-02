@@ -7,6 +7,8 @@ import com.mygdx.game.interact.cooking_stations.CookingStation;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
 
+import java.util.ArrayList;
+
 public class SpeedIncrease extends PowerUpBase {
     private float baseSpeed = 150f;
     private float newSpeed = 250f;
@@ -17,7 +19,7 @@ public class SpeedIncrease extends PowerUpBase {
 
     @Override
     public void startInteraction() {
-        Player[] allChefs = PlayerEngine.getAllChefs();
+        ArrayList<Player> allChefs = PlayerEngine.getAllChefs();
         for (Player chef : allChefs) {
             chef.setSpeed(newSpeed);
         }
@@ -25,7 +27,7 @@ public class SpeedIncrease extends PowerUpBase {
 
     @Override
     public void endInteraction() {
-        Player[] allChefs = PlayerEngine.getAllChefs();
+        ArrayList<Player> allChefs = PlayerEngine.getAllChefs();
         for (Player chef : allChefs) {
             chef.setSpeed(baseSpeed);
         }

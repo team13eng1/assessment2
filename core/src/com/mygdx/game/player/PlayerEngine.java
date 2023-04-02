@@ -2,14 +2,19 @@ package com.mygdx.game.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.GameScreen;
 import com.mygdx.game.ingredient.IngredientTextures;
 import com.mygdx.game.interact.InteractEngine;
-import com.mygdx.game.player.PowerUps.PowerUpBase;
 import com.mygdx.game.player.PowerUps.PowerUpEngine;
+
+import java.util.ArrayList;
 
 /**
  * 
@@ -26,9 +31,13 @@ public final class PlayerEngine {
 
 	static GameScreen gameScreen;
 
-	static Player[] chefs;
+	static ArrayList<Player> chefs;
 	static Player activeChef;
 	static Rectangle[] interactableColliders;
+
+	static Integer coins;
+
+	static Label coinLabel;
 
 	//==========================================================\\
 	//                      INITIALISER                         \\
@@ -40,17 +49,22 @@ public final class PlayerEngine {
 
 		gameScreen = scrn;
 
-		chefs = new Player[3];
-		chefs[0] = new Player(0,  175,  350, "temp_chef_1.png");
-		chefs[1] = new Player(1,  455,  350, "temp_chef_2.png");
-		chefs[2] = new Player(2, 167, 125, "temp_chef_3.png");
+		chefs = new ArrayList<>();
+		chefs.add(new Player(0,  175,  350, "temp_chef_1.png"));
+		chefs.add(new Player(1,  455,  350, "temp_chef_2.png"));
 
-		activeChef = chefs[0];
+		activeChef = chefs.get(0);
 
 		interactableColliders = new Rectangle[0];
+
+		coins = 100;
+		initialiseCoinLabel();
+
+
+
 	}
-	
-	
+
+
 	//==========================================================\\
 	//                         UPDATE                           \\
 	//==========================================================\\
@@ -58,6 +72,8 @@ public final class PlayerEngine {
 	public static void update()
 	{
 		for(Player chef : chefs) {
+			draw_coins();
+
 			batch.draw(chef.getSprite(), chef.getXPos(), chef.getYPos());
 
 			// Render the top three ingredients of the Chef's carry stack
@@ -78,23 +94,25 @@ public final class PlayerEngine {
 				ingredientSprite.draw(batch);
 			}
 		}
-		
+
 		activeChef.handleMovement(interactableColliders);
 		activeChef.handlePowerUps(gameScreen.masterTimer);
 		
 		// Chef Quick-Switch with 'Q'
 		if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-			activeChef = chefs[(activeChef.getID() + 1) % chefs.length];
+			activeChef = chefs.get((activeChef.getID() + 1) % chefs.size());
 		}
 		// Chef switch with numbers 1-3
 		else if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
-			activeChef = chefs[0];
+			activeChef = chefs.get(0);
 		}
 		else if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
-			activeChef = chefs[1];
+			activeChef = chefs.get(1);
 		}
 		else if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
-			activeChef = chefs[2]; 
+			if (chefs.size() == 3){
+				activeChef = chefs.get(2);
+			}
 		}
 
 		// Check for interaction input
@@ -106,8 +124,25 @@ public final class PlayerEngine {
 		PowerUpEngine.interact();
 
 	}
-	
-	
+
+	private static void draw_coins() {
+		coinLabel.draw(batch, 1);
+		coinLabel.setText(coins);
+	}
+
+	private static void initialiseCoinLabel(){
+		Label.LabelStyle labelStyle = new Label.LabelStyle();
+		BitmapFont font = new BitmapFont();
+		font.getData().setScale(1.5f);
+		labelStyle.font = font;
+		labelStyle.fontColor = Color.GOLD;
+
+		coinLabel = new Label(coins.toString(), labelStyle);
+		coinLabel.setPosition(570, 25);
+		coinLabel.setAlignment(Align.left);
+	}
+
+
 	//==========================================================\\
 	//                    GETTERS & SETTERS                     \\
 	//==========================================================\\
@@ -120,7 +155,23 @@ public final class PlayerEngine {
 		return gameScreen.masterTimer;
 	}
 
-	public static Player[] getAllChefs() {
+	public static ArrayList<Player> getAllChefs() {
 		return chefs;
+	}
+
+	public static void gainCoins(int numCoins) {
+		coins += numCoins;
+	}
+
+	public static void loseCoins(int numCoins){
+		coins -= numCoins;
+	}
+
+	public static int getCoins() {
+		return coins;
+	}
+
+	public static void addNewChef() {
+		chefs.add(new Player(2, 167, 125, "temp_chef_3.png"));
 	}
 }

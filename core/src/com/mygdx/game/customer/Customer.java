@@ -3,6 +3,7 @@ package com.mygdx.game.customer;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.interact.special_stations.CustomerCounter;
+import com.mygdx.game.player.PlayerEngine;
 
 /**
  * @author Thomas McCarthy
@@ -60,6 +61,7 @@ public class Customer {
         else if(orderComplete)
         {
             CustomerEngine.removeCustomer(this);
+            PlayerEngine.gainCoins(10);
         }
         else if(!atCounter)
         {

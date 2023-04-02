@@ -7,6 +7,7 @@ import com.mygdx.game.ingredient.IngredientMap;
 import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.ingredient.IngredientTextures;
 import com.mygdx.game.interact.cooking_stations.CookingStation;
+import com.mygdx.game.interact.cooking_stations.CuttingStation;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
 
@@ -48,6 +49,10 @@ public class InteractableBase {
 		and the locked chef is stored in the connectedChef variable.
 	 */
 	private boolean lockChef;
+
+	public boolean isLocked;
+
+	public int unLockCost;
 	private Player connectedChef;
 	
 	
@@ -56,7 +61,7 @@ public class InteractableBase {
 	//==========================================================\\
 	
 	// Cooking Station Constructor takes a texture, an ingredient map, and a given preparation time
-	public InteractableBase(float xPos, float yPos, String texture, IngredientMap ingredientMap, float preparationTime, float burnTime, boolean lockChef)
+	public InteractableBase(float xPos, float yPos, String texture, IngredientMap ingredientMap, float preparationTime, float burnTime, boolean lockChef, boolean isLocked)
 	{
 		this.isIngredientStation = false;
 		this.xPos = xPos;
@@ -67,8 +72,18 @@ public class InteractableBase {
 		this.burnTime = burnTime;
 		this.hasIngredient = false;
 		this.lockChef = lockChef;
+		this.isLocked = isLocked;
+		this.unLockCost = 0;
 		this.connectedChef = null;
 		setUpCollision();
+
+		if (isLocked){
+			if (this instanceof CookingStation){
+				unLockCost = 10;
+			} else if (this instanceof CuttingStation){
+				unLockCost = 20;
+			}
+		}
 	}
 	
 	// Ingredient Station Constructor takes a texture, an output ingredient, and no preparation time
@@ -128,14 +143,21 @@ public class InteractableBase {
 		Player activeChef = PlayerEngine.getActiveChef();
 
 		System.out.println("Chef has ingredient " + activeChef.getIngredientStack().peek());
-		
+
 		// INGREDIENT STATION : give the ingredient to the chef
 		if(isIngredientStation)
 		{
 			activeChef.getIngredientStack().push(outputIngredient);
 		}
+
+		else if (isLocked){
+			if (PlayerEngine.getCoins() >= this.unLockCost) {
+				PlayerEngine.loseCoins(unLockCost);
+				isLocked = false;
+			}
+		}
 		// COOKING STATION : is an ingredient already being prepared?
-		else if(hasIngredient)
+		else if(hasIngredient && !isLocked)
 		{
 			if (this instanceof CookingStation){
 				if(currentTime >= preparationTime + burnTime) {
@@ -153,7 +175,7 @@ public class InteractableBase {
 		}
 
 		// COOKING STATION : can the station take the chef's top ingredient?
-		else if(ingredientMap.takesIngredient(activeChef.getIngredientStack().peek()))
+		else if(ingredientMap.takesIngredient(activeChef.getIngredientStack().peek()) && !isLocked)
 		{
 			inputIngredient = activeChef.getIngredientStack().peek();
 			outputIngredient = ingredientMap.getOutputIngredient(activeChef.getIngredientStack().pop());

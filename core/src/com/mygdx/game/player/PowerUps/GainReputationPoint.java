@@ -6,7 +6,7 @@ import com.mygdx.game.player.PlayerEngine;
 public class GainReputationPoint extends PowerUpBase{
 
     public GainReputationPoint(float xPos, float yPos) {
-        super(xPos, yPos, "powerup_extra_rep", 0.5f, PlayerEngine.getMasterTime());
+        super(xPos, yPos, "powerup_extra_rep.png", 0.5f, PlayerEngine.getMasterTime());
     }
 
     @Override
