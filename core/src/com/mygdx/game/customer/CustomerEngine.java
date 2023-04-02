@@ -8,6 +8,7 @@ import com.mygdx.game.GameScreen;
 import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.interact.special_stations.CustomerCounter;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -134,9 +135,17 @@ public final class CustomerEngine {
 
 
     public static void removeCustomer(Customer customer) {
-        customers.remove(customer);
-        numberOfCustomers--;
+        Iterator<Customer> iter = customers.iterator();
+        while (iter.hasNext()) {
+            Customer c = iter.next();
+            if (c == customer) {
+                iter.remove();
+                numberOfCustomers--;
+                break;
+            }
+        }
     }
+
 
     public static void increasePatience(float patienceBonus) {
         if (customers.size() > 0){
