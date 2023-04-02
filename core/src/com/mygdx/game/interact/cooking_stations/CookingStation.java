@@ -11,7 +11,7 @@ import com.mygdx.game.interact.InteractableBase;
  */
 public class CookingStation extends InteractableBase {
 
-    static IngredientMap ingredientMap = new IngredientMap() {{
+    static public IngredientMap ingredientMap = new IngredientMap() {{
 
         put(IngredientName.PATTY_RAW, IngredientName.PATTY_COOKED);
         put(IngredientName.PATTY_COOKED, IngredientName.PATTY_BURNT);

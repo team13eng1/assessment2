@@ -11,17 +11,17 @@ import com.mygdx.game.interact.special_stations.CustomerCounter;
  */
 public class Customer {
 
-    float posX;
-    float posY;
+    public float posX;
+    public float posY;
     float speed = 50f;
 
     // Float determining how far from the counter the customer stands.
-    float counterOffset;
-    boolean atCounter = false;
-    boolean orderComplete = false;
+    public float counterOffset;
+    public boolean atCounter = false;
+    public boolean orderComplete = false;
 
-    CustomerCounter counter;
-    IngredientName requiredIngredient;
+    public CustomerCounter counter;
+    public IngredientName requiredIngredient;
 
     float startTime;
     float reputationLimitTime;

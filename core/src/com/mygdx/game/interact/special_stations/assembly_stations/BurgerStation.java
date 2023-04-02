@@ -10,13 +10,13 @@ import com.mygdx.game.ingredient.IngredientName;
 public class BurgerStation extends AssemblyStation {
 
     // Burger recipe
-    IngredientName[] recipe = new IngredientName[] {
-        IngredientName.BUNS_TOASTED,
-        IngredientName.PATTY_COOKED,
-        IngredientName.BUNS_TOASTED
+    public IngredientName[] recipe = new IngredientName[] {
+            IngredientName.BUNS_TOASTED,
+            IngredientName.PATTY_COOKED,
+            IngredientName.BUNS_TOASTED
     };
 
-    IngredientName outputIngredient = IngredientName.BURGER;
+    public IngredientName outputIngredient = IngredientName.BURGER;
 
     public BurgerStation(float xPos, float yPos) {
 

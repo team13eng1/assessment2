@@ -15,7 +15,7 @@ import com.mygdx.game.player.PlayerEngine;
  */
 public class Counter extends InteractableBase {
 
-    protected IngredientName storedIngredient;
+    public IngredientName storedIngredient;
 
 
     //==========================================================\\
