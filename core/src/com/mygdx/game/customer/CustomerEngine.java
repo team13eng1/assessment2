@@ -42,6 +42,8 @@ public final class CustomerEngine {
 
     static Customer mostRecentCustomer;
 
+    static float repTimeLimit;
+
 
     //==========================================================\\
     //                      INITIALISER                         \\
@@ -67,6 +69,7 @@ public final class CustomerEngine {
         timer = 0f;
         numberOfCustomers = 3;
         numReputationPoints = 3;
+
 
         if (startGameMode.equals("Scenario")) {
             maxCustomers = 1;
@@ -102,7 +105,7 @@ public final class CustomerEngine {
 
             int random = (int) (Math.random() * recipes.length);
             CustomerCounter freeCounter = getFreeCounter();
-            Customer customer = new Customer(freeCounter, recipes[random], mainGameScreen.masterTimer, 20f);
+            Customer customer = new Customer(freeCounter, recipes[random], mainGameScreen.masterTimer, repTimeLimit);
             customers.add(customer);
             mostRecentCustomer = customer;
             timer = minTimeGap + ((float) Math.random() * (maxTimeGap - minTimeGap));
@@ -166,4 +169,9 @@ public final class CustomerEngine {
     public static void gainRepPoint() {
         numReputationPoints ++;
     }
+
+    public static void setDifficultyRepTime(float diffScaling){
+        repTimeLimit = 20f * diffScaling;
+    }
 }
+

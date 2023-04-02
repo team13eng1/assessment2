@@ -79,7 +79,7 @@ public class InteractableBase {
 
 		if (isLocked){
 			if (this instanceof CookingStation){
-				unLockCost = 10;
+				unLockCost = 30;
 			} else if (this instanceof CuttingStation){
 				unLockCost = 20;
 			}

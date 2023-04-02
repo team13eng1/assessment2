@@ -19,6 +19,13 @@ public class PiazzaPanic extends Game {
 	{
 		System.out.println("GAME STARTED");
 		gameScreen = new GameScreen(this);
+
+		if (menuScreen.difficulty == null) {
+			gameScreen.difficulty = "Easy";
+		} else {
+			gameScreen.difficulty = menuScreen.difficulty;
+		}
+
 		gameScreen.gameMode = gameMode;
 		gameScreen.scenarioNumCust = menuScreen.customerNumber;
 		setScreen(gameScreen);

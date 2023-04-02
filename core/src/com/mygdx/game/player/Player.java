@@ -22,7 +22,7 @@ import java.util.LinkedList;
 public class Player {
 	
 	// player speed is a hard-coded value, so that it is the same for multiple players
-	private float speed = 150.0f;
+	private float speed;
 	private int id;
 	private float posX;
 	private float posY;
@@ -50,6 +50,7 @@ public class Player {
 		this.sprite = new Sprite(new Texture(texture));
 		this.carryStack = new IngredientStack();
 		this.movementEnabled = true;
+
 
 		previousPosX = startX;
 		previousPosY = startY;
@@ -127,5 +128,12 @@ public class Player {
 	}
 
 	public void setSpeed(float speed){this.speed = speed;}
-	
+
+	public void setSpeedDifficulty(float diffScaling){
+		speed = 150f * diffScaling;
+	}
+
+	public float getSpeed() {
+		return speed;
+	}
 }

@@ -108,4 +108,8 @@ public class PowerUpEngine {
 
             System.out.println("INTERACTION ENDED");
     }
+
+    public static void setDifficultyCooldown(float diffScaling){
+        coolDown = 10f * diffScaling;
+    }
 }

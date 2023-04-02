@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.customer.CustomerEngine;
 import com.mygdx.game.interact.InteractEngine;
+import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
 import com.mygdx.game.player.PowerUps.PowerUpBase;
 import com.mygdx.game.player.PowerUps.PowerUpEngine;
@@ -30,8 +31,9 @@ import com.mygdx.game.player.PowerUps.PowerUpEngine;
  */
 
 public class GameScreen extends InputAdapter implements Screen {
-	
-	Stage stage;
+
+    public String difficulty;
+    Stage stage;
 	SpriteBatch batch;
 
 	String gameMode;
@@ -65,7 +67,6 @@ public class GameScreen extends InputAdapter implements Screen {
 		heartImage.setScale(1.5f);
 	}
 
-	
 	//==========================================================\\
 	//                         START                            \\
 	//==========================================================\\
@@ -89,6 +90,8 @@ public class GameScreen extends InputAdapter implements Screen {
 		CustomerEngine.initialise(batch, gameMode, scenarioNumCust, this);
 		InteractEngine.initialise(batch);
 		PowerUpEngine.initialise(batch);
+
+		setDifficulty(difficulty);
 
 		masterTimer = 0f;
 
@@ -175,6 +178,28 @@ public class GameScreen extends InputAdapter implements Screen {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 
+	}
+
+	public void setDifficulty(String difficulty) {
+		if (difficulty.equals("Easy")){
+			for (Player player : PlayerEngine.getAllChefs()){
+				player.setSpeedDifficulty(1.0f);
+			}
+			CustomerEngine.setDifficultyRepTime(1.0f);
+			PowerUpEngine.setDifficultyCooldown(1.0f);
+		} else if (difficulty.equals("Medium")){
+			for (Player player : PlayerEngine.getAllChefs()){
+				player.setSpeedDifficulty(0.8f);
+			}
+			CustomerEngine.setDifficultyRepTime(0.8f);
+			PowerUpEngine.setDifficultyCooldown(0.8f);
+		} else {
+			for (Player player : PlayerEngine.getAllChefs()){
+				player.setSpeedDifficulty(0.5f);
+			}
+			CustomerEngine.setDifficultyRepTime(0.5f);
+			PowerUpEngine.setDifficultyCooldown(0.5f);
+		}
 	}
 
 	@Override

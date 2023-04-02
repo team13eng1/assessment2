@@ -35,13 +35,12 @@ public class MenuScreen extends InputAdapter implements Screen {
     TextureAtlas buttonAtlas;
     Skin skin;
 
+    String difficulty = null;
 
-    public MenuScreen(PiazzaPanic main)
-    {
+    public MenuScreen(PiazzaPanic main) {
         super();
         this.main = main;
     }
-
 
 
     //==========================================================\\
@@ -60,6 +59,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         camera.position.set(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, 0);
 
         try {
+
             BitmapFont font = new BitmapFont();
             font.getData().setScale(2.5f);
             buttonAtlas = new TextureAtlas();
@@ -71,7 +71,7 @@ public class MenuScreen extends InputAdapter implements Screen {
 
             // Create Endless Mode button
             TextButton endlessModeButton = new TextButton("Endless Mode", textButtonStyleEndless);
-            endlessModeButton.setPosition((stage.getWidth() - endlessModeButton.getWidth()) - 370f, (stage.getHeight() / 2) - 100f);
+            endlessModeButton.setPosition((stage.getWidth() - endlessModeButton.getWidth()) - 370f, (stage.getHeight() / 2) - 90f);
             endlessModeButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -86,11 +86,11 @@ public class MenuScreen extends InputAdapter implements Screen {
             textButtonStyleScenario.fontColor = Color.CYAN;
             textButtonStyleScenario.font = font;
             TextButton scenarioModeButton = new TextButton("Scenario Mode", textButtonStyleScenario);
-            scenarioModeButton.setPosition((stage.getWidth() - scenarioModeButton.getWidth() - 70f), (stage.getHeight() / 2) - 100f);
+            scenarioModeButton.setPosition((stage.getWidth() - scenarioModeButton.getWidth() - 70f), (stage.getHeight() / 2) - 90f);
             scenarioModeButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    if (customerNumber == null){
+                    if (customerNumber == null) {
                         customerNumber = 5;
                     }
                     main.startGame("Scenario");
@@ -113,6 +113,14 @@ public class MenuScreen extends InputAdapter implements Screen {
                     scenarioModeButton.getY() - 75f);
             stage.addActor(customerNumberTextField);
 
+
+            BitmapFont difficultyFont = new BitmapFont();
+            difficultyFont.getData().setScale(2.5f);
+
+
+            loadDifficultyButtons(difficultyFont);
+
+
             // Add listener to update customer number variable
 
             customerNumberTextField.setTextFieldListener(new TextField.TextFieldListener() {
@@ -120,8 +128,8 @@ public class MenuScreen extends InputAdapter implements Screen {
                 public void keyTyped(TextField textField, char c) {
                     // Get the current text in the text field
                     String text = textField.getText();
-                    if (text.length() > 0){
-                        if (c == '\b' ) { // check if the pressed key is the delete key
+                    if (text.length() > 0) {
+                        if (c == '\b') { // check if the pressed key is the delete key
                             textField.setText(text.substring(0, text.length() - 1));
                         }
 
@@ -133,18 +141,13 @@ public class MenuScreen extends InputAdapter implements Screen {
                             } catch (NumberFormatException e) {
                                 textField.setText("5");
                             }
-                        }
-                        else {
+                        } else {
                             textField.setText("5");
                         }
                     }
                 }
             });
-        }
-
-
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e);
         }
 
@@ -153,6 +156,62 @@ public class MenuScreen extends InputAdapter implements Screen {
         batch = new SpriteBatch();
     }
 
+    private void loadDifficultyButtons(BitmapFont difficultyFont) {
+        final TextButton.TextButtonStyle textButtonStyleEasy = new TextButton.TextButtonStyle();
+        textButtonStyleEasy.fontColor = Color.RED;
+        textButtonStyleEasy.font = difficultyFont;
+
+        final TextButton.TextButtonStyle textButtonStyleMedium = new TextButton.TextButtonStyle();
+        textButtonStyleMedium.fontColor = Color.RED;
+        textButtonStyleMedium.font = difficultyFont;
+
+
+        final TextButton.TextButtonStyle textButtonStyleHard = new TextButton.TextButtonStyle();
+        textButtonStyleHard.fontColor = Color.RED;
+        textButtonStyleHard.font = difficultyFont;
+
+        TextButton easyModeButton = new TextButton("Easy", textButtonStyleEasy);
+        easyModeButton.setPosition(113, 105);
+        easyModeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                difficulty = "Easy";
+                textButtonStyleEasy.fontColor = Color.GREEN;
+                textButtonStyleMedium.fontColor = Color.RED;
+                textButtonStyleHard.fontColor = Color.RED;
+            }
+        });
+
+        TextButton mediumModeButton = new TextButton("Medium", textButtonStyleMedium);
+        mediumModeButton.setPosition(97, 68);
+        mediumModeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                difficulty = "Medium";
+                textButtonStyleEasy.fontColor = Color.RED;
+                textButtonStyleMedium.fontColor = Color.GREEN;
+                textButtonStyleHard.fontColor = Color.RED;
+            }
+        });
+
+        TextButton hardModeButton = new TextButton("Hard", textButtonStyleHard);
+        hardModeButton.setPosition(113,31) ;
+        hardModeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                difficulty = "Hard";
+                textButtonStyleEasy.fontColor = Color.RED;
+                textButtonStyleMedium.fontColor = Color.RED;
+                textButtonStyleHard.fontColor = Color.GREEN;
+            }
+        });
+
+        stage.addActor(easyModeButton);
+        stage.addActor(mediumModeButton);
+        stage.addActor(hardModeButton);
+
+
+    }
 
     @Override
     public void render(float delta) {
