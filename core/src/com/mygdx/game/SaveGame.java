@@ -9,12 +9,16 @@ import com.mygdx.game.interact.InteractEngine;
 import com.mygdx.game.interact.special_stations.CustomerCounter;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
+import com.mygdx.game.player.PowerUps.PowerUpBase;
+import com.mygdx.game.player.PowerUps.PowerUpEngine;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class SaveGame {
     private static final int MAX_INGREDIENTS_PER_CHEF = 4;
     private static final int MAX_CUSTOMERS_AT_ALL_COUNTERS = 4;
+    private static final int MAX_POWERUPS_ON_SCREEN = 7;
     private static GameScreen gameScreen;
     private static Preferences prefs;
 
@@ -35,6 +39,10 @@ public class SaveGame {
         prefs.putString("difficulty", gameScreen.difficulty);
         prefs.putString("gameMode", gameScreen.gameMode);
         prefs.putInteger("customersRemaining", CustomerEngine.getCustomersRemaining());
+        prefs.putInteger("jacketPotatoStationCurrentIngredient", InteractEngine.getJacketCurrentIndex());
+        prefs.putInteger("pizzaStationCurrentIngredient", InteractEngine.getPizzaCurrentIndex());
+        prefs.putInteger("burgerStationCurrentIngredient", InteractEngine.getBurgerCurrentIndex());
+        prefs.putInteger("saladStationCurrentIngredient", InteractEngine.getSaladCurrentIndex());
 
         // Save chef data
         for (int i = 0; i < PlayerEngine.getAllChefs().size(); i++) {
@@ -61,6 +69,19 @@ public class SaveGame {
             prefs.putFloat(customerKey + "counterY", customer.getCounter().getYPos());
             prefs.putFloat(customerKey + "reputationLimitTime", customer.getReputationLimitTime());
         }
+
+        // Save powerups present on the screen
+        ArrayList<PowerUpBase> powerupsPresent = PowerUpEngine.getPowerups();
+        for (int i = 0; i < powerupsPresent.size(); i++) {
+            PowerUpBase powerup = powerupsPresent.get(i);
+            String powerupKey = "powerup" + i;
+            prefs.putString(powerupKey + "type", powerup.getClass().getSimpleName());
+            prefs.putFloat(powerupKey + "x", powerup.getXPos());
+            prefs.putFloat(powerupKey + "y", powerup.getYPos());
+        }
+
+
+
 
         prefs.flush(); // save changes to preferences immediately
     }
@@ -135,6 +156,30 @@ public class SaveGame {
                 CustomerEngine.getCustomers().add(customer);
             }
         }
+
+        // Load powerups present on the screen;
+        for (int i = 0; i < MAX_POWERUPS_ON_SCREEN; i++) {
+            String powerupKey = "powerup" + i;
+            String powerupType = prefs.getString(powerupKey + "type");
+            if (powerupType != null) {
+                float x = prefs.getFloat(powerupKey + "x");
+                float y = prefs.getFloat(powerupKey + "y");
+                PowerUpEngine.createSavedPowerUp(powerupType, x, y);
+            }
+        }
+
+        int pizzaCurrentIndex = prefs.getInteger("pizzaStationCurrentIngredient");
+        int jacketCurrentIndex = prefs.getInteger("jacketPotatoStationCurrentIngredient");
+        int burgerCurrentIndex = prefs.getInteger("burgerStationCurrentIngredient");
+        int saladCurrentIndex = prefs.getInteger("saladStationCurrentIngredient");
+
+        InteractEngine.setStationIndex("PizzaRawStation",pizzaCurrentIndex);
+        InteractEngine.setStationIndex("JacketPotatoStation",jacketCurrentIndex);
+        InteractEngine.setStationIndex("BurgerStation",burgerCurrentIndex);
+        InteractEngine.setStationIndex("SaladStation",saladCurrentIndex);
+
+
+
     }
     static void checkLoadable() {
         if (!prefs.contains("difficulty") || !prefs.contains("startTime") || !prefs.contains("coins") || !prefs.contains("reputationPoints")) {

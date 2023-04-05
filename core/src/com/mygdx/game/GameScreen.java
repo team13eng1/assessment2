@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -22,6 +23,7 @@ import com.mygdx.game.interact.InteractEngine;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
 import com.mygdx.game.player.PowerUps.PowerUpEngine;
+import com.sun.tools.javac.comp.Todo;
 
 /**
  * 
@@ -33,6 +35,11 @@ import com.mygdx.game.player.PowerUps.PowerUpEngine;
 
 public class GameScreen extends InputAdapter implements Screen {
 
+	//TODO see if put menuscreen in here that everything scales
+	public MenuScreen menuScreen;
+
+	private boolean shouldCallShow = true;
+	private PauseScreen pauseScreen;
 	public String difficulty;
 	Stage stage;
 	SpriteBatch batch;
@@ -85,84 +92,89 @@ public class GameScreen extends InputAdapter implements Screen {
 	//==========================================================\\
 	@Override
 	public void show() {
-		stage = new Stage();
+		if (shouldCallShow){
+			System.out.print("hello");
+			stage = new Stage();
 
-		SaveGame.initialise(this);
-		if (wantsToBeLoaded){
-			SaveGame.checkLoadable();
-			//if its loadable continue
-			//Initial loading procedure
-			SaveGame.setGameMode();
-		}
-
-
-		// Set up camera
-		float aspectRatio = (float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth();
-		camera = new OrthographicCamera();
-		viewport = new FitViewport(WORLD_WIDTH * aspectRatio, WORLD_HEIGHT * aspectRatio);
-		viewport.apply();
-		camera.position.set(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, 0);
-
-		// Create processor to handle user input
-		Gdx.input.setInputProcessor(stage);
-		batch = new SpriteBatch();
-
-		// Initialise Engine scripts
-		PlayerEngine.initialise(batch, this);
-		CustomerEngine.initialise(batch, gameMode, scenarioNumCust, this);
-		InteractEngine.initialise(batch);
-		PowerUpEngine.initialise(batch);
-
-
-		masterTimer = 0f;
-
-		//full loading procedure
-		if (wantsToBeLoaded){
-			SaveGame.loadEverythingNew();
-		}
-		setDifficulty(difficulty);
-
-
-		Texture heartTexture = new Texture(Gdx.files.internal("reputation_points.png"));
-		heartImage = new Image(heartTexture);
-		heartImage.setPosition(596, Gdx.graphics.getHeight() - 33);
-		heartImage.setScale(1.5f);
-
-		Texture saveTexture = new Texture(Gdx.files.internal("reputation_points.png"));
-		saveImage = new Image(saveTexture);
-		saveImage.setPosition(30, 20);
-		saveImage.setScale(1.5f);
-
-
-
-		Label.LabelStyle labelStyle = new Label.LabelStyle();
-		BitmapFont font = new BitmapFont();
-		font.getData().setScale(1.5f);
-		labelStyle.font = font;
-		labelStyle.fontColor = Color.BLACK;
-
-		timerLabel = new Label("0s", labelStyle);
-		timerLabel.setPosition(80, Gdx.graphics.getHeight() - 38);
-		timerLabel.setAlignment(Align.left);
-		stage.addActor(timerLabel);
-
-		reputationLabel = new Label("3", labelStyle);
-		reputationLabel.setPosition(580, Gdx.graphics.getHeight() - 38);
-		reputationLabel.setAlignment(Align.left);
-		stage.addActor(reputationLabel);
-
-
-		stage.addActor(heartImage);
-		stage.addActor(saveImage);
-
-		ClickListener listener = new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				SaveGame.saveGame();
-				Gdx.app.exit();
+			SaveGame.initialise(this);
+			if (wantsToBeLoaded){
+				SaveGame.checkLoadable();
+				//if its loadable continue
+				//Initial loading procedure
+				SaveGame.setGameMode();
 			}
-		};
-		saveImage.addListener(listener);
+
+			// Set up camera
+			float aspectRatio = (float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth();
+			camera = new OrthographicCamera();
+			viewport = new FitViewport(WORLD_WIDTH * aspectRatio, WORLD_HEIGHT * aspectRatio);
+			viewport.apply();
+			camera.position.set(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, 0);
+
+			// Create processor to handle user input
+			Gdx.input.setInputProcessor(stage);
+			batch = new SpriteBatch();
+
+			// Initialise Engine scripts
+			PlayerEngine.initialise(batch, this);
+			CustomerEngine.initialise(batch, gameMode, scenarioNumCust, this);
+			InteractEngine.initialise(batch);
+			PowerUpEngine.initialise(batch);
+
+
+			masterTimer = 0f;
+
+			//full loading procedure
+			if (wantsToBeLoaded){
+				SaveGame.loadEverythingNew();
+			}
+			setDifficulty(difficulty);
+
+
+			Texture heartTexture = new Texture(Gdx.files.internal("reputation_points.png"));
+			heartImage = new Image(heartTexture);
+			heartImage.setPosition(596, Gdx.graphics.getHeight() - 33);
+			heartImage.setScale(1.5f);
+
+			Texture saveTexture = new Texture(Gdx.files.internal("reputation_points.png"));
+			saveImage = new Image(saveTexture);
+			saveImage.setPosition(30, 20);
+			saveImage.setScale(1.5f);
+
+
+
+			Label.LabelStyle labelStyle = new Label.LabelStyle();
+			BitmapFont font = new BitmapFont();
+			font.getData().setScale(1.5f);
+			labelStyle.font = font;
+			labelStyle.fontColor = Color.BLACK;
+
+			timerLabel = new Label("0s", labelStyle);
+			timerLabel.setPosition(80, Gdx.graphics.getHeight() - 38);
+			timerLabel.setAlignment(Align.left);
+			stage.addActor(timerLabel);
+
+			reputationLabel = new Label("3", labelStyle);
+			reputationLabel.setPosition(580, Gdx.graphics.getHeight() - 38);
+			reputationLabel.setAlignment(Align.left);
+			stage.addActor(reputationLabel);
+
+
+			stage.addActor(heartImage);
+			stage.addActor(saveImage);
+
+			ClickListener listener = new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					SaveGame.saveGame();
+					Gdx.app.exit();
+				}
+			};
+			saveImage.addListener(listener);
+
+			shouldCallShow = false;
+
+		}
 
 	}
 
@@ -172,6 +184,9 @@ public class GameScreen extends InputAdapter implements Screen {
 	//==========================================================\\
 	@Override
 	public void render(float delta) {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+			showPauseScreen();
+		}
 
 		// Clear the screen and begin drawing process
 		Gdx.gl.glClearColor(1, 1, 1, 0);
@@ -180,6 +195,7 @@ public class GameScreen extends InputAdapter implements Screen {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		stage.draw();
+
 
 		// Update the render
 		PlayerEngine.update();
@@ -214,6 +230,22 @@ public class GameScreen extends InputAdapter implements Screen {
 		if (CustomerEngine.getCustomersRemaining() == 0 && main != null) {
 			main.endGame("SCENARIO COMPLETED IN\n" + (int) masterTimer + " seconds");
 		}
+	}
+
+	public void showPauseScreen(){
+		if (pauseScreen == null){
+			pauseScreen = new PauseScreen(this);
+		}
+
+		main.setScreen(pauseScreen);
+		Gdx.input.setInputProcessor(pauseScreen.stage);
+		pause();
+	}
+
+	public void hidePauseScreen(){
+		main.setScreen(this);
+		Gdx.input.setInputProcessor(stage);
+		resume();
 	}
 
 

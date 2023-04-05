@@ -15,6 +15,9 @@ public class AutoCompleteDish extends PowerUpBase{
 
     @Override
     public void startInteraction(){
+        if (CustomerEngine.getRecentCustomer() == null){
+            return;
+        }
         Customer mostRecentCustomer = CustomerEngine.getRecentCustomer();
         CustomerCounter mostRecentCounter = mostRecentCustomer.getCounter();
         Player activeChef = PlayerEngine.getActiveChef();

@@ -8,10 +8,9 @@ import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.ingredient.IngredientTextures;
 import com.mygdx.game.interact.cooking_stations.CookingStation;
 import com.mygdx.game.interact.cooking_stations.CuttingStation;
+import com.mygdx.game.interact.special_stations.assembly_stations.AssemblyStation;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
-
-import java.awt.*;
 
 /**
  * 
@@ -142,7 +141,6 @@ public class InteractableBase {
 	{
 		Player activeChef = PlayerEngine.getActiveChef();
 
-		System.out.println("Chef has ingredient " + activeChef.getIngredientStack().peek());
 
 		// INGREDIENT STATION : give the ingredient to the chef
 		if(isIngredientStation)
@@ -185,7 +183,6 @@ public class InteractableBase {
 			// Prevent the chef from moving if lockChef is true
 			if(lockChef)
 			{
-				System.out.println(getClass().getSimpleName() + " requires CHEF " + (activeChef.getID() + 1) + "'s attention");
 				connectedChef = activeChef;
 				connectedChef.setMovementEnabled(false);
 			}
@@ -206,7 +203,6 @@ public class InteractableBase {
 		}
 		else if(lockChef && connectedChef != null)
 		{
-			System.out.println(getClass().getSimpleName() + " has freed CHEF " + (connectedChef.getID() + 1));
 			connectedChef.setMovementEnabled(true);
 			connectedChef = null;
 		}
@@ -227,7 +223,6 @@ public class InteractableBase {
 		if(!hasIngredient) 						{ return new Sprite(indicatorArrow); }
 		else if(currentTime >= preparationTime) {
 			if (this instanceof CookingStation) {
-				System.out.print(currentTime);
 				if (currentTime >= preparationTime + burnTime) {
 					return new Sprite(IngredientTextures.getTexture(ingredientMap.getOutputIngredient(outputIngredient)));
 				}
@@ -247,7 +242,4 @@ public class InteractableBase {
 	public float getBurnTime() { return burnTime;}
 
 	public void setBurntTime(float burnTime) {this.burnTime = burnTime;}
-
-
-
 }
