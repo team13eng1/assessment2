@@ -35,7 +35,7 @@ public final class PlayerEngine {
 	static Player activeChef;
 	static Rectangle[] interactableColliders;
 
-	static Integer coins;
+	static private Integer coins;
 
 	static Label coinLabel;
 
@@ -57,7 +57,7 @@ public final class PlayerEngine {
 
 		interactableColliders = new Rectangle[0];
 
-		coins = 0;
+		coins = 100;
 		initialiseCoinLabel();
 
 
@@ -175,4 +175,9 @@ public final class PlayerEngine {
 		chefs.add(new Player(2, 167, 125, "temp_chef_3.png"));
 		chefs.get(2).setSpeed(150f);
 	}
+
+    public static void setCoins(int startCoins) {
+		coins = startCoins;
+
+    }
 }

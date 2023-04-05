@@ -8,9 +8,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -19,7 +21,6 @@ import com.mygdx.game.customer.CustomerEngine;
 import com.mygdx.game.interact.InteractEngine;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
-import com.mygdx.game.player.PowerUps.PowerUpBase;
 import com.mygdx.game.player.PowerUps.PowerUpEngine;
 
 /**
@@ -32,8 +33,8 @@ import com.mygdx.game.player.PowerUps.PowerUpEngine;
 
 public class GameScreen extends InputAdapter implements Screen {
 
-    public String difficulty;
-    Stage stage;
+	public String difficulty;
+	Stage stage;
 	SpriteBatch batch;
 
 	String gameMode;
@@ -47,7 +48,7 @@ public class GameScreen extends InputAdapter implements Screen {
 	private Label timerLabel;
 
 	// A reference to the main game file
-	private PiazzaPanic main = null;
+	public PiazzaPanic main = null;
 
 	public int scenarioNumCust;
 
@@ -55,16 +56,28 @@ public class GameScreen extends InputAdapter implements Screen {
 
 	private Image heartImage;
 
+	private Image saveImage;
 
-	public GameScreen(PiazzaPanic main)
-	{
+	public boolean wantsToBeLoaded;
+
+
+	public GameScreen(PiazzaPanic main, String gameMode, String difficulty) {
 		super();
 		this.main = main;
+		wantsToBeLoaded = false;
+		this.gameMode = gameMode;
 
-		Texture heartTexture = new Texture(Gdx.files.internal("reputation_points.png"));
-		heartImage = new Image(heartTexture);
-		heartImage.setPosition(596,Gdx.graphics.getHeight()-33);
-		heartImage.setScale(1.5f);
+		if (difficulty == null) {
+			this.difficulty = "Easy";
+		} else {
+			this.difficulty = difficulty;
+		}
+	}
+
+	public GameScreen(PiazzaPanic main, boolean wantsLoaded) {
+		super();
+		this.main = main;
+		wantsToBeLoaded = wantsLoaded;
 	}
 
 	//==========================================================\\
@@ -73,6 +86,15 @@ public class GameScreen extends InputAdapter implements Screen {
 	@Override
 	public void show() {
 		stage = new Stage();
+
+		SaveGame.initialise(this);
+		if (wantsToBeLoaded){
+			SaveGame.checkLoadable();
+			//if its loadable continue
+			//Initial loading procedure
+			SaveGame.setGameMode();
+		}
+
 
 		// Set up camera
 		float aspectRatio = (float) Gdx.graphics.getHeight() / (float) Gdx.graphics.getWidth();
@@ -91,9 +113,27 @@ public class GameScreen extends InputAdapter implements Screen {
 		InteractEngine.initialise(batch);
 		PowerUpEngine.initialise(batch);
 
-		setDifficulty(difficulty);
 
 		masterTimer = 0f;
+
+		//full loading procedure
+		if (wantsToBeLoaded){
+			SaveGame.loadEverythingNew();
+		}
+		setDifficulty(difficulty);
+
+
+		Texture heartTexture = new Texture(Gdx.files.internal("reputation_points.png"));
+		heartImage = new Image(heartTexture);
+		heartImage.setPosition(596, Gdx.graphics.getHeight() - 33);
+		heartImage.setScale(1.5f);
+
+		Texture saveTexture = new Texture(Gdx.files.internal("reputation_points.png"));
+		saveImage = new Image(saveTexture);
+		saveImage.setPosition(30, 20);
+		saveImage.setScale(1.5f);
+
+
 
 		Label.LabelStyle labelStyle = new Label.LabelStyle();
 		BitmapFont font = new BitmapFont();
@@ -111,11 +151,22 @@ public class GameScreen extends InputAdapter implements Screen {
 		reputationLabel.setAlignment(Align.left);
 		stage.addActor(reputationLabel);
 
+
 		stage.addActor(heartImage);
+		stage.addActor(saveImage);
+
+		ClickListener listener = new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				SaveGame.saveGame();
+				Gdx.app.exit();
+			}
+		};
+		saveImage.addListener(listener);
 
 	}
 
-	
+
 	//==========================================================\\
 	//                        UPDATE                            \\
 	//==========================================================\\
@@ -129,7 +180,7 @@ public class GameScreen extends InputAdapter implements Screen {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		stage.draw();
-				
+
 		// Update the render
 		PlayerEngine.update();
 		InteractEngine.update();
@@ -149,10 +200,10 @@ public class GameScreen extends InputAdapter implements Screen {
 		reputationLabel.setText(CustomerEngine.getReputationPointsRemaining());
 
 		//Will only change the variables for endless mode
-		if (gameMode.equals("Endless")){
-			if (masterTimer > 30 && masterTimer < 70){
+		if (gameMode.equals("Endless")) {
+			if (masterTimer > 30 && masterTimer < 70) {
 				CustomerEngine.setEndlessMaxCustomers(2);
-			} else if( masterTimer >= 70) {
+			} else if (masterTimer >= 70) {
 				CustomerEngine.setEndlessMaxCustomers(3);
 			} else {
 				CustomerEngine.setEndlessMaxCustomers(1);
@@ -160,13 +211,12 @@ public class GameScreen extends InputAdapter implements Screen {
 		}
 
 		// Check for game over state
-		if(CustomerEngine.getCustomersRemaining() == 0 && main != null)
-		{
-			main.endGame("SCENARIO COMPLETED IN\n" + String.valueOf((int)masterTimer) + " seconds");
+		if (CustomerEngine.getCustomersRemaining() == 0 && main != null) {
+			main.endGame("SCENARIO COMPLETED IN\n" + (int) masterTimer + " seconds");
 		}
 	}
-	
-	
+
+
 	//==========================================================\\
 	//                 OTHER REQUIRED METHODS                   \\
 	//==========================================================\\
@@ -181,20 +231,20 @@ public class GameScreen extends InputAdapter implements Screen {
 	}
 
 	public void setDifficulty(String difficulty) {
-		if (difficulty.equals("Easy")){
-			for (Player player : PlayerEngine.getAllChefs()){
+		if (difficulty.equals("Easy")) {
+			for (Player player : PlayerEngine.getAllChefs()) {
 				player.setSpeedDifficulty(1.0f);
 			}
 			CustomerEngine.setDifficultyRepTime(1.0f);
 			PowerUpEngine.setDifficultyCooldown(1.0f);
-		} else if (difficulty.equals("Medium")){
-			for (Player player : PlayerEngine.getAllChefs()){
+		} else if (difficulty.equals("Medium")) {
+			for (Player player : PlayerEngine.getAllChefs()) {
 				player.setSpeedDifficulty(0.8f);
 			}
 			CustomerEngine.setDifficultyRepTime(0.8f);
 			PowerUpEngine.setDifficultyCooldown(0.8f);
 		} else {
-			for (Player player : PlayerEngine.getAllChefs()){
+			for (Player player : PlayerEngine.getAllChefs()) {
 				player.setSpeedDifficulty(0.5f);
 			}
 			CustomerEngine.setDifficultyRepTime(0.5f);
@@ -203,18 +253,26 @@ public class GameScreen extends InputAdapter implements Screen {
 	}
 
 	@Override
-	public void pause() {}
+	public void pause() {
+	}
 
 	@Override
-	public void resume() {}
+	public void resume() {
+	}
 
 	@Override
-	public void hide() {}
+	public void hide() {
+	}
 
 	@Override
-	public void dispose() {}
+	public void dispose() {
+	}
 
 	public void loseGame() {
 		main.loseGame("You have Lost!");
+	}
+
+	public void setGameMode(String startGameMode) {
+		gameMode = startGameMode;
 	}
 }

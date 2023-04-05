@@ -248,4 +248,6 @@ public class InteractableBase {
 
 	public void setBurntTime(float burnTime) {this.burnTime = burnTime;}
 
+
+
 }

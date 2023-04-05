@@ -71,6 +71,9 @@ public final class CustomerEngine {
         numberOfCustomers = 3;
         numReputationPoints = 3;
 
+        if (startGameMode == null){
+            gameScreen.main.goToMenu();
+        }
 
         if (startGameMode.equals("Scenario")) {
             maxCustomers = 1;
@@ -181,6 +184,18 @@ public final class CustomerEngine {
 
     public static void setDifficultyRepTime(float diffScaling){
         repTimeLimit = 20f * diffScaling;
+    }
+
+    public static void setRepPoints(int repPoints) {
+        numReputationPoints = repPoints;
+    }
+
+    public static void setCustomersRemaining(int customersRemaining) {
+        numberOfCustomers = customersRemaining;
+    }
+
+    public static LinkedList<Customer> getCustomers() {
+        return customers;
     }
 }
 

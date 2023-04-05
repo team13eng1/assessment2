@@ -136,4 +136,9 @@ public class Player {
 	public float getSpeed() {
 		return speed;
 	}
+
+	public void setPosition(float x, float y) {
+		this.posX = x;
+		this.posY = y;
+	}
 }

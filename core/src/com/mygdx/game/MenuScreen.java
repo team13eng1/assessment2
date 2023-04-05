@@ -66,7 +66,7 @@ public class MenuScreen extends InputAdapter implements Screen {
             skin = new Skin();
             skin.addRegions(buttonAtlas);
             TextButton.TextButtonStyle textButtonStyleEndless = new TextButton.TextButtonStyle();
-            textButtonStyleEndless.fontColor = Color.RED;
+            textButtonStyleEndless.fontColor = Color.PURPLE;
             textButtonStyleEndless.font = font;
 
             // Create Endless Mode button
@@ -76,7 +76,7 @@ public class MenuScreen extends InputAdapter implements Screen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     customerNumber = 0;
-                    main.startGame("Endless");
+                    main.newGame("Endless", difficulty);
                 }
             });
             stage.addActor(endlessModeButton);
@@ -93,7 +93,7 @@ public class MenuScreen extends InputAdapter implements Screen {
                     if (customerNumber == null) {
                         customerNumber = 5;
                     }
-                    main.startGame("Scenario");
+                    main.newGame("Scenario", difficulty);
                 }
             });
             stage.addActor(scenarioModeButton);
@@ -116,9 +116,12 @@ public class MenuScreen extends InputAdapter implements Screen {
 
             BitmapFont difficultyFont = new BitmapFont();
             difficultyFont.getData().setScale(2.5f);
-
-
             loadDifficultyButtons(difficultyFont);
+
+
+            BitmapFont loadGameFont = new BitmapFont();
+            loadGameFont.getData().setScale(2.5f);
+            loadLoadButton(loadGameFont);
 
 
             // Add listener to update customer number variable
@@ -154,6 +157,23 @@ public class MenuScreen extends InputAdapter implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         batch = new SpriteBatch();
+    }
+
+    private void loadLoadButton(BitmapFont loadGameFont) {
+        final TextButton.TextButtonStyle textButtonStyleLoad = new TextButton.TextButtonStyle();
+        textButtonStyleLoad.fontColor = Color.GREEN;
+        textButtonStyleLoad.font = loadGameFont;
+
+        TextButton easyModeButton = new TextButton("Load Game", textButtonStyleLoad);
+        easyModeButton.setPosition(410, 430);
+        easyModeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                main.loadGame();
+            }
+        });
+
+        stage.addActor(easyModeButton);
     }
 
     private void loadDifficultyButtons(BitmapFont difficultyFont) {

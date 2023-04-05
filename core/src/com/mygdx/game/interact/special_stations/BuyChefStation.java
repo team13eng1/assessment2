@@ -36,7 +36,7 @@ public class BuyChefStation extends InteractableBase {
     public void handleInteraction() {
         if (PlayerEngine.getCoins() >= chefCost) {
             PlayerEngine.loseCoins(chefCost);
-            InteractEngine.ReplaceWithCounter(this);
+            InteractEngine.replaceWithCounter(this);
             PlayerEngine.addNewChef();
         }
     }
