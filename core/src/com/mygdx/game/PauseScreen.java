@@ -10,12 +10,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -29,10 +32,18 @@ public class PauseScreen extends InputAdapter implements Screen {
     OrthographicCamera camera;
     Viewport viewport;
 
+    Texture saveTexture;
+    Texture resumeTexture;
+    Texture exitTexture;
+
+    BitmapFont font;
+
+    String title = "PAUSED";
+
     final static float WORLD_WIDTH = 1600;
     final static float WORLD_HEIGHT = 1200;
 
-    public PauseScreen(GameScreen gameScreen) {
+    public PauseScreen(final GameScreen gameScreen) {
         super();
         this.gameScreen = gameScreen;
 
@@ -47,15 +58,26 @@ public class PauseScreen extends InputAdapter implements Screen {
 
         try {
 
-            BitmapFont font = new BitmapFont();
-            font.getData().setScale(2.5f);
+            font = new BitmapFont();
+            font.getData().setScale(3f); // Set font size
+            font.setColor(Color.WHITE); // Set font color
 
-            TextButton.TextButtonStyle textButtonStyleResume = new TextButton.TextButtonStyle();
-            textButtonStyleResume.fontColor = Color.CYAN;
-            textButtonStyleResume.font = font;
+            Texture saveTexture = new Texture(Gdx.files.internal("save.png"));
+            Texture resumeTexture = new Texture(Gdx.files.internal("play.png"));
+            Texture exitTexture = new Texture(Gdx.files.internal("exit.png"));
 
-            TextButton resumeButton = new TextButton("Resume", textButtonStyleResume);
-            resumeButton.setPosition((stage.getWidth() - resumeButton.getWidth() - 70f), (stage.getHeight() / 2) - 90f);
+            ImageButton saveButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(saveTexture)));
+            saveButton.setPosition(265, 200);
+            saveButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    SaveGame.saveGame();
+                }
+            });
+            stage.addActor(saveButton);
+
+            ImageButton resumeButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(resumeTexture)));
+            resumeButton.setPosition(80, 200);
             resumeButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -63,6 +85,17 @@ public class PauseScreen extends InputAdapter implements Screen {
                 }
             });
             stage.addActor(resumeButton);
+
+            ImageButton exitButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(exitTexture)));
+            exitButton.setPosition(450, 200);
+            exitButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    Gdx.app.exit();
+                }
+            });
+            stage.addActor(exitButton);
+
 
             Gdx.input.setInputProcessor(stage);
 
@@ -92,6 +125,7 @@ public class PauseScreen extends InputAdapter implements Screen {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        font.draw(batch, title, 234,440);
         stage.draw();
 
         batch.end();
@@ -127,6 +161,10 @@ public class PauseScreen extends InputAdapter implements Screen {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
+        saveTexture.dispose();
+        resumeTexture.dispose();
+        exitTexture.dispose();
+        batch.dispose();
     }
 }

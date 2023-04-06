@@ -61,13 +61,15 @@ public class SaveGame {
 
         // Save customers present at the counter
         LinkedList<Customer> customersPresent = CustomerEngine.getCustomers();
-        for (int i = 0; i < customersPresent.size(); i++) {
-            Customer customer = customersPresent.get(i);
-            String customerKey = "customer" + i;
-            prefs.putString(customerKey + "recipe", customer.counter.getRequiredIngredient().toString());
-            prefs.putFloat(customerKey + "startTime", customer.getTimeRemaining());
-            prefs.putFloat(customerKey + "counterY", customer.getCounter().getYPos());
-            prefs.putFloat(customerKey + "reputationLimitTime", customer.getReputationLimitTime());
+        if (customersPresent.size() == 0){
+            for (int i = 0; i < customersPresent.size(); i++) {
+                Customer customer = customersPresent.get(i);
+                String customerKey = "customer" + i;
+                prefs.putString(customerKey + "recipe", customer.counter.getRequiredIngredient().toString());
+                prefs.putFloat(customerKey + "startTime", customer.getTimeRemaining());
+                prefs.putFloat(customerKey + "counterY", customer.getCounter().getYPos());
+                prefs.putFloat(customerKey + "reputationLimitTime", customer.getReputationLimitTime());
+            }
         }
 
         // Save powerups present on the screen

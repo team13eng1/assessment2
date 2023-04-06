@@ -93,7 +93,6 @@ public class GameScreen extends InputAdapter implements Screen {
 	@Override
 	public void show() {
 		if (shouldCallShow){
-			System.out.print("hello");
 			stage = new Stage();
 
 			SaveGame.initialise(this);
