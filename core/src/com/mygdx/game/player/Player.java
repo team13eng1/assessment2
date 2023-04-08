@@ -116,6 +116,9 @@ public class Player {
 	public float getXPos() { return posX; }
 	
 	public float getYPos() { return posY; }
+
+	public void setXPos(float x) { posX = x;}
+	public void setYPos(float y) { posY = y; }
 	
 	public Sprite getSprite() { return sprite; }
 

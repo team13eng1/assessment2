@@ -36,13 +36,21 @@ public class CollisionTest {
 
         PlayerEngine.getActiveChef().getIngredientStack().push(IngredientName.PATTY_RAW);
 
+        PlayerEngine.getActiveChef().setXPos(135);
+        PlayerEngine.getActiveChef().setYPos(415);
+
+
+
         // simulate player pressing "E"
 
         InteractEngine.interact(); // should call interactablebase.handleinteraction()
 
-        System.out.println(InteractEngine.getInteractables()[9].isPreparing());
-        InteractEngine.getInteractables()[9].incrementTime(10); // simulate waiting 10f
-        System.out.println(InteractEngine.getInteractables()[9].isPreparing());
+
+        System.out.println(InteractEngine.getClosestInteractable().isPreparing());
+
+        InteractEngine.getClosestInteractable().incrementTime(InteractEngine.getClosestInteractable().getPreparationTime()); // simulate waiting 10f
+
+        System.out.println(InteractEngine.getClosestInteractable().isPreparing());
 
         // as we spawned the player by a cooking station, and he has a raw patty,
         // he should be able to cook it

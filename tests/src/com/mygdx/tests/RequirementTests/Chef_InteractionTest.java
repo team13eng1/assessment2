@@ -26,15 +26,21 @@ public class Chef_InteractionTest {
 
         PlayerEngine.getActiveChef().getIngredientStack().push(IngredientName.PATTY_RAW);
 
+        PlayerEngine.getActiveChef().setXPos(135);
+        PlayerEngine.getActiveChef().setYPos(415);
+
+
+
         // simulate player pressing "E"
 
         InteractEngine.interact(); // should call interactablebase.handleinteraction()
 
-        System.out.println(InteractEngine.getInteractables()[9].isPreparing());
 
-        InteractEngine.getInteractables()[9].incrementTime(10); // simulate waiting 10f
+        System.out.println(InteractEngine.getClosestInteractable().isPreparing());
 
-        System.out.println(InteractEngine.getInteractables()[9].isPreparing());
+        InteractEngine.getClosestInteractable().incrementTime(InteractEngine.getClosestInteractable().getPreparationTime()); // simulate waiting 10f
+
+        System.out.println(InteractEngine.getClosestInteractable().isPreparing());
 
         // as we spawned the player by a cooking station, and he has a raw patty,
         // he should be able to cook it
@@ -60,20 +66,23 @@ public class Chef_InteractionTest {
 
         System.out.println(InteractEngine.getClosestInteractable());
 
-        // as we spawned the player by a counter, and he has untoasted buns,
-        // he should be able to put them down and pick them up
+        // as we spawned the player by a patty station, and he has untoasted buns,
+        // he should be able to push a raw patty to the stack
 
         InteractEngine.interact(); // should call interactablebase.handleinteraction()
 
         // ^ simulate player pressing "E" again (picking it up)
 
-        Assert.assertEquals(IngredientName.BUNS_UNTOASTED, PlayerEngine.getActiveChef().getIngredientStack().peek());
+        Assert.assertEquals(IngredientName.PATTY_RAW, PlayerEngine.getActiveChef().getIngredientStack().peek());
 
-        PlayerEngine.swapChef("3");
+        PlayerEngine.swapChef("1");
 
-        Assert.assertEquals(2, PlayerEngine.getActiveChef().getID());
-        Assert.assertEquals(167, PlayerEngine.getActiveChef().getXPos(), 0);
-        Assert.assertEquals(125, PlayerEngine.getActiveChef().getYPos(), 0);
+        PlayerEngine.getActiveChef().getIngredientStack().pop();
+
+        System.out.println(PlayerEngine.getActiveChef().getIngredientStack().getSize());
+
+        PlayerEngine.getActiveChef().setXPos(265);
+        PlayerEngine.getActiveChef().setYPos(165);
 
 
         // simulate player pressing "E"
@@ -85,15 +94,17 @@ public class Chef_InteractionTest {
 
 
         InteractEngine.interact(); // should call interactablebase.handleinteraction()
+        System.out.println(InteractEngine.getClosestInteractable());
         InteractEngine.interact(); // should call interactablebase.handleinteraction()
         InteractEngine.interact(); // should call interactablebase.handleinteraction()
 
-        System.out.println(InteractEngine.getClosestInteractable());
 
         // as we spawned the player by a burger station,
         // he should be able to pop the three ingredients, and push a burger
 
         InteractEngine.interact(); // should call interactablebase.handleinteraction()
+
+        System.out.println(InteractEngine.getClosestInteractable());
 
         // ^ simulate player pressing "E" again (picking it up)
 

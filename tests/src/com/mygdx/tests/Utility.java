@@ -9,8 +9,8 @@ import com.mygdx.game.player.PlayerEngine;
 public class Utility {
     // Reset game for fresh tests
     public static void initialiseGame(){
-        CustomerEngine.initialise(null);
-        PlayerEngine.initialise(null);
+        CustomerEngine.initialise(null, "", 3, null);
+        PlayerEngine.initialise(null, null);
         InteractEngine.initialise(null);
     }
 

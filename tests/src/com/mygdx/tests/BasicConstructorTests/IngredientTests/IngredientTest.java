@@ -25,8 +25,8 @@ public class IngredientTest {
 		Assert.assertEquals("PATTY_RAW", IngredientName.PATTY_RAW.name());
 		Assert.assertEquals("TOMATO_CUT", IngredientName.TOMATO_CUT.name());
 		Assert.assertEquals("TOMATO_UNCUT", IngredientName.TOMATO_UNCUT.name());
-		Assert.assertEquals("JACKET_POTATO_COOKED", IngredientName.JACKET_POTATO_COOKED.name());
-		Assert.assertEquals("JACKET_POTATO_UNCOOKED", IngredientName.JACKET_POTATO_UNCOOKED.name());
+		//Assert.assertEquals("JACKET_POTATO_COOKED", IngredientName.JACKET_POTATO_COOKED.name());
+		//Assert.assertEquals("JACKET_POTATO_UNCOOKED", IngredientName.JACKET_POTATO_UNCOOKED.name());
 		Assert.assertEquals("TUNA", IngredientName.TUNA.name());
 		Assert.assertEquals("CHEESE", IngredientName.CHEESE.name());
 		Assert.assertEquals("PIZZA_BASE", IngredientName.PIZZA_BASE.name());

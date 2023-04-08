@@ -23,10 +23,14 @@ public class Chef_SwapTest {
         Assert.assertEquals(175, PlayerEngine.getActiveChef().getXPos(), 0);
         Assert.assertEquals(350, PlayerEngine.getActiveChef().getYPos(), 0);
 
+        PlayerEngine.getActiveChef().setXPos(135);
+        PlayerEngine.getActiveChef().setYPos(415);
+
         // simulate swapping id+1
         PlayerEngine.swapChef("Q");
         Assert.assertEquals(1, PlayerEngine.getActiveChef().getID());
 
+        PlayerEngine.addNewChef();
         // simulate swapping id = 3
         PlayerEngine.swapChef("3");
         Assert.assertEquals(2, PlayerEngine.getActiveChef().getID());
@@ -40,20 +44,23 @@ public class Chef_SwapTest {
 
         InteractEngine.interact(); // should call interactablebase.handleinteraction()
 
-        System.out.println(InteractEngine.getInteractables()[9].isPreparing());
+        System.out.println(InteractEngine.getInteractables()[6].isPreparing());
 
         // simulate swapping id = 3 whilst id = 1 is completing a task
 
         PlayerEngine.swapChef("3");
         Assert.assertEquals(2, PlayerEngine.getActiveChef().getID());
 
-        InteractEngine.getInteractables()[9].incrementTime(10); // simulate waiting 10f
+        InteractEngine.getInteractables()[6].incrementTime(InteractEngine.getInteractables()[6].getPreparationTime()); // simulate waiting 10f
 
         // simulate swapping back to id=1
         PlayerEngine.swapChef("1");
         Assert.assertEquals(0, PlayerEngine.getActiveChef().getID());
 
-        System.out.println(InteractEngine.getInteractables()[9].isPreparing());
+        PlayerEngine.getActiveChef().setXPos(135);
+        PlayerEngine.getActiveChef().setYPos(415);
+
+        System.out.println(InteractEngine.getClosestInteractable().isPreparing());
 
         // as we spawned the player by a cooking station, and he has a raw patty,
         // he should be able to cook it

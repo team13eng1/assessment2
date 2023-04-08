@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mygdx.tests.RequirementTests.Chef_InteractionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-07T19:23:56" hostname="BAILEY-LAPTOP" time="0.051">
+<testsuite name="com.mygdx.tests.RequirementTests.Chef_InteractionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-08T17:40:22" hostname="BAILEY-LAPTOP" time="0.015">
   <properties/>
-  <testcase name="testChefInteration" classname="com.mygdx.tests.RequirementTests.Chef_InteractionTest" time="0.051"/>
+  <testcase name="testChefInteration" classname="com.mygdx.tests.RequirementTests.Chef_InteractionTest" time="0.015"/>
   <system-out><![CDATA[
 ==============================
 INTERACTION ATTEMPTED
@@ -9,7 +9,7 @@ Chef has ingredient PATTY_RAW
 POPPED PATTY_RAW FROM CHEF STACK
 INTERACTION ENDED
 true
-false
+true
 
 ==============================
 INTERACTION ATTEMPTED
@@ -18,18 +18,22 @@ INTERACTION ENDED
 
 ==============================
 INTERACTION ATTEMPTED
-POPPED BUNS_UNTOASTED FROM CHEF STACK
+Chef has ingredient BUNS_UNTOASTED
 INTERACTION ENDED
-com.mygdx.game.interact.special_stations.Counter@4c07a302
+com.mygdx.game.interact.ingredient_stations.PattyStation@38d70448
 
 ==============================
 INTERACTION ATTEMPTED
+Chef has ingredient PATTY_RAW
 INTERACTION ENDED
+POPPED PATTY_COOKED FROM CHEF STACK
+0
 
 ==============================
 INTERACTION ATTEMPTED
 POPPED BUNS_TOASTED FROM CHEF STACK
 INTERACTION ENDED
+com.mygdx.game.interact.special_stations.assembly_stations.BurgerStation@59748341
 
 ==============================
 INTERACTION ATTEMPTED
@@ -40,11 +44,11 @@ INTERACTION ENDED
 INTERACTION ATTEMPTED
 POPPED BUNS_TOASTED FROM CHEF STACK
 INTERACTION ENDED
-com.mygdx.game.interact.special_stations.assembly_stations.BurgerStation@3b98f0d7
 
 ==============================
 INTERACTION ATTEMPTED
 INTERACTION ENDED
+com.mygdx.game.interact.special_stations.assembly_stations.BurgerStation@59748341
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
