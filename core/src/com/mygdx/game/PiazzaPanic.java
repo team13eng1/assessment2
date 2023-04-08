@@ -15,10 +15,12 @@ public class PiazzaPanic extends Game {
 		setScreen(menuScreen);
 	}
 
-	public void startGame()
+	public void startGame(String gameMode)
 	{
 		System.out.println("GAME STARTED");
 		gameScreen = new GameScreen(this);
+		gameScreen.gameMode = gameMode;
+		gameScreen.scenarioNumCust = menuScreen.customerNumber;
 		setScreen(gameScreen);
 	}
 
@@ -34,5 +36,11 @@ public class PiazzaPanic extends Game {
 		System.out.println("RETURNED TO MAIN MENU");
 		menuScreen = new MenuScreen(this);
 		setScreen(menuScreen);
+	}
+
+	public void loseGame(String displayDetails) {
+		System.out.println("GAME ENDED");
+		endScreen = new EndScreen(this, displayDetails);
+		setScreen(endScreen);
 	}
 }

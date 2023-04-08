@@ -86,4 +86,8 @@ public class IngredientStack {
         }
     }
 
+    public int getSize(){
+        return stack.size();
+    }
+
 }

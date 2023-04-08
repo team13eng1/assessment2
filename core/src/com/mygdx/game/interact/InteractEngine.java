@@ -5,14 +5,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.interact.cooking_stations.BakingStation;
 import com.mygdx.game.interact.cooking_stations.CookingStation;
 import com.mygdx.game.interact.cooking_stations.CuttingStation;
 import com.mygdx.game.interact.ingredient_stations.*;
 import com.mygdx.game.interact.special_stations.Bin;
+import com.mygdx.game.interact.special_stations.BuyChefStation;
 import com.mygdx.game.interact.special_stations.Counter;
 import com.mygdx.game.interact.special_stations.CustomerCounter;
 import com.mygdx.game.interact.special_stations.assembly_stations.BurgerStation;
+import com.mygdx.game.interact.special_stations.assembly_stations.JacketPotatoStation;
+import com.mygdx.game.interact.special_stations.assembly_stations.PizzaRawStation;
 import com.mygdx.game.interact.special_stations.assembly_stations.SaladStation;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
@@ -45,6 +47,8 @@ public final class InteractEngine {
 	static Texture sliderBackground;
 	static Texture sliderFill;
 
+	static Texture stationLock;
+
 
 	//==========================================================\\
 	//                      INITIALISER                         \\
@@ -56,44 +60,47 @@ public final class InteractEngine {
 
 		interactables = new InteractableBase[] {
 
-			new CustomerCounter(70, 140),
-			new CustomerCounter(70, 210),
-			new CustomerCounter(70, 280),
+				new CustomerCounter(70, 140),
+				new CustomerCounter(70, 210),
+				new CustomerCounter(70, 280),
 
-			new Counter(70, 350),
-			new Counter(70, 70),
-			new Counter(420, 420),
-			new Counter(420, 0),
-			new Counter(490, 420),
-			new Counter(490, 0),
+				new BuyChefStation(70, 350),
 
-			new CookingStation(140, 420),
-			new CookingStation(280, 420),
-			new BakingStation(210, 420),
-			new BakingStation(350, 420),
-			new CuttingStation(140, 0),
-			new CuttingStation(210, 0),
-			new CuttingStation(280, 0),
-			new CuttingStation(350, 0),
+				new Counter(70, 70),
+				new Counter(350, 0),
 
-			new BurgerStation(210, 210),
-			new SaladStation(280, 210),
+				new CookingStation(140, 420, false),
+				new CookingStation(210, 420, false),
+				new CookingStation(280, 420, true),
 
-			new PattyStation(350, 210),
-			new BunStation(420, 210),
-			new LettuceStation(560, 210),
-			new TomatoStation(560, 280),
-			new OnionStation(560, 140),
+				new CuttingStation(140, 0, false),
+				new CuttingStation(210, 0, false),
+				new CuttingStation(280, 0, true),
 
-			new Bin(560, 420),
-			new Bin(560, 0)
+				new BurgerStation(270, 170),
+				new SaladStation(270, 240),
+				new JacketPotatoStation(340, 170),
+				new PizzaRawStation(340, 240),
 
+				new TomatoStation(570, 210),
+				new CheeseStation(570, 280),
+				new LettuceStation(570, 140),
+				new OnionStation(570, 70),
+				new PattyStation(420, 420),
+				new BunStation(490, 420),
+				new PotatoRawStation(490, 0),
+				new TunaStation(350, 420),
+				new PizzaBaseStation(570, 350),
+
+				new Bin(420, 0),
 		};
 
 		interactRange = 85f;
 
 		sliderBackground = new Texture("slider_background.png");
 		sliderFill = new Texture("slider_fill.png");
+
+		stationLock = new Texture("lock.png");
 
 		Rectangle[] collisionRects = new Rectangle[interactables.length];
 		for(int i=0; i<interactables.length; i++)
@@ -114,19 +121,42 @@ public final class InteractEngine {
 			// Render the interactable and the ingredient on it
 			interactable.getSprite().draw(batch);
 
-			Sprite ingredientSprite = interactable.getIngredientSprite();
-			ingredientSprite.setPosition(interactable.getXPos(), interactable.getYPos());
-			ingredientSprite.draw(batch);
+			if (interactable instanceof BuyChefStation) {
+				batch.draw(((BuyChefStation) interactable).chefLockedTexture, interactable.getXPos() + 10, interactable.getYPos() + 10);
 
-			// Increment the interactable's timer by the time elapsed between now and the last frame render
-			interactable.incrementTime(Gdx.graphics.getDeltaTime());
+			} else if (interactable instanceof CookingStation || interactable instanceof CuttingStation) {
+				if (interactable.isLocked) {
+					batch.draw(stationLock, interactable.getXPos() + 10, interactable.getYPos() + 10);
+				} else {
+					Sprite ingredientSprite = interactable.getIngredientSprite();
+					ingredientSprite.setPosition(interactable.getXPos(), interactable.getYPos());
+					ingredientSprite.draw(batch);
 
-			// Render a progress slider above the element if it is currently preparing
-			if(interactable.isPreparing())
-			{
-				int progressWidth = (int)(interactable.getCurrentTime() / interactable.getPreparationTime() * 65);
-				batch.draw(sliderBackground, interactable.getXPos(), interactable.getYPos() + 70, 70, 20);
-				batch.draw(sliderFill, interactable.getXPos(), interactable.getYPos() + 72.5f, progressWidth, 15);
+					// Increment the interactable's timer by the time elapsed between now and the last frame render
+					interactable.incrementTime(Gdx.graphics.getDeltaTime());
+
+					// Render a progress slider above the element if it is currently preparing
+					if (interactable.isPreparing()) {
+						int progressWidth = (int) (interactable.getCurrentTime() / interactable.getPreparationTime() * 65);
+						batch.draw(sliderBackground, interactable.getXPos(), interactable.getYPos() + 70, 70, 20);
+						batch.draw(sliderFill, interactable.getXPos(), interactable.getYPos() + 72.5f, progressWidth, 15);
+					}
+				}
+			} else {
+				Sprite ingredientSprite = interactable.getIngredientSprite();
+				ingredientSprite.setPosition(interactable.getXPos(), interactable.getYPos());
+				ingredientSprite.draw(batch);
+
+				// Increment the interactable's timer by the time elapsed between now and the last frame render
+				interactable.incrementTime(Gdx.graphics.getDeltaTime());
+
+				// Render a progress slider above the element if it is currently preparing
+				if(interactable.isPreparing())
+				{
+					int progressWidth = (int)(interactable.getCurrentTime() / interactable.getPreparationTime() * 65);
+					batch.draw(sliderBackground, interactable.getXPos(), interactable.getYPos() + 70, 70, 20);
+					batch.draw(sliderFill, interactable.getXPos(), interactable.getYPos() + 72.5f, progressWidth, 15);
+				}
 			}
 		}
 	}
@@ -186,4 +216,23 @@ public final class InteractEngine {
 	}
 
 	public static InteractableBase getClosestInteractable() { return closestInteractable;}
+  
+	public static InteractableBase[] getStations() {
+		return interactables;
+	}
+
+	public static void ReplaceWithCounter(InteractableBase station) {
+		int index = -1;
+		for (int i = 0; i < interactables.length; i++) {
+			if (interactables[i].equals(station)) {
+				index = i;
+				break;
+			}
+		}
+		if (index != -1) {
+			Counter newCounter = new Counter(station.getXPos(), station.getYPos());
+			interactables[index] = newCounter;
+		}
+	}
+
 }

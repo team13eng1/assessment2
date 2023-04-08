@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.ingredient.IngredientMap;
 import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.ingredient.IngredientTextures;
+import com.mygdx.game.interact.cooking_stations.CookingStation;
+import com.mygdx.game.interact.cooking_stations.CuttingStation;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
 
@@ -37,6 +39,8 @@ public class InteractableBase {
 	// Station Information
 	private boolean isIngredientStation;
 	private float preparationTime;
+
+	private float burnTime;
 	private float currentTime;
 
 	/*
@@ -45,6 +49,10 @@ public class InteractableBase {
 		and the locked chef is stored in the connectedChef variable.
 	 */
 	private boolean lockChef;
+
+	public boolean isLocked;
+
+	public int unLockCost;
 	private Player connectedChef;
 	
 	
@@ -53,7 +61,7 @@ public class InteractableBase {
 	//==========================================================\\
 	
 	// Cooking Station Constructor takes a texture, an ingredient map, and a given preparation time
-	public InteractableBase(float xPos, float yPos, String texture, IngredientMap ingredientMap, float preparationTime, boolean lockChef)
+	public InteractableBase(float xPos, float yPos, String texture, IngredientMap ingredientMap, float preparationTime, float burnTime, boolean lockChef, boolean isLocked)
 	{
 		this.isIngredientStation = false;
 		this.xPos = xPos;
@@ -61,10 +69,21 @@ public class InteractableBase {
 		this.sprite = new Sprite(new Texture(texture));
 		this.ingredientMap = ingredientMap;
 		this.preparationTime = preparationTime;
+		this.burnTime = burnTime;
 		this.hasIngredient = false;
 		this.lockChef = lockChef;
+		this.isLocked = isLocked;
+		this.unLockCost = 0;
 		this.connectedChef = null;
 		setUpCollision();
+
+		if (isLocked){
+			if (this instanceof CookingStation){
+				unLockCost = 10;
+			} else if (this instanceof CuttingStation){
+				unLockCost = 20;
+			}
+		}
 	}
 	
 	// Ingredient Station Constructor takes a texture, an output ingredient, and no preparation time
@@ -124,23 +143,39 @@ public class InteractableBase {
 		Player activeChef = PlayerEngine.getActiveChef();
 
 		System.out.println("Chef has ingredient " + activeChef.getIngredientStack().peek());
-		
+
 		// INGREDIENT STATION : give the ingredient to the chef
 		if(isIngredientStation)
 		{
 			activeChef.getIngredientStack().push(outputIngredient);
 		}
+
+		else if (isLocked){
+			if (PlayerEngine.getCoins() >= this.unLockCost) {
+				PlayerEngine.loseCoins(unLockCost);
+				isLocked = false;
+			}
+		}
 		// COOKING STATION : is an ingredient already being prepared?
-		else if(hasIngredient)
+		else if(hasIngredient && !isLocked)
 		{
-			if(currentTime >= preparationTime)
-			{
+			if (this instanceof CookingStation){
+				if(currentTime >= preparationTime + burnTime) {
+					activeChef.getIngredientStack().push(ingredientMap.getOutputIngredient(outputIngredient));
+					hasIngredient = false;
+
+				} else if (currentTime >= preparationTime) {
+					activeChef.getIngredientStack().push(outputIngredient);
+					hasIngredient = false;
+				}
+			} else if (currentTime >= preparationTime) {
 				activeChef.getIngredientStack().push(outputIngredient);
 				hasIngredient = false;
 			}
 		}
+
 		// COOKING STATION : can the station take the chef's top ingredient?
-		else if(ingredientMap.takesIngredient(activeChef.getIngredientStack().peek()))
+		else if(ingredientMap.takesIngredient(activeChef.getIngredientStack().peek()) && !isLocked)
 		{
 			inputIngredient = activeChef.getIngredientStack().peek();
 			outputIngredient = ingredientMap.getOutputIngredient(activeChef.getIngredientStack().pop());
@@ -190,16 +225,27 @@ public class InteractableBase {
 
 	public Sprite getIngredientSprite() {
 		if(!hasIngredient) 						{ return new Sprite(indicatorArrow); }
-		else if(currentTime >= preparationTime) { return new Sprite(IngredientTextures.getTexture(outputIngredient)); }
-		else 									{ return new Sprite(IngredientTextures.getTexture(inputIngredient)); }
+		else if(currentTime >= preparationTime) {
+			if (this instanceof CookingStation) {
+				System.out.print(currentTime);
+				if (currentTime >= preparationTime + burnTime) {
+					return new Sprite(IngredientTextures.getTexture(ingredientMap.getOutputIngredient(outputIngredient)));
+				}
+			}
+			return new Sprite(IngredientTextures.getTexture(outputIngredient));
+		} else 									{ return new Sprite(IngredientTextures.getTexture(inputIngredient)); }
 	}
 
 	public float getCurrentTime() { return currentTime; }
 
 	public float getPreparationTime() { return preparationTime; }
 
-	public boolean isPreparing() { return (hasIngredient && !isIngredientStation && currentTime < preparationTime); }
+	public boolean isPreparing() { return (hasIngredient && !isIngredientStation && currentTime < preparationTime + burnTime); }
 
 	public Rectangle getCollisionRect() { return collisionRect; }
+
+	public float getBurnTime() { return burnTime;}
+
+	public void setBurntTime(float burnTime) {this.burnTime = burnTime;}
 
 }

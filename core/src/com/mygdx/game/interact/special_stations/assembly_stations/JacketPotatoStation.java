@@ -1,5 +1,3 @@
-// TODO: 08/03/2023 skins here aswell
-
 package com.mygdx.game.interact.special_stations.assembly_stations;
 
 import com.mygdx.game.ingredient.IngredientName;
@@ -13,7 +11,7 @@ public class JacketPotatoStation extends AssemblyStation {
 
     // Jacket potato recipe
     IngredientName[] recipe = new IngredientName[] {
-            IngredientName.JACKET_POTATO_COOKED,
+            IngredientName.POTATO_COOKED,
             IngredientName.TUNA
     };
 

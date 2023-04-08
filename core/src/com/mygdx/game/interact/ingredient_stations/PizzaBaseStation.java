@@ -1,6 +1,3 @@
-// TODO: 08/03/2023 change images for pizza base
-
-
 package com.mygdx.game.interact.ingredient_stations;
 
 import com.mygdx.game.ingredient.IngredientName;
@@ -18,6 +15,6 @@ public class PizzaBaseStation extends InteractableBase {
     //==========================================================\\
 
     public PizzaBaseStation(float xPos, float yPos) {
-        super(xPos, yPos, "station_tuna.png", IngredientName.PIZZA_BASE);
+        super(xPos, yPos, "station_pizza_base.png", IngredientName.PIZZA_BASE);
     }
 }

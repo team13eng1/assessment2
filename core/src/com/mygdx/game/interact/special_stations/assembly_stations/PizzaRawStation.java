@@ -1,6 +1,3 @@
-// TODO: 08/03/2023 Skins here aswell
-
-
 package com.mygdx.game.interact.special_stations.assembly_stations;
 
 import com.mygdx.game.ingredient.IngredientName;
@@ -10,18 +7,18 @@ import com.mygdx.game.ingredient.IngredientName;
  *
  * Assembly station for a Pizza
  */
-public class PizzaStation extends AssemblyStation {
+public class PizzaRawStation extends AssemblyStation {
 
     // Pizza Recipe
-    public IngredientName[] recipe = new IngredientName[] {
+    IngredientName[] recipe = new IngredientName[] {
             IngredientName.PIZZA_BASE,
             IngredientName.TOMATO_CUT,
-            IngredientName.CHEESE
+            IngredientName.CHEESE,
     };
 
-    public IngredientName outputIngredient = IngredientName.PIZZA;
+    IngredientName outputIngredient = IngredientName.PIZZA_RAW;
 
-    public PizzaStation(float xPos, float yPos) {
+    public PizzaRawStation(float xPos, float yPos) {
 
         super(xPos, yPos, "station_assembly_pizza.png");
         setRecipe(recipe, outputIngredient);

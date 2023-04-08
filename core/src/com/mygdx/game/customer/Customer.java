@@ -3,6 +3,7 @@ package com.mygdx.game.customer;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.interact.special_stations.CustomerCounter;
+import com.mygdx.game.player.PlayerEngine;
 
 /**
  * @author Thomas McCarthy
@@ -23,12 +24,18 @@ public class Customer {
     public CustomerCounter counter;
     public IngredientName requiredIngredient;
 
+    float startTime;
+    float reputationLimitTime;
+
+    boolean finished;
 
     //==========================================================\\
     //                      CONSTRUCTOR                         \\
     //==========================================================\\
-    public Customer(CustomerCounter counter, IngredientName requiredIngredient)
+    public Customer(CustomerCounter counter, IngredientName requiredIngredient, float startTime, float reputationLimitTime)
     {
+        this.startTime = startTime;
+        this.reputationLimitTime = reputationLimitTime;
         this.counter = counter;
         this.requiredIngredient = requiredIngredient;
 
@@ -36,6 +43,8 @@ public class Customer {
         posY = counter.getYPos();
 
         counterOffset = 70f;
+
+        finished = false;
     }
 
 
@@ -52,6 +61,7 @@ public class Customer {
         else if(orderComplete)
         {
             CustomerEngine.removeCustomer(this);
+            PlayerEngine.gainCoins(10);
         }
         else if(!atCounter)
         {
@@ -80,4 +90,15 @@ public class Customer {
         orderComplete = true;
     }
 
+    public boolean isWaitTooLong(float mainTime){
+        return (mainTime - startTime > reputationLimitTime);
+    }
+
+    public void finishWithThisCustomer() {
+        finished = true;
+    }
+
+    public CustomerCounter getCounter() {
+        return counter;
+    }
 }

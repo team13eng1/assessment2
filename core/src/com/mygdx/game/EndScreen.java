@@ -77,7 +77,7 @@ public class EndScreen extends InputAdapter implements Screen {
 
         endScreenTimer += Gdx.graphics.getDeltaTime();
 
-        if(endScreenTimer >= 5f)
+        if(endScreenTimer >= 20f)
         {
             main.goToMenu();
         }
