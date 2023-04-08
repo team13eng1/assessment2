@@ -1,7 +1,6 @@
 package com.mygdx.tests.BasicConstructorTests.StationTests;
 
 import com.mygdx.game.interact.special_stations.assembly_stations.BurgerStation;
-import com.mygdx.game.interact.special_stations.assembly_stations.PizzaStation;
 import com.mygdx.tests.GdxTestRunner;
 import com.mygdx.tests.Utility;
 import org.junit.Assert;
