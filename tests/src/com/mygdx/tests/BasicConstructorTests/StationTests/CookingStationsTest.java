@@ -47,8 +47,8 @@ public class CookingStationsTest {
         Assert.assertEquals(1, bakingStation.getYPos(), 0);
         Assert.assertEquals(bakingMap, bakingStation.ingredientMap);
 
-
         CookingStation cookingStation = new CookingStation(4, 4, false);
+
 
         IngredientMap cookingMap = new IngredientMap() {{
 
@@ -60,7 +60,9 @@ public class CookingStationsTest {
         Assert.assertEquals(4, cookingStation.getYPos(), 0);
         Assert.assertEquals(cookingMap, cookingStation.ingredientMap);
 
+       
         CuttingStation cuttingStation = new CuttingStation(5, 5, false);
+
 
         IngredientMap cuttingMap = new IngredientMap() {{
 

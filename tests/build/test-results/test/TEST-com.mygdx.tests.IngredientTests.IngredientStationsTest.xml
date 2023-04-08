@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mygdx.tests.IngredientTests.IngredientStationsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-03-29T15:04:59" hostname="BAILEY-LAPTOP" time="0.018">
-  <properties/>
-  <testcase name="testAllConstructors" classname="com.mygdx.tests.IngredientTests.IngredientStationsTest" time="0.018"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

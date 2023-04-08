@@ -41,6 +41,8 @@ public final class InteractEngine {
 	// Determines how far away the player must be to interact with a station
 	static float interactRange;
 
+	public static InteractableBase closestInteractable;
+
 	// Textures used for rendering the Progress Slider
 	static Texture sliderBackground;
 	static Texture sliderFill;
@@ -184,7 +186,7 @@ public final class InteractEngine {
 		System.out.println("\n==============================\nINTERACTION ATTEMPTED");
 
 		float minDistance = Float.MAX_VALUE;
-		InteractableBase closestInteractable = null;
+		closestInteractable = null;
 		for(InteractableBase interactable : interactables)
 		{
 			boolean valid = interactable.tryInteraction(xPos, yPos, interactRange);
@@ -209,6 +211,12 @@ public final class InteractEngine {
 		System.out.println("INTERACTION ENDED");
 	}
 
+	public static InteractableBase[] getInteractables(){
+		return interactables;
+	}
+
+	public static InteractableBase getClosestInteractable() { return closestInteractable;}
+  
 	public static InteractableBase[] getStations() {
 		return interactables;
 	}
