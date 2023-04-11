@@ -99,7 +99,7 @@ public final class CustomerEngine {
         for (Customer c : customers) {
             c.update();
             batch.draw(customerTexture, c.getXPos(), c.getYPos());
-            if (c.isWaitTooLong(mainGameScreen.masterTimer) || !c.finished){
+            if (c.isWaitTooLong(mainGameScreen.masterTimer) && !c.finished){
                 c.finishWithThisCustomer();
                 c.counter.resetCounter();
                 removeReputationPoint();
