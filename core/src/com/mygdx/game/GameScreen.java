@@ -35,9 +35,6 @@ import com.sun.tools.javac.comp.Todo;
 
 public class GameScreen extends InputAdapter implements Screen {
 
-	//TODO see if put menuscreen in here that everything scales
-	public MenuScreen menuScreen;
-
 	private boolean shouldCallShow = true;
 	private PauseScreen pauseScreen;
 	public String difficulty;
@@ -63,7 +60,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
 	private Image heartImage;
 
-	private Image saveImage;
 
 	public boolean wantsToBeLoaded;
 
@@ -135,12 +131,6 @@ public class GameScreen extends InputAdapter implements Screen {
 			heartImage.setPosition(596, Gdx.graphics.getHeight() - 33);
 			heartImage.setScale(1.5f);
 
-			Texture saveTexture = new Texture(Gdx.files.internal("reputation_points.png"));
-			saveImage = new Image(saveTexture);
-			saveImage.setPosition(30, 20);
-			saveImage.setScale(1.5f);
-
-
 
 			Label.LabelStyle labelStyle = new Label.LabelStyle();
 			BitmapFont font = new BitmapFont();
@@ -160,16 +150,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
 
 			stage.addActor(heartImage);
-			stage.addActor(saveImage);
-
-			ClickListener listener = new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					SaveGame.saveGame();
-					Gdx.app.exit();
-				}
-			};
-			saveImage.addListener(listener);
 
 			shouldCallShow = false;
 
