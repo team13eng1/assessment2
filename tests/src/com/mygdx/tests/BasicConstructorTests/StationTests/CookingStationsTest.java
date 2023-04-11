@@ -9,12 +9,10 @@ import com.mygdx.game._convenience.IngredientStack;
 import com.mygdx.game.customer.Customer;
 import com.mygdx.game.customer.CustomerEngine;
 import com.mygdx.game.ingredient.IngredientMap;
-import com.mygdx.game.interact.cooking_stations.BakingStation;
 import com.mygdx.game.interact.cooking_stations.CookingStation;
 import com.mygdx.game.interact.cooking_stations.CuttingStation;
 import com.mygdx.game.interact.ingredient_stations.*;
 import com.mygdx.game.interact.special_stations.Bin;
-import com.mygdx.game.interact.special_stations.assembly_stations.PizzaStation;
 import com.mygdx.game.player.PlayerEngine;
 import com.mygdx.tests.GdxTestRunner;
 import com.mygdx.tests.Utility;
@@ -36,6 +34,8 @@ public class CookingStationsTest {
         Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
 
+        /* deprecated
+
         BakingStation bakingStation = new BakingStation(1, 1);
         IngredientMap bakingMap = new IngredientMap() {{
 
@@ -46,13 +46,24 @@ public class CookingStationsTest {
         Assert.assertEquals(1, bakingStation.getXPos(), 0);
         Assert.assertEquals(1, bakingStation.getYPos(), 0);
         Assert.assertEquals(bakingMap, bakingStation.ingredientMap);
-
+        */
 
         CookingStation cookingStation = new CookingStation(4, 4, false);
+
 
         IngredientMap cookingMap = new IngredientMap() {{
 
             put(IngredientName.PATTY_RAW, IngredientName.PATTY_COOKED);
+            put(IngredientName.PATTY_COOKED, IngredientName.PATTY_BURNT);
+
+            put(IngredientName.BUNS_UNTOASTED, IngredientName.BUNS_TOASTED);
+            put(IngredientName.BUNS_TOASTED, IngredientName.BUNS_BURNT);
+
+            put(IngredientName.POTATO_UNCOOKED, IngredientName.POTATO_COOKED);
+            put(IngredientName.POTATO_COOKED, IngredientName.POTATO_BURNT);
+
+            put(IngredientName.PIZZA_RAW, IngredientName.PIZZA);
+            put(IngredientName.PIZZA, IngredientName.PIZZA_BURNT);
 
         }};
 
@@ -60,7 +71,9 @@ public class CookingStationsTest {
         Assert.assertEquals(4, cookingStation.getYPos(), 0);
         Assert.assertEquals(cookingMap, cookingStation.ingredientMap);
 
+       
         CuttingStation cuttingStation = new CuttingStation(5, 5, false);
+
 
         IngredientMap cuttingMap = new IngredientMap() {{
 

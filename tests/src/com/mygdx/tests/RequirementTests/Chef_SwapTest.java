@@ -1,14 +1,6 @@
-package com.mygdx.tests.FunctionalityTests;
+package com.mygdx.tests.RequirementTests;
 
-import static org.junit.Assert.*;
-
-import com.badlogic.gdx.Gdx;
-import com.mygdx.game.customer.Customer;
-import com.mygdx.game.customer.CustomerEngine;
-import com.mygdx.game.ingredient.IngredientMap;
 import com.mygdx.game.interact.InteractEngine;
-import com.mygdx.game.interact.InteractableBase;
-import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
 import com.mygdx.tests.GdxTestRunner;
 import com.mygdx.tests.Utility;
@@ -16,13 +8,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.mygdx.game.ingredient.IngredientName;
-import com.mygdx.game.interact.special_stations.CustomerCounter;
 import org.junit.runner.RunWith;
 
-import java.util.LinkedList;
-
 @RunWith(GdxTestRunner.class)
-public class CollisionTest {
+public class Chef_SwapTest {
 
     @Test
     public void testPlayerCollision() throws InterruptedException {
@@ -34,21 +23,42 @@ public class CollisionTest {
         Assert.assertEquals(175, PlayerEngine.getActiveChef().getXPos(), 0);
         Assert.assertEquals(350, PlayerEngine.getActiveChef().getYPos(), 0);
 
-        PlayerEngine.getActiveChef().getIngredientStack().push(IngredientName.PATTY_RAW);
-
         PlayerEngine.getActiveChef().setXPos(135);
         PlayerEngine.getActiveChef().setYPos(415);
 
+        // simulate swapping id+1
+        PlayerEngine.swapChef("Q");
+        Assert.assertEquals(1, PlayerEngine.getActiveChef().getID());
 
+        PlayerEngine.addNewChef();
+        // simulate swapping id = 3
+        PlayerEngine.swapChef("3");
+        Assert.assertEquals(2, PlayerEngine.getActiveChef().getID());
+
+        // swap back to chef[0] for testing
+        PlayerEngine.swapChef("1");
+
+        PlayerEngine.getActiveChef().getIngredientStack().push(IngredientName.PATTY_RAW);
 
         // simulate player pressing "E"
 
         InteractEngine.interact(); // should call interactablebase.handleinteraction()
 
+        System.out.println(InteractEngine.getInteractables()[6].isPreparing());
 
-        System.out.println(InteractEngine.getClosestInteractable().isPreparing());
+        // simulate swapping id = 3 whilst id = 1 is completing a task
 
-        InteractEngine.getClosestInteractable().incrementTime(InteractEngine.getClosestInteractable().getPreparationTime()); // simulate waiting 10f
+        PlayerEngine.swapChef("3");
+        Assert.assertEquals(2, PlayerEngine.getActiveChef().getID());
+
+        InteractEngine.getInteractables()[6].incrementTime(InteractEngine.getInteractables()[6].getPreparationTime()); // simulate waiting 10f
+
+        // simulate swapping back to id=1
+        PlayerEngine.swapChef("1");
+        Assert.assertEquals(0, PlayerEngine.getActiveChef().getID());
+
+        PlayerEngine.getActiveChef().setXPos(135);
+        PlayerEngine.getActiveChef().setYPos(415);
 
         System.out.println(InteractEngine.getClosestInteractable().isPreparing());
 

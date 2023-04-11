@@ -151,6 +151,22 @@ public final class PlayerEngine {
 
 	public static void setColliders(Rectangle[] colliders) { interactableColliders = colliders; }
 
+
+	public static void swapChef(String key){
+		if(key=="Q") {
+			activeChef = chefs.get((activeChef.getID() + 1) % chefs.size());
+		}
+		// Chef switch with numbers 1-3
+		else if(key=="1") {
+			activeChef = chefs.get(0);
+		}
+		else if(key=="2") {
+			activeChef = chefs.get(1);
+		}
+		else if(key=="3") {
+			activeChef = chefs.get(2);
+		}
+	}
 	public static float getMasterTime() {
 		return gameScreen.masterTimer;
 	}
@@ -175,7 +191,6 @@ public final class PlayerEngine {
 		chefs.add(new Player(2, 167, 125, "temp_chef_3.png"));
 		chefs.get(2).setSpeed(150f);
 	}
-
     public static void setCoins(int startCoins) {
 		coins = startCoins;
 

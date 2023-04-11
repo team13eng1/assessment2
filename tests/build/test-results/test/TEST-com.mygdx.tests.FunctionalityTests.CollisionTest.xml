@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mygdx.tests.FunctionalityTests.CollisionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-08T17:40:22" hostname="BAILEY-LAPTOP" time="0.03">
+  <properties/>
+  <testcase name="testPlayerCollision" classname="com.mygdx.tests.FunctionalityTests.CollisionTest" time="0.03"/>
+  <system-out><![CDATA[
+==============================
+INTERACTION ATTEMPTED
+Chef has ingredient PATTY_RAW
+POPPED PATTY_RAW FROM CHEF STACK
+INTERACTION ENDED
+true
+true
+
+==============================
+INTERACTION ATTEMPTED
+Chef has ingredient NULL_INGREDIENT
+INTERACTION ENDED
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

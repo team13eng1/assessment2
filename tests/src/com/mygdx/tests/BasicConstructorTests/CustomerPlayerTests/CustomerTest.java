@@ -25,7 +25,7 @@ public class CustomerTest {
 
         CustomerCounter counter = new CustomerCounter(50, 50);
         IngredientName requiredIngredient = IngredientName.TOMATO_CUT;
-        Customer customer = new Customer(counter, requiredIngredient);
+        Customer customer = new Customer(counter, requiredIngredient, 0, 20);
         Assert.assertEquals(-150f, customer.posX, 0);
         Assert.assertEquals(50f, customer.posY, 0);
         Assert.assertEquals(IngredientName.TOMATO_CUT, customer.requiredIngredient);
