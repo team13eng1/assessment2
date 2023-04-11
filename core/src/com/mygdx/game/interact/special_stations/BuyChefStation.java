@@ -24,7 +24,7 @@ public class BuyChefStation extends InteractableBase {
     public BuyChefStation(float xPos, float yPos) {
         super(xPos, yPos, "counter.png");
         chefLockedTexture = new Texture("locked_chef.png");
-        chefCost = 10;
+        chefCost = 20;
     }
 
 
@@ -36,7 +36,7 @@ public class BuyChefStation extends InteractableBase {
     public void handleInteraction() {
         if (PlayerEngine.getCoins() >= chefCost) {
             PlayerEngine.loseCoins(chefCost);
-            InteractEngine.ReplaceWithCounter(this);
+            InteractEngine.replaceWithCounter(this);
             PlayerEngine.addNewChef();
         }
     }

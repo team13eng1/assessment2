@@ -10,8 +10,8 @@ import com.mygdx.game.player.PlayerEngine;
 import java.util.ArrayList;
 
 public class SpeedIncrease extends PowerUpBase {
-    private float baseSpeed = 150f;
-    private float newSpeed = 250f;
+    private float baseSpeed = PlayerEngine.getActiveChef().getSpeed();
+    private float newSpeed = PlayerEngine.getActiveChef().getSpeed() + 60f;
 
     public SpeedIncrease(float xPos, float yPos) {
         super(xPos, yPos, "powerup_speed.png", 10f, PlayerEngine.getMasterTime());

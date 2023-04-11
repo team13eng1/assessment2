@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.interact.cooking_stations.CookingStation;
 import com.mygdx.game.interact.cooking_stations.CuttingStation;
 import com.mygdx.game.interact.ingredient_stations.*;
@@ -54,11 +55,10 @@ public final class InteractEngine {
 	//                      INITIALISER                         \\
 	//==========================================================\\
 
-	public static void initialise(SpriteBatch gameBatch)
-	{
+	public static void initialise(SpriteBatch gameBatch) {
 		batch = gameBatch;
 
-		interactables = new InteractableBase[] {
+		interactables = new InteractableBase[]{
 
 				new CustomerCounter(70, 140),
 				new CustomerCounter(70, 210),
@@ -103,21 +103,19 @@ public final class InteractEngine {
 		stationLock = new Texture("lock.png");
 
 		Rectangle[] collisionRects = new Rectangle[interactables.length];
-		for(int i=0; i<interactables.length; i++)
-		{
+		for (int i = 0; i < interactables.length; i++) {
 			collisionRects[i] = interactables[i].getCollisionRect();
 		}
 		PlayerEngine.setColliders(collisionRects);
 	}
-	
-	
+
+
 	//==========================================================\\
 	//                         UPDATE                           \\
 	//==========================================================\\
 
-	public static void update()
-	{
-		for(InteractableBase interactable : interactables) {
+	public static void update() {
+		for (InteractableBase interactable : interactables) {
 			// Render the interactable and the ingredient on it
 			interactable.getSprite().draw(batch);
 
@@ -151,9 +149,8 @@ public final class InteractEngine {
 				interactable.incrementTime(Gdx.graphics.getDeltaTime());
 
 				// Render a progress slider above the element if it is currently preparing
-				if(interactable.isPreparing())
-				{
-					int progressWidth = (int)(interactable.getCurrentTime() / interactable.getPreparationTime() * 65);
+				if (interactable.isPreparing()) {
+					int progressWidth = (int) (interactable.getCurrentTime() / interactable.getPreparationTime() * 65);
 					batch.draw(sliderBackground, interactable.getXPos(), interactable.getYPos() + 70, 70, 20);
 					batch.draw(sliderFill, interactable.getXPos(), interactable.getYPos() + 72.5f, progressWidth, 15);
 				}
@@ -176,39 +173,34 @@ public final class InteractEngine {
 		is pressed.
 		See PlayerEngine > update() for more.
 	 */
-	public static void interact()
-	{
+	public static void interact() {
 		Player activeChef = PlayerEngine.getActiveChef();
 		float xPos = activeChef.getXPos();
 		float yPos = activeChef.getYPos();
 
 
-		System.out.println("\n==============================\nINTERACTION ATTEMPTED");
 
 		float minDistance = Float.MAX_VALUE;
-		closestInteractable = null;
+		InteractableBase closestInteractable = null;
 		for(InteractableBase interactable : interactables)
 		{
+
 			boolean valid = interactable.tryInteraction(xPos, yPos, interactRange);
 
-			if(valid)
-			{
+			if (valid) {
 				float xDist = interactable.getXPos() - PlayerEngine.getActiveChef().getXPos();
 				float yDist = interactable.getYPos() - PlayerEngine.getActiveChef().getYPos();
-				float distance = (float)Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
-				if(distance < minDistance)
-				{
+				float distance = (float) Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+				if (distance < minDistance) {
 					minDistance = distance;
 					closestInteractable = interactable;
 				}
 			}
 		}
-		if(closestInteractable != null)
-		{
+		if (closestInteractable != null) {
 			closestInteractable.handleInteraction();
 		}
 
-		System.out.println("INTERACTION ENDED");
 	}
 
 	public static InteractableBase[] getInteractables(){
@@ -221,7 +213,7 @@ public final class InteractEngine {
 		return interactables;
 	}
 
-	public static void ReplaceWithCounter(InteractableBase station) {
+	public static void replaceWithCounter(InteractableBase station) {
 		int index = -1;
 		for (int i = 0; i < interactables.length; i++) {
 			if (interactables[i].equals(station)) {
@@ -235,4 +227,139 @@ public final class InteractEngine {
 		}
 	}
 
+	public static void replaceChefCounterWithCounter() {
+		BuyChefStation station = null;
+		int index = -1;
+		for (int i = 0; i < interactables.length; i++) {
+			if (interactables[i] instanceof BuyChefStation) {
+				station = (BuyChefStation) interactables[i];
+				index = i;
+				break;
+			}
+		}
+		if (station != null) {
+			Counter newCounter = new Counter(station.getXPos(), station.getYPos());
+			interactables[index] = newCounter;
+		}
+	}
+
+	public static void unlockCookingStation() {
+		for (int i = 0; i < interactables.length; i++) {
+			if (interactables[i].getXPos() == 280 && interactables[i].getYPos() == 0) {
+				CookingStation station = (CookingStation) interactables[i];
+				station.isLocked = false;
+			}
+		}
+
+	}
+
+	public static void unlockCuttingStation() {
+		for (int i = 0; i < interactables.length; i++) {
+			if (interactables[i].getXPos() == 280 && interactables[i].getYPos() == 420) {
+				CuttingStation station = (CuttingStation) interactables[i];
+				station.isLocked = false;
+			}
+		}
+	}
+
+
+	public static boolean getChefStationUnlocked() {
+		for (int i = 0; i < interactables.length; i++) {
+			if (interactables[i] instanceof BuyChefStation) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean getCookingStationUnlocked() {
+		for (int i = 0; i < interactables.length; i++) {
+			if (interactables[i] instanceof CookingStation) {
+				if (interactables[i].isLocked) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public static boolean getCuttingStationUnlocked() {
+		for (int i = 0; i < interactables.length; i++) {
+			if (interactables[i] instanceof CuttingStation) {
+				if (interactables[i].isLocked) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public static CustomerCounter getRequiredStation(float counterNeededYValue) {
+		for (int i = 0; i < interactables.length; i++) {
+			if (interactables[i] instanceof CustomerCounter) {
+				if (interactables[i].getYPos() == counterNeededYValue) {
+					return (CustomerCounter) interactables[i];
+				}
+			}
+		}
+		return null;
+	}
+
+	public static int getJacketCurrentIndex() {
+		for (int i = 0; i < interactables.length; i++) {
+			if (interactables[i] instanceof JacketPotatoStation) {
+				return ((JacketPotatoStation) interactables[i]).assemblyIndex;
+			}
+		}
+		return 0;
+	}
+
+	public static int getPizzaCurrentIndex() {
+		for (int i = 0; i < interactables.length; i++) {
+			if (interactables[i] instanceof PizzaRawStation) {
+				return ((PizzaRawStation) interactables[i]).assemblyIndex;
+			}
+		}
+		return 0;
+	}
+
+	public static int getBurgerCurrentIndex() {
+		for (int i = 0; i < interactables.length; i++) {
+			if (interactables[i] instanceof BurgerStation) {
+				return ((BurgerStation) interactables[i]).assemblyIndex;
+			}
+		}
+		return 0;
+	}
+
+	public static int getSaladCurrentIndex() {
+		for (int i = 0; i < interactables.length; i++) {
+			if (interactables[i] instanceof SaladStation) {
+				return ((SaladStation) interactables[i]).assemblyIndex;
+			}
+		}
+		return 0;
+	}
+
+	public static void setStationIndex(String station,int index) {
+		for (int i = 0; i < interactables.length; i++) {
+			if (station.equals("PizzaRawStation")) {
+				if (interactables[i] instanceof PizzaRawStation) {
+					((PizzaRawStation) interactables[i]).assemblyIndex = index;
+				}
+			} else if (station.equals("JacketPotato")) {
+				if (interactables[i] instanceof JacketPotatoStation) {
+					((JacketPotatoStation) interactables[i]).assemblyIndex = index;;
+				}
+			} else if (station.equals("BurgerStation")) {
+				if (interactables[i] instanceof BurgerStation) {
+					((BurgerStation) interactables[i]).assemblyIndex = index;
+				}
+			} else if (station.equals("SaladStation")) {
+				if (interactables[i] instanceof SaladStation) {
+					((SaladStation) interactables[i]).assemblyIndex = index;;
+				}
+			}
+		}
+	}
 }

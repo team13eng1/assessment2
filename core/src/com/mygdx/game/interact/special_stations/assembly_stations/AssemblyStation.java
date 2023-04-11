@@ -14,9 +14,9 @@ import com.mygdx.game.player.PlayerEngine;
  */
 public class AssemblyStation extends InteractableBase {
 
-    protected IngredientName[] recipe;
+    public IngredientName[] recipe;
     protected IngredientName outputIngredient;
-    protected int assemblyIndex;
+    public int assemblyIndex;
     boolean isAssembled;
 
 

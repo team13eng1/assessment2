@@ -101,4 +101,12 @@ public class Customer {
     public CustomerCounter getCounter() {
         return counter;
     }
+
+    public float getTimeRemaining() {
+        return startTime;
+    }
+
+    public float getReputationLimitTime() {
+        return reputationLimitTime;
+    }
 }

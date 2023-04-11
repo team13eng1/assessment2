@@ -8,6 +8,7 @@ import com.mygdx.game.GameScreen;
 import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.interact.special_stations.CustomerCounter;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -42,6 +43,8 @@ public final class CustomerEngine {
 
     static Customer mostRecentCustomer;
 
+    static float repTimeLimit;
+
 
     //==========================================================\\
     //                      INITIALISER                         \\
@@ -67,6 +70,10 @@ public final class CustomerEngine {
         timer = 0f;
         numberOfCustomers = 3;
         numReputationPoints = 3;
+
+        if (startGameMode == null){
+            gameScreen.main.goToMenu();
+        }
 
         if (startGameMode.equals("Scenario")) {
             maxCustomers = 1;
@@ -102,7 +109,7 @@ public final class CustomerEngine {
 
             int random = (int) (Math.random() * recipes.length);
             CustomerCounter freeCounter = getFreeCounter();
-            Customer customer = new Customer(freeCounter, recipes[random], mainGameScreen.masterTimer, 20f);
+            Customer customer = new Customer(freeCounter, recipes[random], mainGameScreen.masterTimer, repTimeLimit);
             customers.add(customer);
             mostRecentCustomer = customer;
             timer = minTimeGap + ((float) Math.random() * (maxTimeGap - minTimeGap));
@@ -131,9 +138,17 @@ public final class CustomerEngine {
 
 
     public static void removeCustomer(Customer customer) {
-        customers.remove(customer);
-        numberOfCustomers--;
+        Iterator<Customer> iter = customers.iterator();
+        while (iter.hasNext()) {
+            Customer c = iter.next();
+            if (c == customer) {
+                iter.remove();
+                numberOfCustomers--;
+                break;
+            }
+        }
     }
+
 
     public static void increasePatience(float patienceBonus) {
         if (customers.size() > 0){
@@ -166,4 +181,21 @@ public final class CustomerEngine {
     public static void gainRepPoint() {
         numReputationPoints ++;
     }
+
+    public static void setDifficultyRepTime(float diffScaling){
+        repTimeLimit = 20f * diffScaling;
+    }
+
+    public static void setRepPoints(int repPoints) {
+        numReputationPoints = repPoints;
+    }
+
+    public static void setCustomersRemaining(int customersRemaining) {
+        numberOfCustomers = customersRemaining;
+    }
+
+    public static LinkedList<Customer> getCustomers() {
+        return customers;
+    }
 }
+
