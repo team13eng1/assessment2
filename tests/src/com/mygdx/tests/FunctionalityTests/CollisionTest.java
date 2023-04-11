@@ -46,11 +46,7 @@ public class CollisionTest {
         InteractEngine.interact(); // should call interactablebase.handleinteraction()
 
 
-        System.out.println(InteractEngine.getClosestInteractable().isPreparing());
-
         InteractEngine.getClosestInteractable().incrementTime(InteractEngine.getClosestInteractable().getPreparationTime()); // simulate waiting 10f
-
-        System.out.println(InteractEngine.getClosestInteractable().isPreparing());
 
         // as we spawned the player by a cooking station, and he has a raw patty,
         // he should be able to cook it

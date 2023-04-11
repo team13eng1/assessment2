@@ -181,7 +181,7 @@ public final class InteractEngine {
 
 
 		float minDistance = Float.MAX_VALUE;
-		InteractableBase closestInteractable = null;
+		closestInteractable = null;
 		for(InteractableBase interactable : interactables)
 		{
 

@@ -1,78 +1,2 @@
-10.0
-35.342346
-POPPED BURGER FROM CHEF STACK
-%POPPED BUNS_TOASTED FROM CHEF STACK
-POPPED CHEESE FROM CHEF STACK
-
-==============================
-INTERACTION ATTEMPTED
-Chef has ingredient PATTY_RAW
-"POPPED PATTY_RAW FROM CHEF STACK
-INTERACTION ENDED
-true
-true
-
-==============================
-INTERACTION ATTEMPTED
-%Chef has ingredient NULL_INGREDIENT
-INTERACTION ENDED
- 
- ==============================
- INTERACTION ATTEMPTED
- Chef has ingredient PATTY_RAW
- "POPPED PATTY_RAW FROM CHEF STACK
- INTERACTION ENDED
- true
- true
- 
- ==============================
- INTERACTION ATTEMPTED
- %Chef has ingredient NULL_INGREDIENT
- INTERACTION ENDED
- 
- ==============================
- INTERACTION ATTEMPTED
- $Chef has ingredient BUNS_UNTOASTED
- INTERACTION ENDED
- Ccom.mygdx.game.interact.ingredient_stations.PattyStation@38d70448
- 
- ==============================
- INTERACTION ATTEMPTED
- Chef has ingredient PATTY_RAW
- INTERACTION ENDED
- %POPPED PATTY_COOKED FROM CHEF STACK
- 0
- 
- ==============================
- INTERACTION ATTEMPTED
- %POPPED BUNS_TOASTED FROM CHEF STACK
- INTERACTION ENDED
- Scom.mygdx.game.interact.special_stations.assembly_stations.BurgerStation@59748341
- 
- ==============================
- INTERACTION ATTEMPTED
- %POPPED PATTY_COOKED FROM CHEF STACK
- INTERACTION ENDED
- 
- ==============================
- INTERACTION ATTEMPTED
- %POPPED BUNS_TOASTED FROM CHEF STACK
- INTERACTION ENDED
- 
- ==============================
- INTERACTION ATTEMPTED
- INTERACTION ENDED
- Scom.mygdx.game.interact.special_stations.assembly_stations.BurgerStation@59748341
-"!
-"!==============================
-"!INTERACTION ATTEMPTED
-"!Chef has ingredient PATTY_RAW
-"!"POPPED PATTY_RAW FROM CHEF STACK
-"!INTERACTION ENDED
-"!true
-"!true
-"!
-"!==============================
-"!INTERACTION ATTEMPTED
-"!%Chef has ingredient NULL_INGREDIENT
-"!INTERACTION ENDED
+175.0
+175.0

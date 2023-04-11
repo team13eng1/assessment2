@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 public class Chef_InteractionTest {
 
     @Test
-    public void testChefInteration() throws InterruptedException {
+    public void testChefInteraction() throws InterruptedException {
         Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
         // player pos = chef[0]
@@ -36,11 +36,7 @@ public class Chef_InteractionTest {
         InteractEngine.interact(); // should call interactablebase.handleinteraction()
 
 
-        System.out.println(InteractEngine.getClosestInteractable().isPreparing());
-
         InteractEngine.getClosestInteractable().incrementTime(InteractEngine.getClosestInteractable().getPreparationTime()); // simulate waiting 10f
-
-        System.out.println(InteractEngine.getClosestInteractable().isPreparing());
 
         // as we spawned the player by a cooking station, and he has a raw patty,
         // he should be able to cook it
