@@ -245,7 +245,7 @@ public final class InteractEngine {
 
 	public static void unlockCookingStation() {
 		for (int i = 0; i < interactables.length; i++) {
-			if (interactables[i].getXPos() == 280 && interactables[i].getYPos() == 0) {
+			if (interactables[i].getXPos() == 280 && interactables[i].getYPos() == 420) {
 				CookingStation station = (CookingStation) interactables[i];
 				station.isLocked = false;
 			}
@@ -255,7 +255,7 @@ public final class InteractEngine {
 
 	public static void unlockCuttingStation() {
 		for (int i = 0; i < interactables.length; i++) {
-			if (interactables[i].getXPos() == 280 && interactables[i].getYPos() == 420) {
+			if (interactables[i].getXPos() == 280 && interactables[i].getYPos() == 0) {
 				CuttingStation station = (CuttingStation) interactables[i];
 				station.isLocked = false;
 			}
