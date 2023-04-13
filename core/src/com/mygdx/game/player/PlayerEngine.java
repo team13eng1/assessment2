@@ -191,6 +191,10 @@ public final class PlayerEngine {
 		chefs.add(new Player(2, 167, 125, "temp_chef_3.png"));
 		chefs.get(2).setSpeed(150f);
 	}
+
+	public static int getNumChefs(){
+		return chefs.size();
+	}
     public static void setCoins(int startCoins) {
 		coins = startCoins;
 

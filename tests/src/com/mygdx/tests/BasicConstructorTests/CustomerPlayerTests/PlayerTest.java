@@ -46,7 +46,7 @@ public class PlayerTest {
         float actual = PlayerEngine.getActiveChef().getXPos();
         System.out.println(PlayerEngine.getActiveChef().getXPos());
 
-        PlayerEngine.getActiveChef().moveX(10);
+        PlayerEngine.getActiveChef().moveX(1);
 
         System.out.println(PlayerEngine.getActiveChef().getXPos());
         Assert.assertNotEquals(actual, PlayerEngine.getActiveChef().getXPos(), 0);
@@ -55,7 +55,7 @@ public class PlayerTest {
 
         actual = PlayerEngine.getActiveChef().getXPos();
 
-        PlayerEngine.getActiveChef().moveX(-10);
+        PlayerEngine.getActiveChef().moveX(-1);
 
         Assert.assertNotEquals(actual, PlayerEngine.getActiveChef().getXPos(), 0);
 
@@ -63,7 +63,7 @@ public class PlayerTest {
 
         actual = PlayerEngine.getActiveChef().getYPos();
 
-        PlayerEngine.getActiveChef().moveY(10);
+        PlayerEngine.getActiveChef().moveY(1);
 
         Assert.assertNotEquals(actual, PlayerEngine.getActiveChef().getYPos(), 0);
 
@@ -71,7 +71,7 @@ public class PlayerTest {
 
         actual = PlayerEngine.getActiveChef().getYPos();
 
-        PlayerEngine.getActiveChef().moveY(-10);
+        PlayerEngine.getActiveChef().moveY(-1);
 
         Assert.assertNotEquals(actual, PlayerEngine.getActiveChef().getYPos(), 0);
 

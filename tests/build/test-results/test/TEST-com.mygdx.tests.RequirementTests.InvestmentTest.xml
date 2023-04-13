@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mygdx.tests.RequirementTests.InvestmentTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-13T11:17:01" hostname="BAILEY-LAPTOP" time="0.072">
+  <properties/>
+  <testcase name="testBuyChef" classname="com.mygdx.tests.RequirementTests.InvestmentTest" time="0.072"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
