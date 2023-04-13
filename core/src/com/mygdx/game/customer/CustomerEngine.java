@@ -183,7 +183,7 @@ public final class CustomerEngine {
     }
 
     public static void setDifficultyRepTime(float diffScaling){
-        repTimeLimit = 20f * diffScaling;
+        repTimeLimit = 40f * diffScaling;
     }
 
     public static void setRepPoints(int repPoints) {
