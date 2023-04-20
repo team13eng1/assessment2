@@ -32,6 +32,7 @@ public class Player {
 	private Sprite sprite;
 	// The LinkedList is used as an implementation of a stack
 	private IngredientStack carryStack;
+
 	// Determines if the player is able to move
 	private boolean movementEnabled;
 

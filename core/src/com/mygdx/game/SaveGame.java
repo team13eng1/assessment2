@@ -52,7 +52,7 @@ public class SaveGame {
             prefs.putFloat(chefKey + "y", chef.getYPos());
 
             // Save ingredients for each chef
-            for (int j = 0; j < chef.getIngredientStack().getSize(); j++) {
+            for (int j = 0; j < MAX_INGREDIENTS_PER_CHEF; j++) {
                 IngredientName ingredient = chef.getIngredientStack().peekAtDepth(j);
                 String ingredientKey = chefKey + "ingredient" + j;
                 prefs.putString(ingredientKey, ingredient.toString());
@@ -123,7 +123,7 @@ public class SaveGame {
         if (prefs.contains("chef2x")){
             PlayerEngine.addNewChef();
         }
-        ;
+
             // Load chef data
         for (int i = 0; i < PlayerEngine.getAllChefs().size(); i++) {
             Player chef = PlayerEngine.getAllChefs().get(i);
@@ -135,8 +135,8 @@ public class SaveGame {
             // Load ingredients for each chef
             for (int j = 0; j < MAX_INGREDIENTS_PER_CHEF; j++) {
                 String ingredientKey = chefKey + "ingredient" + j;
-                String ingredientName = prefs.getString(ingredientKey, null);
-                if (ingredientName != null) {
+                String ingredientName = prefs.getString(ingredientKey);
+                if (prefs.getString(ingredientKey) != "NULL_INGREDIENT") {
                     chef.getIngredientStack().push(IngredientName.valueOf(ingredientName));
                 }
             }

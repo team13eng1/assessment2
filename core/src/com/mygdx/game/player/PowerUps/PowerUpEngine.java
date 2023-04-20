@@ -35,7 +35,6 @@ public class PowerUpEngine {
         coolDown = 3f;
         interactRange = 50f;
 
-        //Todo ADD POWER UPS HERE
         allPowerUps = new String[]{"NoBurning", "IncreasedPatience", "ChefSpeedIncrease", "AutoCompleteDish", "GainRepPoint"};
 
 

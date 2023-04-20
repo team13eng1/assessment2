@@ -50,17 +50,15 @@ public final class PlayerEngine {
 		gameScreen = scrn;
 
 		chefs = new ArrayList<>();
-		chefs.add(new Player(0,  175,  350, "temp_chef_1.png"));
-		chefs.add(new Player(1,  455,  350, "temp_chef_2.png"));
+		chefs.add(new Player(0,  175,  320, "temp_chef_1.png"));
+		chefs.add(new Player(1,  455,  320, "temp_chef_2.png"));
 
 		activeChef = chefs.get(0);
 
 		interactableColliders = new Rectangle[0];
 
-		coins = 100;
+		coins = 0;
 		initialiseCoinLabel();
-
-
 
 	}
 

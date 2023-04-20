@@ -10,8 +10,6 @@ import com.mygdx.game.player.PlayerEngine;
 import java.util.ArrayList;
 
 public class SpeedIncrease extends PowerUpBase {
-    private float baseSpeed = PlayerEngine.getActiveChef().getSpeed();
-    private float newSpeed = PlayerEngine.getActiveChef().getSpeed() + 60f;
 
     public SpeedIncrease(float xPos, float yPos) {
         super(xPos, yPos, "powerup_speed.png", 10f, PlayerEngine.getMasterTime());
@@ -21,7 +19,7 @@ public class SpeedIncrease extends PowerUpBase {
     public void startInteraction() {
         ArrayList<Player> allChefs = PlayerEngine.getAllChefs();
         for (Player chef : allChefs) {
-            chef.setSpeed(newSpeed);
+            chef.setSpeed(chef.getSpeed() + 70f);
         }
     }
 
@@ -29,7 +27,7 @@ public class SpeedIncrease extends PowerUpBase {
     public void endInteraction() {
         ArrayList<Player> allChefs = PlayerEngine.getAllChefs();
         for (Player chef : allChefs) {
-            chef.setSpeed(baseSpeed);
+            chef.setSpeed(chef.getSpeed() - 70f);
         }
     }
 }
