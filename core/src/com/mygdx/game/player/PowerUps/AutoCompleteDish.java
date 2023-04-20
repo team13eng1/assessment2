@@ -15,12 +15,13 @@ public class AutoCompleteDish extends PowerUpBase{
 
     @Override
     public void startInteraction(){
-        if (CustomerEngine.getRecentCustomer() == null){
+        Player activeChef = PlayerEngine.getActiveChef();
+
+        if (!CustomerEngine.getRecentCustomer().atCounter){
             return;
         }
         Customer mostRecentCustomer = CustomerEngine.getRecentCustomer();
         CustomerCounter mostRecentCounter = mostRecentCustomer.getCounter();
-        Player activeChef = PlayerEngine.getActiveChef();
         activeChef.getIngredientStack().push(mostRecentCounter.getRequiredIngredient());
     }
 

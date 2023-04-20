@@ -246,19 +246,19 @@ public class GameScreen extends InputAdapter implements Screen {
 				player.setSpeedDifficulty(1.0f);
 			}
 			CustomerEngine.setDifficultyRepTime(1.0f);
-			PowerUpEngine.setDifficultyCooldown(1.0f);
+			PowerUpEngine.setDifficultyCooldown(0.8f);
 		} else if (difficulty.equals("Medium")) {
 			for (Player player : PlayerEngine.getAllChefs()) {
 				player.setSpeedDifficulty(0.8f);
 			}
 			CustomerEngine.setDifficultyRepTime(0.8f);
-			PowerUpEngine.setDifficultyCooldown(0.8f);
+			PowerUpEngine.setDifficultyCooldown(1.2f);
 		} else {
 			for (Player player : PlayerEngine.getAllChefs()) {
 				player.setSpeedDifficulty(0.5f);
 			}
 			CustomerEngine.setDifficultyRepTime(0.5f);
-			PowerUpEngine.setDifficultyCooldown(0.5f);
+			PowerUpEngine.setDifficultyCooldown(1.8f);
 		}
 	}
 

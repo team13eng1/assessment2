@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 
 public class PiazzaPanic extends Game {
 
@@ -9,10 +10,12 @@ public class PiazzaPanic extends Game {
 	EndScreen endScreen;
 	MenuScreen menuScreen;
 
+	IntroScreen introScreen;
+
 	@Override
 	public void create() {
-		menuScreen = new MenuScreen(this);
-		setScreen(menuScreen);
+		introScreen = new IntroScreen(this);
+		setScreen(introScreen);
 	}
 
 	public void newGame(String gameMode, String difficulty) {
