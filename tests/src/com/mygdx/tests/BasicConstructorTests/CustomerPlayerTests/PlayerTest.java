@@ -45,6 +45,7 @@ public class PlayerTest {
 
         float actual = PlayerEngine.getActiveChef().getXPos();
         System.out.println(PlayerEngine.getActiveChef().getXPos());
+        PlayerEngine.getActiveChef().setSpeed(25f);
 
         PlayerEngine.getActiveChef().moveX(1);
 

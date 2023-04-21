@@ -121,7 +121,7 @@ public class Player {
 
 	public void setXPos(float x) { posX = x;}
 	public void setYPos(float y) { posY = y; }
-	
+
 	public Sprite getSprite() { return sprite; }
 
 	public IngredientStack getIngredientStack() { return carryStack; }

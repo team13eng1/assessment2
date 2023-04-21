@@ -22,7 +22,7 @@ public class Chef_InteractionTest {
 
         Assert.assertEquals(0, PlayerEngine.getActiveChef().getID());
         Assert.assertEquals(175, PlayerEngine.getActiveChef().getXPos(), 0);
-        Assert.assertEquals(350, PlayerEngine.getActiveChef().getYPos(), 0);
+        Assert.assertEquals(320, PlayerEngine.getActiveChef().getYPos(), 0);
 
         PlayerEngine.getActiveChef().getIngredientStack().push(IngredientName.PATTY_RAW);
 
@@ -52,9 +52,12 @@ public class Chef_InteractionTest {
 
         Assert.assertEquals(1, PlayerEngine.getActiveChef().getID());
         Assert.assertEquals(455, PlayerEngine.getActiveChef().getXPos(), 0);
-        Assert.assertEquals(350, PlayerEngine.getActiveChef().getYPos(), 0);
+        Assert.assertEquals(320, PlayerEngine.getActiveChef().getYPos(), 0);
 
         PlayerEngine.getActiveChef().getIngredientStack().push(IngredientName.BUNS_UNTOASTED);
+
+        PlayerEngine.getActiveChef().setXPos(420);
+        PlayerEngine.getActiveChef().setYPos(420);
 
         // simulate player pressing "E"
 

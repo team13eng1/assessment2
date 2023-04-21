@@ -21,7 +21,7 @@ public class Chef_SwapTest {
 
         Assert.assertEquals(0, PlayerEngine.getActiveChef().getID());
         Assert.assertEquals(175, PlayerEngine.getActiveChef().getXPos(), 0);
-        Assert.assertEquals(350, PlayerEngine.getActiveChef().getYPos(), 0);
+        Assert.assertEquals(320, PlayerEngine.getActiveChef().getYPos(), 0);
 
         PlayerEngine.getActiveChef().setXPos(135);
         PlayerEngine.getActiveChef().setYPos(415);

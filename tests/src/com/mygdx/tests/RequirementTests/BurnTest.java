@@ -21,7 +21,7 @@ public class BurnTest {
 
         Assert.assertEquals(0, PlayerEngine.getActiveChef().getID());
         Assert.assertEquals(175, PlayerEngine.getActiveChef().getXPos(), 0);
-        Assert.assertEquals(350, PlayerEngine.getActiveChef().getYPos(), 0);
+        Assert.assertEquals(320, PlayerEngine.getActiveChef().getYPos(), 0);
 
         PlayerEngine.getActiveChef().getIngredientStack().push(IngredientName.PATTY_RAW);
 
@@ -56,7 +56,7 @@ public class BurnTest {
 
         Assert.assertEquals(0, PlayerEngine.getActiveChef().getID());
         Assert.assertEquals(175, PlayerEngine.getActiveChef().getXPos(), 0);
-        Assert.assertEquals(350, PlayerEngine.getActiveChef().getYPos(), 0);
+        Assert.assertEquals(320, PlayerEngine.getActiveChef().getYPos(), 0);
 
         PlayerEngine.getActiveChef().getIngredientStack().push(IngredientName.BUNS_UNTOASTED);
 
