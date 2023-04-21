@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mygdx.tests.RequirementTests.RecipeTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-21T10:27:29" hostname="BAILEY-LAPTOP" time="0.02">
+  <properties/>
+  <testcase name="testBurgerRecipe" classname="com.mygdx.tests.RequirementTests.RecipeTest" time="0.02"/>
+  <system-out><![CDATA[com.mygdx.game.interact.ingredient_stations.PattyStation@6d20d45b
+PATTY_RAW
+POPPED PATTY_RAW FROM CHEF STACK
+POPPED PATTY_COOKED FROM CHEF STACK
+POPPED BUNS_UNTOASTED FROM CHEF STACK
+POPPED BUNS_TOASTED FROM CHEF STACK
+POPPED BUNS_UNTOASTED FROM CHEF STACK
+POPPED BUNS_TOASTED FROM CHEF STACK
+POPPED PATTY_COOKED FROM CHEF STACK
+POPPED BUNS_TOASTED FROM CHEF STACK
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

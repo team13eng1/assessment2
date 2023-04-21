@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mygdx.tests.RequirementTests.Chef_InteractionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-21T10:27:29" hostname="BAILEY-LAPTOP" time="0.019">
+  <properties/>
+  <testcase name="testChefInteraction" classname="com.mygdx.tests.RequirementTests.Chef_InteractionTest" time="0.019"/>
+  <system-out><![CDATA[POPPED PATTY_RAW FROM CHEF STACK
+com.mygdx.game.interact.ingredient_stations.PattyStation@7ddc52b6
+POPPED PATTY_COOKED FROM CHEF STACK
+0
+POPPED BUNS_TOASTED FROM CHEF STACK
+com.mygdx.game.interact.special_stations.assembly_stations.BurgerStation@452952cd
+POPPED PATTY_COOKED FROM CHEF STACK
+POPPED BUNS_TOASTED FROM CHEF STACK
+com.mygdx.game.interact.special_stations.assembly_stations.BurgerStation@452952cd
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

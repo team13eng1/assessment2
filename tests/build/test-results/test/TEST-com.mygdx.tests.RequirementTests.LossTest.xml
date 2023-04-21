@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mygdx.tests.RequirementTests.LossTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-21T10:27:29" hostname="BAILEY-LAPTOP" time="0.026">
+  <properties/>
+  <testcase name="testLoseGame" classname="com.mygdx.tests.RequirementTests.LossTest" time="0.026"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
