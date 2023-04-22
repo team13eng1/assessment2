@@ -23,6 +23,8 @@ public class PowerUpEngine {
 
     private static float coolDown;
 
+    private static float baseCoolDown;
+
     public static void initialise(SpriteBatch gameBatch) {
         batch = gameBatch;
 
@@ -32,7 +34,7 @@ public class PowerUpEngine {
         spawnLocationsX = new float[][]{{120, 460}, {120, 460}, {395, 430}, {120, 230}};
         spawnLocationsY = new float[][]{{100, 140}, {300, 390}, {100, 390}, {100, 390}};
 
-        coolDown = 3f;
+
         interactRange = 50f;
 
         allPowerUps = new String[]{"NoBurning", "IncreasedPatience", "ChefSpeedIncrease", "AutoCompleteDish", "GainRepPoint"};
@@ -65,7 +67,7 @@ public class PowerUpEngine {
             } else if (selectedPowerUp.equals("GainRepPoint")) {
                 interactables.add(new GainReputationPoint(randomSpawnX, randomSpawnY));
             }
-            coolDown = 10f;
+            coolDown = baseCoolDown;
         }
 
         coolDown -= Gdx.graphics.getDeltaTime();
@@ -99,7 +101,8 @@ public class PowerUpEngine {
     }
 
     public static void setDifficultyCooldown(float diffScaling) {
-        coolDown = 10f * diffScaling;
+        baseCoolDown = 10f * diffScaling;
+        coolDown = baseCoolDown;
     }
 
     public static ArrayList<PowerUpBase> getPowerups() {
@@ -107,7 +110,7 @@ public class PowerUpEngine {
     }
 
     public static void createSavedPowerUp(String powerUpType, float x, float y) {
-        System.out.print(powerUpType);
+
         PowerUpBase powerUp;
         if (powerUpType.equals("NoBurning")) {
             powerUp = new NoBurning(x, y);
@@ -120,7 +123,7 @@ public class PowerUpEngine {
         } else if (powerUpType.equals("SpeedIncrease")) {
             powerUp = new SpeedIncrease(x, y);
         } else {
-            // Handle invalid powerUpType here, such as throwing an exception or logging an error message
+            // Handle invalid powerUpType
             return;
         }
         interactables.add(powerUp);

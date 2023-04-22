@@ -9,11 +9,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -206,7 +204,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
 		// Check for game over state
 		if (CustomerEngine.getCustomersRemaining() == 0 && main != null) {
-			main.endGame("SCENARIO COMPLETED IN\n" + (int) masterTimer + " seconds");
+			main.winGame();
 		}
 	}
 
@@ -279,7 +277,7 @@ public class GameScreen extends InputAdapter implements Screen {
 	}
 
 	public void loseGame() {
-		main.loseGame("You have Lost!");
+		main.loseGame();
 	}
 
 	public void setGameMode(String startGameMode) {

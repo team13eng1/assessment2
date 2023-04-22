@@ -39,6 +39,7 @@ public class SaveGame {
         prefs.putString("difficulty", gameScreen.difficulty);
         prefs.putString("gameMode", gameScreen.gameMode);
         prefs.putInteger("customersRemaining", CustomerEngine.getCustomersRemaining());
+        prefs.putInteger("customersServed", CustomerEngine.customersServed);
         prefs.putInteger("jacketPotatoStationCurrentIngredient", InteractEngine.getJacketCurrentIndex());
         prefs.putInteger("pizzaStationCurrentIngredient", InteractEngine.getPizzaCurrentIndex());
         prefs.putInteger("burgerStationCurrentIngredient", InteractEngine.getBurgerCurrentIndex());
@@ -116,6 +117,9 @@ public class SaveGame {
 
         String difficulty = prefs.getString("difficulty");
         gameScreen.difficulty = difficulty;
+
+        int customersServed = prefs.getInteger("customersServed");
+        CustomerEngine.customersServed = customersServed;
 
         int customersRemaining = prefs.getInteger("customersRemaining");
         CustomerEngine.setCustomersRemaining(customersRemaining);

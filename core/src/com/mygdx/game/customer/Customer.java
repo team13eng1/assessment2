@@ -61,7 +61,10 @@ public class Customer {
         else if(orderComplete)
         {
             CustomerEngine.removeCustomer(this);
-            PlayerEngine.gainCoins(10);
+            if (!isWaitTooLong(PlayerEngine.getMasterTime())){
+                PlayerEngine.gainCoins(10);
+                CustomerEngine.customersServed ++;
+            }
         }
         else if(!atCounter)
         {
