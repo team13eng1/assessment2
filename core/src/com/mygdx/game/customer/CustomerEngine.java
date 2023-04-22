@@ -22,6 +22,7 @@ import java.util.LinkedList;
  */
 public final class CustomerEngine {
 
+    public static int customersServed;
     static SpriteBatch batch;
 
     static IngredientName[] recipes;

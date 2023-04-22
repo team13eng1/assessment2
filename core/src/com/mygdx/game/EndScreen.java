@@ -12,15 +12,14 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.customer.CustomerEngine;
+import com.mygdx.game.player.PlayerEngine;
 
 public class EndScreen extends InputAdapter implements Screen {
 
     Stage stage;
-    String displayDetails;
+    boolean didUserWin;
     PiazzaPanic main;
-    Label gameOverLabel;
-    float endScreenTimer;
-
     OrthographicCamera camera;
     Viewport viewport;
 
@@ -28,11 +27,11 @@ public class EndScreen extends InputAdapter implements Screen {
     final static float WORLD_HEIGHT = 1200;
 
 
-    public EndScreen(PiazzaPanic main, String displayDetails)
+    public EndScreen(PiazzaPanic main, boolean didUserWin)
     {
         super();
         this.main = main;
-        this.displayDetails = displayDetails;
+        this.didUserWin = didUserWin;
     }
 
 
@@ -43,6 +42,7 @@ public class EndScreen extends InputAdapter implements Screen {
 
     @Override
     public void show() {
+
         stage = new Stage();
 
         // Set up camera
@@ -59,13 +59,25 @@ public class EndScreen extends InputAdapter implements Screen {
         labelStyle.font = font;
         labelStyle.fontColor = Color.WHITE;
 
-        gameOverLabel = new Label(displayDetails, labelStyle);
-        gameOverLabel.setPosition((Gdx.graphics.getWidth() - gameOverLabel.getWidth()) / 2, Gdx.graphics.getHeight() / 2);
+        int customersServed = CustomerEngine.customersServed;
+        float totalGameTime = PlayerEngine.getMasterTime();
+        int roundedTime = Math.round(totalGameTime);
+
+        String labelText;
+        if (didUserWin) {
+            labelText = "ALL CUSTOMERS SERVED SUCCESSFULLY!\nIT TOOK YOU " + roundedTime + " SECONDS TO SERVE " + customersServed + " CUSTOMERS";
+        } else {
+            labelText = "ALL CUSTOMERS STORMED OUT OF THE RESTAURANT!\nIT TOOK YOU " + roundedTime + " SECONDS TO SERVE " + customersServed + " CUSTOMERS!";
+        }
+
+        Label gameOverLabel = new Label(labelText, labelStyle);
+        gameOverLabel.setFontScale(4f);
         gameOverLabel.setAlignment(Align.center);
+        gameOverLabel.setPosition(670, 500);
         stage.addActor(gameOverLabel);
 
-        endScreenTimer = 0f;
     }
+
 
     @Override
     public void render(float delta) {
@@ -74,13 +86,6 @@ public class EndScreen extends InputAdapter implements Screen {
         ScreenUtils.clear(0, 0, 0, 0);
         camera.update();
         stage.draw();
-
-        endScreenTimer += Gdx.graphics.getDeltaTime();
-
-        if(endScreenTimer >= 20f)
-        {
-            main.goToMenu();
-        }
     }
 
     @Override

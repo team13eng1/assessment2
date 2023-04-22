@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 
 public class PiazzaPanic extends Game {
 
@@ -19,7 +18,6 @@ public class PiazzaPanic extends Game {
 	}
 
 	public void newGame(String gameMode, String difficulty) {
-		System.out.println("GAME STARTED");
 		gameScreen = new GameScreen(this, gameMode, difficulty);
 		gameScreen.scenarioNumCust = menuScreen.customerNumber;
 		setScreen(gameScreen);
@@ -30,21 +28,23 @@ public class PiazzaPanic extends Game {
 		setScreen(gameScreen);
 	}
 
-	public void endGame(String displayDetails) {
-		System.out.println("GAME ENDED");
-		endScreen = new EndScreen(this, displayDetails);
+	public void winGame() {
+		endScreen = new EndScreen(this, true);
 		setScreen(endScreen);
 	}
 
 	public void goToMenu() {
-		System.out.println("RETURNED TO MAIN MENU");
 		menuScreen = new MenuScreen(this);
 		setScreen(menuScreen);
 	}
 
-	public void loseGame(String displayDetails) {
-		System.out.println("GAME ENDED");
-		endScreen = new EndScreen(this, displayDetails);
+	public void loseGame() {
+		endScreen = new EndScreen(this, false);
 		setScreen(endScreen);
 	}
+
+    public void goToIntro() {
+		introScreen = new IntroScreen(this);
+		setScreen(introScreen);
+    }
 }
