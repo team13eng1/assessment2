@@ -6,8 +6,6 @@ import com.mygdx.game.interact.special_stations.CustomerCounter;
 import com.mygdx.game.player.PlayerEngine;
 
 /**
- * @author Thomas McCarthy
- *
  * A customer is given an order, and brings it to the designated counter.
  */
 public class Customer {
@@ -52,6 +50,13 @@ public class Customer {
     //                       ANIMATION                          \\
     //==========================================================\\
 
+    /**
+     Updates the customer's position and behavior.
+     If the customer has received their order, they move towards the left side of the screen
+     and are eventually removed. If the customer is not at the counter, they move towards the counter
+     and place their order. If they are at the counter, they wait for their order to be completed.
+     @version 1.2
+     */
     public void update()
     {
         if(orderComplete && getDistanceFromCounter() < 200f)

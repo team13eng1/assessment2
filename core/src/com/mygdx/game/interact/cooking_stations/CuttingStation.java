@@ -5,8 +5,6 @@ import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.interact.InteractableBase;
 
 /**
- * @author Thomas McCarthy
- *
  * Station for cutting, inherits properties from the InteractableBase class
  */
 public class CuttingStation extends InteractableBase {

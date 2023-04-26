@@ -12,7 +12,8 @@ import com.mygdx.game.player.PlayerEngine;
  *
  * A type of special station used for assembling the completed foods.
  */
-public class AssemblyStation extends InteractableBase {
+public class
+AssemblyStation extends InteractableBase {
 
     public IngredientName[] recipe;
     protected IngredientName outputIngredient;

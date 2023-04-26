@@ -3,6 +3,11 @@ package com.mygdx.game.player.PowerUps;
 import com.mygdx.game.customer.CustomerEngine;
 import com.mygdx.game.player.PlayerEngine;
 
+/**
+ A class representing a power-up that gives the user a reputation point
+ Inherits from the PowerUpBase class.
+ */
+
 public class GainReputationPoint extends PowerUpBase{
 
     public GainReputationPoint(float xPos, float yPos) {

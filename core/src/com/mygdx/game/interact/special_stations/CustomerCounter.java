@@ -8,8 +8,6 @@ import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.ingredient.IngredientTextures;
 
 /**
- * @author Thomas McCarthy
- *
  * An extension of the Counter class. This one can be assigned a customer.
  * This class is accessed by both Interact and Customer engines.
  */

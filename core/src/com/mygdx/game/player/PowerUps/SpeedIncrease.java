@@ -9,6 +9,11 @@ import com.mygdx.game.player.PlayerEngine;
 
 import java.util.ArrayList;
 
+/**
+ A class representing a power-up that increases the speed of the chefs
+ Inherits from the PowerUpBase class.
+ */
+
 public class SpeedIncrease extends PowerUpBase {
 
     public SpeedIncrease(float xPos, float yPos) {

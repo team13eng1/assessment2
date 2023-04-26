@@ -14,8 +14,6 @@ import com.mygdx.game.player.PlayerEngine;
 
 /**
  * 
- * @author Thomas McCarthy
- * 
  * The base script for interactable objects
  *
  */
@@ -136,7 +134,11 @@ public class InteractableBase {
 		return false;
 	}
 
-	// We need to determine what action to take based on the interactable's variables
+	/**
+	 Handles interactions between the player and the cooking/ingredient station.
+	 @version 1.5
+	 */
+
 	public void handleInteraction()
 	{
 		Player activeChef = PlayerEngine.getActiveChef();
@@ -218,6 +220,17 @@ public class InteractableBase {
 	public float getYPos() { return yPos; }
 
 	public Sprite getSprite() { return sprite; }
+
+
+	/**
+	 Returns the sprite that represents the current state of the ingredient for this station.
+	 If the station does not have the ingredient yet, it returns an arrow indicating the input direction.
+	 If the ingredient is being prepared, it returns the sprite of the input ingredient.
+	 If the ingredient is ready, it returns the sprite of the output ingredient.
+	 If the station is a cooking station and the ingredient is burnt, it returns the sprite of the burnt output ingredient.
+	 @return The sprite representing the current state of the ingredient for this station.
+	 @version 1.5
+	 */
 
 	public Sprite getIngredientSprite() {
 		if(!hasIngredient) 						{ return new Sprite(indicatorArrow); }

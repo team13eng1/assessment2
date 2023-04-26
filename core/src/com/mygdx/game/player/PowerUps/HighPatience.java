@@ -7,6 +7,10 @@ import com.mygdx.game.interact.InteractableBase;
 import com.mygdx.game.interact.cooking_stations.CookingStation;
 import com.mygdx.game.player.PlayerEngine;
 
+/**
+ A class representing a power-up that makes the customers wait at the counter longer
+ Inherits from the PowerUpBase class.
+ */
 public class HighPatience extends PowerUpBase{
     private float patienceBonus = 10f;
 

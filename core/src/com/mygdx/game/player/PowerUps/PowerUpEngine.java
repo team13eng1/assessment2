@@ -8,6 +8,14 @@ import com.mygdx.game.player.PlayerEngine;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ *
+ * The PowerUpEngine class creates and renders the games' power ups. It also handles
+ * some of the power up interaction with the chefs.
+ *
+ */
+
+
 public class PowerUpEngine {
 
     static SpriteBatch batch;
@@ -73,6 +81,14 @@ public class PowerUpEngine {
         coolDown -= Gdx.graphics.getDeltaTime();
     }
 
+    /**
+
+     Interacts with the closest interactable object within a certain range of the active chef's position.
+     Determines the closest interactable object by calculating the distance between each object and the active chef.
+     Removes the interactable object from the list of interactables once it has been interacted with.
+     @version 1.3
+     */
+
     public static void interact() {
         Player activeChef = PlayerEngine.getActiveChef();
         float xPos = activeChef.getXPos();
@@ -100,6 +116,14 @@ public class PowerUpEngine {
 
     }
 
+    /**
+     *
+     * Sets the cooldown of the power ups depending on the games difficulty
+     *
+     * @param diffScaling A number >= 1 that scales the cooldown on the power ups spawning
+     * @version 1.4
+     */
+
     public static void setDifficultyCooldown(float diffScaling) {
         baseCoolDown = 10f * diffScaling;
         coolDown = baseCoolDown;
@@ -108,6 +132,16 @@ public class PowerUpEngine {
     public static ArrayList<PowerUpBase> getPowerups() {
         return interactables;
     }
+
+    /**
+     *
+     * Creates a new power-up object and adds it to the list of interactables
+     *
+     * @param powerUpType The type of the powerup
+     * @param x The x-coordinate of the powerup
+     * @param y The y-coordinate of the powerup
+     * @version 1.4
+     */
 
     public static void createSavedPowerUp(String powerUpType, float x, float y) {
 

@@ -3,8 +3,6 @@ package com.mygdx.game.ingredient;
 import java.util.HashMap;
 
 /**
- * @author Thomas McCarthy
- *
  * The IngredientMap is an extension to the HashMap class, mapping input ingredients to output
  * ingredients. It exists mostly for readability, and is used primarily by Cooking Stations.
  *

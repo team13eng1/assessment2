@@ -20,6 +20,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+/**
+ * Represents the Intro Screen for the game which gives the User information about the game
+ * Has all the standard properties of the other Screens
+ */
+
 public class IntroScreen extends InputAdapter implements Screen {
 
     Stage stage;
@@ -60,8 +65,7 @@ public class IntroScreen extends InputAdapter implements Screen {
             introScreenImage.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
             stage.addActor(introScreenImage);
 
-            // TODO: 20/04/2023  change to correct nextImage
-            Texture nextButton = new Texture("lock.png");
+            Texture nextButton = new Texture("nextButton.png");
             Image nextButtonImage = new Image(nextButton);
             nextButtonImage.setPosition(500,70);
 

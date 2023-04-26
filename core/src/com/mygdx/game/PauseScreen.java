@@ -23,6 +23,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+/**
+ *
+ * Represents the PauseScreen in the game. It provides the user with option to quit the game and also save it.
+ *
+ */
 public class PauseScreen extends InputAdapter implements Screen {
 
     Stage stage;
@@ -139,6 +144,11 @@ public class PauseScreen extends InputAdapter implements Screen {
         camera.position.set(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, 0);
         stage.getViewport().update(width, height, true);
     }
+
+    /**
+     * resumeGame is called from the user clicking the resume button
+     * @version 1.3
+     */
 
     public void resumeGame(){
         gameScreen.hidePauseScreen();

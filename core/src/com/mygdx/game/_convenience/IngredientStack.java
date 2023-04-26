@@ -6,8 +6,6 @@ import java.util.EmptyStackException;
 import java.util.LinkedList;
 
 /**
- * @author Thomas McCarthy
- *
  * An implementation of an IngredientName stack.
  */
 public class IngredientStack {

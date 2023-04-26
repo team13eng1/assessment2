@@ -4,8 +4,6 @@ import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.interact.InteractableBase;
 
 /**
- * @author Thomas McCarthy
- *
  * An ingredient station that gives a bun to the player.
  */
 public class BunStation extends InteractableBase {

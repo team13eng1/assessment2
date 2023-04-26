@@ -17,9 +17,7 @@ import com.mygdx.game.player.PowerUps.PowerUpEngine;
 import java.util.ArrayList;
 
 /**
- * 
- * @author Thomas McCarthy
- * 
+ *
  * The PlayerEngine class creates and renders the games' three chefs. It also handles
  * chef switching and detects interaction input (although the handling of interactions
  * is then done by the InteractEngine)

@@ -4,8 +4,6 @@ import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.interact.InteractableBase;
 
 /**
- * @author Thomas McCarthy
- *
  * An ingredient station that gives a pizza base to the player
  */
 public class PizzaBaseStation extends InteractableBase {

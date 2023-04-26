@@ -9,8 +9,6 @@ import com.mygdx.game.player.PlayerEngine;
 
 
 /**
- * @author Thomas McCarthy
- *
  * A counter is used for placing ingredients. It has no processes.
  */
 public class Counter extends InteractableBase {

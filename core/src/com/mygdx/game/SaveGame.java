@@ -15,6 +15,11 @@ import com.mygdx.game.player.PowerUps.PowerUpEngine;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ *
+ * Is called upon when the game is both needed to be saved and loaded
+ *
+ */
 public class SaveGame {
     private static final int MAX_INGREDIENTS_PER_CHEF = 4;
     private static final int MAX_CUSTOMERS_AT_ALL_COUNTERS = 4;
@@ -27,6 +32,10 @@ public class SaveGame {
         prefs = Gdx.app.getPreferences("previousSave"); // use a unique name for preferences
     }
 
+/**
+ Saves the current state of the game to the user's preferences
+ @version 1.3
+ */
     public static void saveGame() {
         prefs.clear();
 
@@ -89,6 +98,10 @@ public class SaveGame {
         prefs.flush(); // save changes to preferences immediately
     }
 
+    /**
+     Loads the previous save, modifying variables to match it exactly
+     @version 1.3
+     */
     public static void loadEverythingNew() {
 
         boolean chefStationUnlocked = prefs.getBoolean("chefStationUnlocked");
@@ -183,10 +196,14 @@ public class SaveGame {
         InteractEngine.setStationIndex("JacketPotatoStation",jacketCurrentIndex);
         InteractEngine.setStationIndex("BurgerStation",burgerCurrentIndex);
         InteractEngine.setStationIndex("SaladStation",saladCurrentIndex);
-
-
-
     }
+
+    /**
+     Checks if a saved game is loadable by verifying the presence of key preference values.
+     If the necessary values are missing, it will navigate to the main menu.
+     @version 1.4
+     */
+
     static void checkLoadable() {
         if (!prefs.contains("difficulty") || !prefs.contains("startTime") || !prefs.contains("coins") || !prefs.contains("reputationPoints")) {
             gameScreen.main.goToMenu();
@@ -194,6 +211,10 @@ public class SaveGame {
         }
     }
 
+/**
+ Sets the game mode based on the saved preference.
+ @version 1.4
+ */
     public static void setGameMode() {
         String startGameMode = prefs.getString("gameMode");
         gameScreen.setGameMode(startGameMode);

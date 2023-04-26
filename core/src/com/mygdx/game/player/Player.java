@@ -13,9 +13,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * 
- * @author Thomas McCarthy
- * 
+ *
  * The Player class stores all information regarding a chef, and also handles player movement.
  *
  */
@@ -128,7 +126,6 @@ public class Player {
 
 	public void setMovementEnabled(boolean movementEnabled) {
 		this.movementEnabled = movementEnabled;
-		System.out.println("CHEF " + (getID() + 1) + " MOVEMENT SET TO " + movementEnabled);
 	}
 
 	public void setSpeed(float speed){this.speed = speed;}

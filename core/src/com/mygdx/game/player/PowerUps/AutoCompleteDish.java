@@ -7,6 +7,11 @@ import com.mygdx.game.interact.special_stations.CustomerCounter;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
 
+/**
+ A class representing a power-up that gives a chef a completed dish
+ Inherits from the PowerUpBase class.
+ */
+
 public class AutoCompleteDish extends PowerUpBase{
 
     public AutoCompleteDish(float xPos, float yPos) {

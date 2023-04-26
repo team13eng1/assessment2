@@ -24,8 +24,6 @@ import java.util.LinkedList;
 
 /**
  * 
- * @author Thomas McCarthy
- * 
  * The Interact Engine renders the various stations in the kitchen, alongside
  * the interaction UI and the timers
  *
@@ -163,7 +161,7 @@ public final class InteractEngine {
 	//                   INTERACTION CHECK                      \\
 	//==========================================================\\
 
-	/*
+	/**
 		Checks for and initiates an interaction if possible.
 		This script is NOT responsible for checking for user input.
 		User input is handled by the PlayerEngine, which calls this
@@ -172,6 +170,7 @@ public final class InteractEngine {
 		the interaction is registered on the frame that the key
 		is pressed.
 		See PlayerEngine > update() for more.
+	 	@version 1.0
 	 */
 	public static void interact() {
 		Player activeChef = PlayerEngine.getActiveChef();

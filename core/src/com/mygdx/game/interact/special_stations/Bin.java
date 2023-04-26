@@ -4,8 +4,6 @@ import com.mygdx.game.interact.InteractableBase;
 import com.mygdx.game.player.PlayerEngine;
 
 /**
- * @author Thomas McCarthy
- *
  * An interactable class that allows the user to dispose of the active
  * chef's top stack ingredient.
  */

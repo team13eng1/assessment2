@@ -6,6 +6,12 @@ import com.mygdx.game.interact.InteractableBase;
 import com.mygdx.game.interact.cooking_stations.CookingStation;
 import com.mygdx.game.player.PlayerEngine;
 
+/**
+ A class representing a power-up that prevents cooking stations from burning food.
+ Inherits from the PowerUpBase class.
+ */
+
+
 public class NoBurning extends PowerUpBase{
     private float baseBurnTime = 0;
 

@@ -7,9 +7,7 @@ import com.mygdx.game.player.PlayerEngine;
 
 
 /**
- * @author Thomas McCarthy
- *
- * A counter is used for placing ingredients. It has no processes.
+ * A station where the 3rd chef can be bought for coins
  */
 public class BuyChefStation extends InteractableBase {
 

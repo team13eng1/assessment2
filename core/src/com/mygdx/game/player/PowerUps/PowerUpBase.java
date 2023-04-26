@@ -4,12 +4,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
+/**
+ *
+ * The base script for power up objects
+ *
+ */
+
+
 public class PowerUpBase {
     private float xPos;
     private float yPos;
     private Rectangle collisionRect;
-
-    private String texture;
 
     private float powerUpTime;
 
@@ -37,7 +42,16 @@ public class PowerUpBase {
     //                      INTERACTION                         \\
     //==========================================================\\
 
-    // The active chef can only engage with an interactable if they are within the right range
+    /**
+
+     Checks if a player chef is within the interaction range of this power-up and returns whether interaction is valid.
+     @param chefXPos the x-coordinate of the player chef
+     @param chefYPos the y-coordinate of the player chef
+     @param interactRange the interaction range of the power-up
+     @return true if the player chef is within range, false otherwise
+     @version 1.3
+     */
+
     public boolean tryInteraction(float chefXPos, float chefYPos, final float interactRange)
     {
         float xDist = Math.abs(chefXPos - xPos);
