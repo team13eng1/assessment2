@@ -13,8 +13,6 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Thomas McCarthy
- *
  * The PlayerEngine class creates and renders the games' three chefs. It also handles
  * chef switching and detects interaction input (although the handling of interactions
  * is then done by the InteractEngine)
@@ -90,6 +88,14 @@ public final class CustomerEngine {
     //==========================================================\\
     //                         UPDATE                           \\
     //==========================================================\\
+
+
+    /**
+     Updates the state of the customer engine by rendering customers, checking for reputation points
+     and adding new customers based on a timer.
+     If the player's reputation points reach 0, the game is lost.
+     @version 1.4
+     */
 
     public static void update() {
         if (getReputationPointsRemaining() <= 0){

@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.HashMap;
 
 /**
- * @author Thomas McCarthy
- *
  * A class storing a hashmap that maps IngredientNames to their corresponding textures
  */
 public final class IngredientTextures {

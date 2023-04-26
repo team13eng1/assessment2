@@ -6,16 +6,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game._convenience.IngredientStack;
-import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.player.PowerUps.PowerUpBase;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
- * 
- * @author Thomas McCarthy
- * 
+ *
  * The Player class stores all information regarding a chef, and also handles player movement.
  *
  */
@@ -23,20 +19,20 @@ public class Player {
 	
 	// player speed is a hard-coded value, so that it is the same for multiple players
 	private float speed;
-	private int id;
+	private final int id;
 	private float posX;
 	private float posY;
 	private float previousPosX;
 	private float previousPosY;
-	private Rectangle collisionRect;
-	private Sprite sprite;
+	private final Rectangle collisionRect;
+	private final Sprite sprite;
 	// The LinkedList is used as an implementation of a stack
-	private IngredientStack carryStack;
+	private final IngredientStack carryStack;
 
 	// Determines if the player is able to move
 	private boolean movementEnabled;
 
-	private ArrayList<PowerUpBase> powerUps;
+	private final ArrayList<PowerUpBase> powerUps;
 
 
 	//==========================================================\\
@@ -57,7 +53,7 @@ public class Player {
 		previousPosY = startY;
 		collisionRect = new Rectangle(posX, posY, sprite.getTexture().getWidth() * 0.75f, sprite.getTexture().getHeight() * 0.75f);
 
-		powerUps = new ArrayList<PowerUpBase>();
+		powerUps = new ArrayList<>();
 	}
 	
 	
@@ -128,7 +124,6 @@ public class Player {
 
 	public void setMovementEnabled(boolean movementEnabled) {
 		this.movementEnabled = movementEnabled;
-		System.out.println("CHEF " + (getID() + 1) + " MOVEMENT SET TO " + movementEnabled);
 	}
 
 	public void setSpeed(float speed){this.speed = speed;}

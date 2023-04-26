@@ -1,13 +1,14 @@
 package com.mygdx.game.player.PowerUps;
 
-import com.mygdx.game.GameScreen;
-import com.mygdx.game.interact.InteractEngine;
-import com.mygdx.game.interact.InteractableBase;
-import com.mygdx.game.interact.cooking_stations.CookingStation;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
 
 import java.util.ArrayList;
+
+/**
+ A class representing a power-up that increases the speed of the chefs
+ Inherits from the PowerUpBase class.
+ */
 
 public class SpeedIncrease extends PowerUpBase {
 

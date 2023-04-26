@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.interact.cooking_stations.CookingStation;
 import com.mygdx.game.interact.cooking_stations.CuttingStation;
 import com.mygdx.game.interact.ingredient_stations.*;
@@ -23,8 +22,6 @@ import com.mygdx.game.player.PlayerEngine;
 import java.util.LinkedList;
 
 /**
- * 
- * @author Thomas McCarthy
  * 
  * The Interact Engine renders the various stations in the kitchen, alongside
  * the interaction UI and the timers
@@ -163,7 +160,7 @@ public final class InteractEngine {
 	//                   INTERACTION CHECK                      \\
 	//==========================================================\\
 
-	/*
+	/**
 		Checks for and initiates an interaction if possible.
 		This script is NOT responsible for checking for user input.
 		User input is handled by the PlayerEngine, which calls this
@@ -172,6 +169,7 @@ public final class InteractEngine {
 		the interaction is registered on the frame that the key
 		is pressed.
 		See PlayerEngine > update() for more.
+	 	@version 1.0
 	 */
 	public static void interact() {
 		Player activeChef = PlayerEngine.getActiveChef();
@@ -244,9 +242,9 @@ public final class InteractEngine {
 	}
 
 	public static void unlockCookingStation() {
-		for (int i = 0; i < interactables.length; i++) {
-			if (interactables[i].getXPos() == 280 && interactables[i].getYPos() == 420) {
-				CookingStation station = (CookingStation) interactables[i];
+		for (InteractableBase interactable : interactables) {
+			if (interactable.getXPos() == 280 && interactable.getYPos() == 420) {
+				CookingStation station = (CookingStation) interactable;
 				station.isLocked = false;
 			}
 		}
@@ -254,9 +252,9 @@ public final class InteractEngine {
 	}
 
 	public static void unlockCuttingStation() {
-		for (int i = 0; i < interactables.length; i++) {
-			if (interactables[i].getXPos() == 280 && interactables[i].getYPos() == 0) {
-				CuttingStation station = (CuttingStation) interactables[i];
+		for (InteractableBase interactable : interactables) {
+			if (interactable.getXPos() == 280 && interactable.getYPos() == 0) {
+				CuttingStation station = (CuttingStation) interactable;
 				station.isLocked = false;
 			}
 		}
@@ -264,8 +262,8 @@ public final class InteractEngine {
 
 
 	public static boolean getChefStationUnlocked() {
-		for (int i = 0; i < interactables.length; i++) {
-			if (interactables[i] instanceof BuyChefStation) {
+		for (InteractableBase interactable : interactables) {
+			if (interactable instanceof BuyChefStation) {
 				return false;
 			}
 		}
@@ -273,9 +271,9 @@ public final class InteractEngine {
 	}
 
 	public static boolean getCookingStationUnlocked() {
-		for (int i = 0; i < interactables.length; i++) {
-			if (interactables[i] instanceof CookingStation) {
-				if (interactables[i].isLocked) {
+		for (InteractableBase interactable : interactables) {
+			if (interactable instanceof CookingStation) {
+				if (interactable.isLocked) {
 					return false;
 				}
 			}
@@ -284,9 +282,9 @@ public final class InteractEngine {
 	}
 
 	public static boolean getCuttingStationUnlocked() {
-		for (int i = 0; i < interactables.length; i++) {
-			if (interactables[i] instanceof CuttingStation) {
-				if (interactables[i].isLocked) {
+		for (InteractableBase interactable : interactables) {
+			if (interactable instanceof CuttingStation) {
+				if (interactable.isLocked) {
 					return false;
 				}
 			}
@@ -295,10 +293,10 @@ public final class InteractEngine {
 	}
 
 	public static CustomerCounter getRequiredStation(float counterNeededYValue) {
-		for (int i = 0; i < interactables.length; i++) {
-			if (interactables[i] instanceof CustomerCounter) {
-				if (interactables[i].getYPos() == counterNeededYValue) {
-					return (CustomerCounter) interactables[i];
+		for (InteractableBase interactable : interactables) {
+			if (interactable instanceof CustomerCounter) {
+				if (interactable.getYPos() == counterNeededYValue) {
+					return (CustomerCounter) interactable;
 				}
 			}
 		}
@@ -306,59 +304,64 @@ public final class InteractEngine {
 	}
 
 	public static int getJacketCurrentIndex() {
-		for (int i = 0; i < interactables.length; i++) {
-			if (interactables[i] instanceof JacketPotatoStation) {
-				return ((JacketPotatoStation) interactables[i]).assemblyIndex;
+		for (InteractableBase interactable : interactables) {
+			if (interactable instanceof JacketPotatoStation) {
+				return ((JacketPotatoStation) interactable).assemblyIndex;
 			}
 		}
 		return 0;
 	}
 
 	public static int getPizzaCurrentIndex() {
-		for (int i = 0; i < interactables.length; i++) {
-			if (interactables[i] instanceof PizzaRawStation) {
-				return ((PizzaRawStation) interactables[i]).assemblyIndex;
+		for (InteractableBase interactable : interactables) {
+			if (interactable instanceof PizzaRawStation) {
+				return ((PizzaRawStation) interactable).assemblyIndex;
 			}
 		}
 		return 0;
 	}
 
 	public static int getBurgerCurrentIndex() {
-		for (int i = 0; i < interactables.length; i++) {
-			if (interactables[i] instanceof BurgerStation) {
-				return ((BurgerStation) interactables[i]).assemblyIndex;
+		for (InteractableBase interactable : interactables) {
+			if (interactable instanceof BurgerStation) {
+				return ((BurgerStation) interactable).assemblyIndex;
 			}
 		}
 		return 0;
 	}
 
 	public static int getSaladCurrentIndex() {
-		for (int i = 0; i < interactables.length; i++) {
-			if (interactables[i] instanceof SaladStation) {
-				return ((SaladStation) interactables[i]).assemblyIndex;
+		for (InteractableBase interactable : interactables) {
+			if (interactable instanceof SaladStation) {
+				return ((SaladStation) interactable).assemblyIndex;
 			}
 		}
 		return 0;
 	}
 
 	public static void setStationIndex(String station,int index) {
-		for (int i = 0; i < interactables.length; i++) {
-			if (station.equals("PizzaRawStation")) {
-				if (interactables[i] instanceof PizzaRawStation) {
-					((PizzaRawStation) interactables[i]).assemblyIndex = index;
-				}
-			} else if (station.equals("JacketPotato")) {
-				if (interactables[i] instanceof JacketPotatoStation) {
-					((JacketPotatoStation) interactables[i]).assemblyIndex = index;;
-				}
-			} else if (station.equals("BurgerStation")) {
-				if (interactables[i] instanceof BurgerStation) {
-					((BurgerStation) interactables[i]).assemblyIndex = index;
-				}
-			} else if (station.equals("SaladStation")) {
-				if (interactables[i] instanceof SaladStation) {
-					((SaladStation) interactables[i]).assemblyIndex = index;;
-				}
+		for (InteractableBase interactable : interactables) {
+			switch (station) {
+				case "PizzaRawStation":
+					if (interactable instanceof PizzaRawStation) {
+						((PizzaRawStation) interactable).assemblyIndex = index;
+					}
+					break;
+				case "JacketPotato":
+					if (interactable instanceof JacketPotatoStation) {
+						((JacketPotatoStation) interactable).assemblyIndex = index;
+					}
+					break;
+				case "BurgerStation":
+					if (interactable instanceof BurgerStation) {
+						((BurgerStation) interactable).assemblyIndex = index;
+					}
+					break;
+				case "SaladStation":
+					if (interactable instanceof SaladStation) {
+						((SaladStation) interactable).assemblyIndex = index;
+					}
+					break;
 			}
 		}
 	}

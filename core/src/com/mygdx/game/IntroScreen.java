@@ -3,22 +3,21 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+/**
+ * Represents the Intro Screen for the game which gives the User information about the game
+ * Has all the standard properties of the other Screens
+ */
 
 public class IntroScreen extends InputAdapter implements Screen {
 
@@ -60,8 +59,7 @@ public class IntroScreen extends InputAdapter implements Screen {
             introScreenImage.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
             stage.addActor(introScreenImage);
 
-            // TODO: 20/04/2023  change to correct nextImage
-            Texture nextButton = new Texture("lock.png");
+            Texture nextButton = new Texture("nextButton.png");
             Image nextButtonImage = new Image(nextButton);
             nextButtonImage.setPosition(500,70);
 

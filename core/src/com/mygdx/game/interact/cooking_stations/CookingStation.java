@@ -5,8 +5,6 @@ import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.interact.InteractableBase;
 
 /**
- * @author Thomas McCarthy
- *
  * Station for cooking, inherits properties from the InteractableBase class
  */
 public class CookingStation extends InteractableBase {

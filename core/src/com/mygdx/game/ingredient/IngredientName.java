@@ -1,8 +1,6 @@
 package com.mygdx.game.ingredient;
 
 /**
- * @author Thomas McCarthy
- *
  * An enum storing the constant names of all ingredients in the game
  */
 public enum IngredientName {

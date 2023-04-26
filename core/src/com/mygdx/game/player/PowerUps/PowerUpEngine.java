@@ -8,6 +8,14 @@ import com.mygdx.game.player.PlayerEngine;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ *
+ * The PowerUpEngine class creates and renders the games' power ups. It also handles
+ * some of the power up interaction with the chefs.
+ *
+ */
+
+
 public class PowerUpEngine {
 
     static SpriteBatch batch;
@@ -28,7 +36,7 @@ public class PowerUpEngine {
     public static void initialise(SpriteBatch gameBatch) {
         batch = gameBatch;
 
-        interactables = new ArrayList();
+        interactables = new ArrayList<>();
 
 
         spawnLocationsX = new float[][]{{120, 460}, {120, 460}, {395, 430}, {120, 230}};
@@ -56,22 +64,36 @@ public class PowerUpEngine {
             float randomSpawnX = (float) (spawnLocationsX[rowCol][0] + Math.random() * (spawnLocationsX[rowCol][1] - spawnLocationsX[rowCol][0]));
             float randomSpawnY = (float) (spawnLocationsY[rowCol][0] + Math.random() * (spawnLocationsY[rowCol][1] - spawnLocationsY[rowCol][0]));
 
-            if (selectedPowerUp.equals("NoBurning")) {
-                interactables.add(new NoBurning(randomSpawnX, randomSpawnY));
-            } else if (selectedPowerUp.equals("IncreasedPatience")) {
-                interactables.add(new HighPatience(randomSpawnX, randomSpawnY));
-            } else if (selectedPowerUp.equals("ChefSpeedIncrease")) {
-                interactables.add(new SpeedIncrease(randomSpawnX, randomSpawnY));
-            } else if (selectedPowerUp.equals("AutoCompleteDish")) {
-                interactables.add(new AutoCompleteDish(randomSpawnX, randomSpawnY));
-            } else if (selectedPowerUp.equals("GainRepPoint")) {
-                interactables.add(new GainReputationPoint(randomSpawnX, randomSpawnY));
+            switch (selectedPowerUp) {
+                case "NoBurning":
+                    interactables.add(new NoBurning(randomSpawnX, randomSpawnY));
+                    break;
+                case "IncreasedPatience":
+                    interactables.add(new HighPatience(randomSpawnX, randomSpawnY));
+                    break;
+                case "ChefSpeedIncrease":
+                    interactables.add(new SpeedIncrease(randomSpawnX, randomSpawnY));
+                    break;
+                case "AutoCompleteDish":
+                    interactables.add(new AutoCompleteDish(randomSpawnX, randomSpawnY));
+                    break;
+                case "GainRepPoint":
+                    interactables.add(new GainReputationPoint(randomSpawnX, randomSpawnY));
+                    break;
             }
             coolDown = baseCoolDown;
         }
 
         coolDown -= Gdx.graphics.getDeltaTime();
     }
+
+    /**
+
+     Interacts with the closest interactable object within a certain range of the active chef's position.
+     Determines the closest interactable object by calculating the distance between each object and the active chef.
+     Removes the interactable object from the list of interactables once it has been interacted with.
+     @version 1.3
+     */
 
     public static void interact() {
         Player activeChef = PlayerEngine.getActiveChef();
@@ -100,6 +122,14 @@ public class PowerUpEngine {
 
     }
 
+    /**
+     *
+     * Sets the cooldown of the power ups depending on the games difficulty
+     *
+     * @param diffScaling A number >= 1 that scales the cooldown on the power ups spawning
+     * @version 1.4
+     */
+
     public static void setDifficultyCooldown(float diffScaling) {
         baseCoolDown = 10f * diffScaling;
         coolDown = baseCoolDown;
@@ -109,22 +139,38 @@ public class PowerUpEngine {
         return interactables;
     }
 
+    /**
+     *
+     * Creates a new power-up object and adds it to the list of interactables
+     *
+     * @param powerUpType The type of the powerup
+     * @param x The x-coordinate of the powerup
+     * @param y The y-coordinate of the powerup
+     * @version 1.4
+     */
+
     public static void createSavedPowerUp(String powerUpType, float x, float y) {
 
         PowerUpBase powerUp;
-        if (powerUpType.equals("NoBurning")) {
-            powerUp = new NoBurning(x, y);
-        } else if (powerUpType.equals("AutoCompleteDish")) {
-            powerUp = new AutoCompleteDish(x, y);
-        } else if (powerUpType.equals("GainReputationPoint")) {
-            powerUp = new GainReputationPoint(x, y);
-        } else if (powerUpType.equals("HighPatience")) {
-            powerUp = new HighPatience(x, y);
-        } else if (powerUpType.equals("SpeedIncrease")) {
-            powerUp = new SpeedIncrease(x, y);
-        } else {
-            // Handle invalid powerUpType
-            return;
+        switch (powerUpType) {
+            case "NoBurning":
+                powerUp = new NoBurning(x, y);
+                break;
+            case "AutoCompleteDish":
+                powerUp = new AutoCompleteDish(x, y);
+                break;
+            case "GainReputationPoint":
+                powerUp = new GainReputationPoint(x, y);
+                break;
+            case "HighPatience":
+                powerUp = new HighPatience(x, y);
+                break;
+            case "SpeedIncrease":
+                powerUp = new SpeedIncrease(x, y);
+                break;
+            default:
+                // Handle invalid powerUpType
+                return;
         }
         interactables.add(powerUp);
     }

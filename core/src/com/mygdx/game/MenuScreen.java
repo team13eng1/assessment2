@@ -19,6 +19,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+/**
+ * Represents the Main Menu for the game where the user can pick variables to change their experience
+ */
+
+
 public class MenuScreen extends InputAdapter implements Screen {
 
     Stage stage;
@@ -37,6 +42,14 @@ public class MenuScreen extends InputAdapter implements Screen {
 
     String difficulty = null;
 
+    /**
+     * Creates a new instance of MenuScreen with a given PiazzaPanic game object.
+     *
+     * @param main the main PiazzaPanic game object
+     * @version 1.0
+     */
+
+
     public MenuScreen(PiazzaPanic main) {
         super();
         this.main = main;
@@ -46,6 +59,12 @@ public class MenuScreen extends InputAdapter implements Screen {
     //==========================================================\\
     //                         START                            \\
     //==========================================================\\
+
+    /**
+     * Displays the menu screen with all the different clickable text and images
+     *
+     * @version 1.0
+     */
 
     @Override
     public void show() {
@@ -159,6 +178,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         batch = new SpriteBatch();
     }
 
+
     private void loadLoadButton(BitmapFont loadGameFont) {
         final TextButton.TextButtonStyle textButtonStyleLoad = new TextButton.TextButtonStyle();
         textButtonStyleLoad.fontColor = Color.GREEN;
@@ -175,6 +195,13 @@ public class MenuScreen extends InputAdapter implements Screen {
 
         stage.addActor(easyModeButton);
     }
+
+    /**
+     * Loads and configures the difficulty selection buttons using the given font.
+     *
+     * @param difficultyFont the font to use for the button labels
+     * @version 1.1
+     */
 
     private void loadDifficultyButtons(BitmapFont difficultyFont) {
         final TextButton.TextButtonStyle textButtonStyleEasy = new TextButton.TextButtonStyle();

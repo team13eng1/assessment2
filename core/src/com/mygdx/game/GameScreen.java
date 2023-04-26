@@ -24,8 +24,6 @@ import com.mygdx.game.player.PowerUps.PowerUpEngine;
 
 /**
  * 
- * @author Thomas McCarthy
- * 
  * The GameScreen class handles the main rendering and updating of the game.
  *
  */
@@ -49,13 +47,11 @@ public class GameScreen extends InputAdapter implements Screen {
 	private Label timerLabel;
 
 	// A reference to the main game file
-	public PiazzaPanic main = null;
+	public PiazzaPanic main;
 
 	public int scenarioNumCust;
 
 	private Label reputationLabel;
-
-	private Image heartImage;
 
 
 	public boolean wantsToBeLoaded;
@@ -83,6 +79,13 @@ public class GameScreen extends InputAdapter implements Screen {
 	//==========================================================\\
 	//                         START                            \\
 	//==========================================================\\
+
+	/**
+	 * Initialises all the different components of the game (Engines)
+	 * Loads in previous saves if necessary
+	 * @version 1.5
+	 */
+
 	@Override
 	public void show() {
 		if (shouldCallShow){
@@ -124,7 +127,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
 
 			Texture heartTexture = new Texture(Gdx.files.internal("reputation_points.png"));
-			heartImage = new Image(heartTexture);
+			Image heartImage = new Image(heartTexture);
 			heartImage.setPosition(596, Gdx.graphics.getHeight() - 33);
 			heartImage.setScale(1.5f);
 
@@ -158,6 +161,16 @@ public class GameScreen extends InputAdapter implements Screen {
 	//==========================================================\\
 	//                        UPDATE                            \\
 	//==========================================================\\
+
+	/**
+	 *
+	 * Updates all the Engines and timer variables
+	 *
+	 * @param delta The time in seconds since the last render.
+	 * @version 1.2
+	 */
+
+
 	@Override
 	public void render(float delta) {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
@@ -208,6 +221,11 @@ public class GameScreen extends InputAdapter implements Screen {
 		}
 	}
 
+	/**
+	 * sets the screen to the Pause screen
+	 * @version 1.4
+	 */
+
 	public void showPauseScreen(){
 		if (pauseScreen == null){
 			pauseScreen = new PauseScreen(this);
@@ -217,6 +235,12 @@ public class GameScreen extends InputAdapter implements Screen {
 		Gdx.input.setInputProcessor(pauseScreen.stage);
 		pause();
 	}
+
+	/**
+	 *
+	 * Hides the pause screen and resumes the game
+	 *
+	 */
 
 	public void hidePauseScreen(){
 		main.setScreen(this);
@@ -237,6 +261,13 @@ public class GameScreen extends InputAdapter implements Screen {
 		batch.setProjectionMatrix(camera.combined);
 
 	}
+
+	/**
+	 *
+	 * modifies different variables depending on the difficulty the user has chosen to play with
+	 *
+	 * @param difficulty  a String representing "Easy" "Medium" or "Hard"
+	 */
 
 	public void setDifficulty(String difficulty) {
 		if (difficulty.equals("Easy")) {

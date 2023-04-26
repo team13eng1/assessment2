@@ -15,6 +15,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.customer.CustomerEngine;
 import com.mygdx.game.player.PlayerEngine;
 
+/**
+ * Represents the End Screen for the game which displays information about what the user did when the game ends
+ */
+
+
 public class EndScreen extends InputAdapter implements Screen {
 
     Stage stage;
@@ -55,8 +60,7 @@ public class EndScreen extends InputAdapter implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        BitmapFont font = new BitmapFont();
-        labelStyle.font = font;
+        labelStyle.font = new BitmapFont();
         labelStyle.fontColor = Color.WHITE;
 
         int customersServed = CustomerEngine.customersServed;

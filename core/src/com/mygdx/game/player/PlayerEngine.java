@@ -15,11 +15,10 @@ import com.mygdx.game.interact.InteractEngine;
 import com.mygdx.game.player.PowerUps.PowerUpEngine;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
- * 
- * @author Thomas McCarthy
- * 
+ *
  * The PlayerEngine class creates and renders the games' three chefs. It also handles
  * chef switching and detects interaction input (although the handling of interactions
  * is then done by the InteractEngine)
@@ -151,17 +150,17 @@ public final class PlayerEngine {
 
 
 	public static void swapChef(String key){
-		if(key=="Q") {
+		if(Objects.equals(key, "Q")) {
 			activeChef = chefs.get((activeChef.getID() + 1) % chefs.size());
 		}
 		// Chef switch with numbers 1-3
-		else if(key=="1") {
+		else if(Objects.equals(key, "1")) {
 			activeChef = chefs.get(0);
 		}
-		else if(key=="2") {
+		else if(Objects.equals(key, "2")) {
 			activeChef = chefs.get(1);
 		}
-		else if(key=="3") {
+		else if(Objects.equals(key, "3")) {
 			activeChef = chefs.get(2);
 		}
 	}
