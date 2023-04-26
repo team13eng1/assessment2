@@ -60,8 +60,7 @@ public class EndScreen extends InputAdapter implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        BitmapFont font = new BitmapFont();
-        labelStyle.font = font;
+        labelStyle.font = new BitmapFont();
         labelStyle.fontColor = Color.WHITE;
 
         int customersServed = CustomerEngine.customersServed;

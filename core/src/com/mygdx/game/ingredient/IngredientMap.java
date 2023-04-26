@@ -5,7 +5,6 @@ import java.util.HashMap;
 /**
  * The IngredientMap is an extension to the HashMap class, mapping input ingredients to output
  * ingredients. It exists mostly for readability, and is used primarily by Cooking Stations.
- *
  * It is essentially a renaming/refactoring of HashMap<IngredientName, IngredientName>
  */
 

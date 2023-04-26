@@ -19,7 +19,4 @@ public class GainReputationPoint extends PowerUpBase{
         CustomerEngine.gainRepPoint();
     }
 
-    @Override
-    public void endInteraction(){
-    }
 }

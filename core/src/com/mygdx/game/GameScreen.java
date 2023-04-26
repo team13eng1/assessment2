@@ -47,13 +47,11 @@ public class GameScreen extends InputAdapter implements Screen {
 	private Label timerLabel;
 
 	// A reference to the main game file
-	public PiazzaPanic main = null;
+	public PiazzaPanic main;
 
 	public int scenarioNumCust;
 
 	private Label reputationLabel;
-
-	private Image heartImage;
 
 
 	public boolean wantsToBeLoaded;
@@ -129,7 +127,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
 
 			Texture heartTexture = new Texture(Gdx.files.internal("reputation_points.png"));
-			heartImage = new Image(heartTexture);
+			Image heartImage = new Image(heartTexture);
 			heartImage.setPosition(596, Gdx.graphics.getHeight() - 33);
 			heartImage.setScale(1.5f);
 

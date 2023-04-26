@@ -125,14 +125,11 @@ public class SaveGame {
         PlayerEngine.setCoins(coins);
         CustomerEngine.setRepPoints(reputationPoints);
 
-        float startTime = prefs.getFloat("startTime");
-        gameScreen.masterTimer = startTime;
+        gameScreen.masterTimer = prefs.getFloat("startTime");
 
-        String difficulty = prefs.getString("difficulty");
-        gameScreen.difficulty = difficulty;
+        gameScreen.difficulty = prefs.getString("difficulty");
 
-        int customersServed = prefs.getInteger("customersServed");
-        CustomerEngine.customersServed = customersServed;
+        CustomerEngine.customersServed = prefs.getInteger("customersServed");
 
         int customersRemaining = prefs.getInteger("customersRemaining");
         CustomerEngine.setCustomersRemaining(customersRemaining);
@@ -162,7 +159,7 @@ public class SaveGame {
         // Load customers present at the counter;
         for (int i = 0; i < MAX_CUSTOMERS_AT_ALL_COUNTERS; i++) {
             String customerKey = "customer" + i;
-            String customerIngredient = prefs.getString(customerKey + "recipe", null);;
+            String customerIngredient = prefs.getString(customerKey + "recipe", null);
             if (customerIngredient != null) {
                 float chefStartTime = prefs.getFloat(customerKey + "startTime");
                 float counterNeededXValue = prefs.getFloat(customerKey + "counterY");

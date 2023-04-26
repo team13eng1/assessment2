@@ -8,7 +8,6 @@ import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.ingredient.IngredientTextures;
 import com.mygdx.game.interact.cooking_stations.CookingStation;
 import com.mygdx.game.interact.cooking_stations.CuttingStation;
-import com.mygdx.game.interact.special_stations.assembly_stations.AssemblyStation;
 import com.mygdx.game.player.Player;
 import com.mygdx.game.player.PlayerEngine;
 
@@ -126,12 +125,7 @@ public class InteractableBase {
 		float yDist = Math.abs(chefYPos - yPos);
 
 		// If chef is within range, handle the appropriate interaction
-		if(xDist <= interactRange && yDist <= interactRange)
-		{
-			return true;
-		}
-
-		return false;
+		return xDist <= interactRange && yDist <= interactRange;
 	}
 
 	/**

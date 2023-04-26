@@ -36,7 +36,7 @@ public class PowerUpEngine {
     public static void initialise(SpriteBatch gameBatch) {
         batch = gameBatch;
 
-        interactables = new ArrayList();
+        interactables = new ArrayList<>();
 
 
         spawnLocationsX = new float[][]{{120, 460}, {120, 460}, {395, 430}, {120, 230}};
@@ -64,16 +64,22 @@ public class PowerUpEngine {
             float randomSpawnX = (float) (spawnLocationsX[rowCol][0] + Math.random() * (spawnLocationsX[rowCol][1] - spawnLocationsX[rowCol][0]));
             float randomSpawnY = (float) (spawnLocationsY[rowCol][0] + Math.random() * (spawnLocationsY[rowCol][1] - spawnLocationsY[rowCol][0]));
 
-            if (selectedPowerUp.equals("NoBurning")) {
-                interactables.add(new NoBurning(randomSpawnX, randomSpawnY));
-            } else if (selectedPowerUp.equals("IncreasedPatience")) {
-                interactables.add(new HighPatience(randomSpawnX, randomSpawnY));
-            } else if (selectedPowerUp.equals("ChefSpeedIncrease")) {
-                interactables.add(new SpeedIncrease(randomSpawnX, randomSpawnY));
-            } else if (selectedPowerUp.equals("AutoCompleteDish")) {
-                interactables.add(new AutoCompleteDish(randomSpawnX, randomSpawnY));
-            } else if (selectedPowerUp.equals("GainRepPoint")) {
-                interactables.add(new GainReputationPoint(randomSpawnX, randomSpawnY));
+            switch (selectedPowerUp) {
+                case "NoBurning":
+                    interactables.add(new NoBurning(randomSpawnX, randomSpawnY));
+                    break;
+                case "IncreasedPatience":
+                    interactables.add(new HighPatience(randomSpawnX, randomSpawnY));
+                    break;
+                case "ChefSpeedIncrease":
+                    interactables.add(new SpeedIncrease(randomSpawnX, randomSpawnY));
+                    break;
+                case "AutoCompleteDish":
+                    interactables.add(new AutoCompleteDish(randomSpawnX, randomSpawnY));
+                    break;
+                case "GainRepPoint":
+                    interactables.add(new GainReputationPoint(randomSpawnX, randomSpawnY));
+                    break;
             }
             coolDown = baseCoolDown;
         }
@@ -146,19 +152,25 @@ public class PowerUpEngine {
     public static void createSavedPowerUp(String powerUpType, float x, float y) {
 
         PowerUpBase powerUp;
-        if (powerUpType.equals("NoBurning")) {
-            powerUp = new NoBurning(x, y);
-        } else if (powerUpType.equals("AutoCompleteDish")) {
-            powerUp = new AutoCompleteDish(x, y);
-        } else if (powerUpType.equals("GainReputationPoint")) {
-            powerUp = new GainReputationPoint(x, y);
-        } else if (powerUpType.equals("HighPatience")) {
-            powerUp = new HighPatience(x, y);
-        } else if (powerUpType.equals("SpeedIncrease")) {
-            powerUp = new SpeedIncrease(x, y);
-        } else {
-            // Handle invalid powerUpType
-            return;
+        switch (powerUpType) {
+            case "NoBurning":
+                powerUp = new NoBurning(x, y);
+                break;
+            case "AutoCompleteDish":
+                powerUp = new AutoCompleteDish(x, y);
+                break;
+            case "GainReputationPoint":
+                powerUp = new GainReputationPoint(x, y);
+                break;
+            case "HighPatience":
+                powerUp = new HighPatience(x, y);
+                break;
+            case "SpeedIncrease":
+                powerUp = new SpeedIncrease(x, y);
+                break;
+            default:
+                // Handle invalid powerUpType
+                return;
         }
         interactables.add(powerUp);
     }

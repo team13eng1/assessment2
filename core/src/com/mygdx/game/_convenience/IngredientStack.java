@@ -2,7 +2,6 @@ package com.mygdx.game._convenience;
 
 import com.mygdx.game.ingredient.IngredientName;
 
-import java.util.EmptyStackException;
 import java.util.LinkedList;
 
 /**
@@ -21,15 +20,8 @@ public class IngredientStack {
     // Implementation of an unlimited size stack
     public IngredientStack()
     {
-        stack = new LinkedList<IngredientName>();
+        stack = new LinkedList<>();
         maxSize = -1;
-    }
-
-    // Implementation of a stack with a maximum size
-    public IngredientStack(int maxSize)
-    {
-        stack = new LinkedList<IngredientName>();
-        maxSize = maxSize;
     }
 
 

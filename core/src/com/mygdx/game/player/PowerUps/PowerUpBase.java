@@ -58,11 +58,7 @@ public class PowerUpBase {
         float yDist = Math.abs(chefYPos - yPos);
 
         // If chef is within range, handle the appropriate interaction
-        if(xDist <= interactRange && yDist <= interactRange)
-        {
-            return true;
-        }
-        return false;
+        return xDist <= interactRange && yDist <= interactRange;
     }
 
     public void startInteraction(){}
