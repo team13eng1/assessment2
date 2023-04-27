@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mygdx.tests.BasicConstructorTests.StationTests.SaladStationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-04-21T10:27:28" hostname="BAILEY-LAPTOP" time="0.048">
+<testsuite name="com.mygdx.tests.BasicConstructorTests.StationTests.SaladStationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-04-27T17:14:57" hostname="DESKTOP-R9TCM35" time="0.262">
   <properties/>
-  <testcase name="testSaladStationCreation" classname="com.mygdx.tests.BasicConstructorTests.StationTests.SaladStationTest" time="0.015"/>
-  <testcase name="testOutputIngredient" classname="com.mygdx.tests.BasicConstructorTests.StationTests.SaladStationTest" time="0.014"/>
-  <testcase name="testSetRecipe" classname="com.mygdx.tests.BasicConstructorTests.StationTests.SaladStationTest" time="0.015"/>
+  <testcase name="testSaladStationCreation" classname="com.mygdx.tests.BasicConstructorTests.StationTests.SaladStationTest" time="0.057"/>
+  <testcase name="testOutputIngredient" classname="com.mygdx.tests.BasicConstructorTests.StationTests.SaladStationTest" time="0.06"/>
+  <testcase name="testSetRecipe" classname="com.mygdx.tests.BasicConstructorTests.StationTests.SaladStationTest" time="0.127"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

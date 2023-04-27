@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mygdx.tests.BasicConstructorTests.SpecialStationsTests.BinTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-21T10:27:28" hostname="BAILEY-LAPTOP" time="0.071">
+<testsuite name="com.mygdx.tests.BasicConstructorTests.SpecialStationsTests.BinTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-27T17:14:56" hostname="DESKTOP-R9TCM35" time="0.111">
   <properties/>
-  <testcase name="testHandleInteraction" classname="com.mygdx.tests.BasicConstructorTests.SpecialStationsTests.BinTest" time="0.03"/>
-  <testcase name="testConstructor" classname="com.mygdx.tests.BasicConstructorTests.SpecialStationsTests.BinTest" time="0.024"/>
+  <testcase name="testHandleInteraction" classname="com.mygdx.tests.BasicConstructorTests.SpecialStationsTests.BinTest" time="0.051"/>
+  <testcase name="testConstructor" classname="com.mygdx.tests.BasicConstructorTests.SpecialStationsTests.BinTest" time="0.06"/>
   <system-out><![CDATA[POPPED BURGER FROM CHEF STACK
 POPPED BUNS_TOASTED FROM CHEF STACK
 ]]></system-out>

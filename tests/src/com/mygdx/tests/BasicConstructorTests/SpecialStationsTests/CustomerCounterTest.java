@@ -26,7 +26,7 @@ import java.util.LinkedList;
 public class CustomerCounterTest {
 
     @Test
-    public void testConstructor() {
+    public void testConstructor() throws InterruptedException {
         Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
         Assert.assertEquals(CustomerEngine.customerCounters.size(), 3);

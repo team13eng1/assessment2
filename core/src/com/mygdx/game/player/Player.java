@@ -96,12 +96,22 @@ public class Player {
 	
 	public void moveX(float multiplier) {
 		previousPosX = posX;
-		posX += Gdx.graphics.getDeltaTime() * multiplier * speed;
+		if(Gdx.graphics.getDeltaTime() == 0){ // basically for testing purposes
+			posX += multiplier * speed;
+		}
+		else{
+			posX += Gdx.graphics.getDeltaTime() * multiplier * speed;
+		}
 	}
 	
 	public void moveY(float multiplier) {
 		previousPosY = posY;
-		posY += Gdx.graphics.getDeltaTime() * multiplier * speed;
+		if(Gdx.graphics.getDeltaTime() == 0){ // basically for testing purposes
+			posY += multiplier * speed;
+		}
+		else{
+			posY += Gdx.graphics.getDeltaTime() * multiplier * speed;
+		}
 	}
 	
 	

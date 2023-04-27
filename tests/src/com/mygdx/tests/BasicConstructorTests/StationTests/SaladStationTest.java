@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 public class SaladStationTest {
 
     @Test
-    public void testSaladStationCreation() {
+    public void testSaladStationCreation() throws InterruptedException {
         Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
         SaladStation saladStation = new SaladStation(1, 2);
@@ -25,7 +25,7 @@ public class SaladStationTest {
     }
 
     @Test
-    public void testSetRecipe() {
+    public void testSetRecipe() throws InterruptedException {
         Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
         SaladStation saladStation = new SaladStation(1, 2);

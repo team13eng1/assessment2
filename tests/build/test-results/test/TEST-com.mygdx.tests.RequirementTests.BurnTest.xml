@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mygdx.tests.RequirementTests.BurnTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-21T10:27:29" hostname="BAILEY-LAPTOP" time="0.051">
+<testsuite name="com.mygdx.tests.RequirementTests.BurnTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-27T17:14:58" hostname="DESKTOP-R9TCM35" time="0.095">
   <properties/>
-  <testcase name="testBurnPatty" classname="com.mygdx.tests.RequirementTests.BurnTest" time="0.018"/>
-  <testcase name="testBurnBun" classname="com.mygdx.tests.RequirementTests.BurnTest" time="0.016"/>
+  <testcase name="testBurnPatty" classname="com.mygdx.tests.RequirementTests.BurnTest" time="0.04"/>
+  <testcase name="testBurnBun" classname="com.mygdx.tests.RequirementTests.BurnTest" time="0.037"/>
   <system-out><![CDATA[POPPED PATTY_RAW FROM CHEF STACK
 POPPED BUNS_UNTOASTED FROM CHEF STACK
 ]]></system-out>

@@ -30,7 +30,7 @@ import java.util.LinkedList;
 public class CookingStationsTest {
 
     @Test
-    public void testAllConstructors() {
+    public void testAllConstructors() throws InterruptedException {
         Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
 

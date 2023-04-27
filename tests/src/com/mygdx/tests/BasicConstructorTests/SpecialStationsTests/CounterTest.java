@@ -26,7 +26,7 @@ import java.util.LinkedList;
 public class CounterTest {
 
     @Test
-    public void testConstructor() {
+    public void testConstructor() throws InterruptedException {
         Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
         Counter counter = new Counter(1, 1);
@@ -38,7 +38,7 @@ public class CounterTest {
     }
 
     @Test
-    public void testHandleInteraction() {
+    public void testHandleInteraction() throws InterruptedException {
         Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
         Counter counter = new Counter(1, 1);
