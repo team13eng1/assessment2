@@ -25,7 +25,7 @@ public class Customer {
     float startTime;
     float reputationLimitTime;
 
-    boolean finished;
+    boolean timeToRemoveMe = false;
 
     //==========================================================\\
     //                      CONSTRUCTOR                         \\
@@ -41,8 +41,6 @@ public class Customer {
         posY = counter.getYPos();
 
         counterOffset = 70f;
-
-        finished = false;
     }
 
 
@@ -65,11 +63,14 @@ public class Customer {
         }
         else if(orderComplete)
         {
-            CustomerEngine.removeCustomer(this);
             if (!isWaitTooLong(PlayerEngine.getMasterTime())){
                 PlayerEngine.gainCoins(10);
                 CustomerEngine.customersServed ++;
             }
+            counter.customer = null;
+            counter = null;
+            timeToRemoveMe = true;
+
         }
         else if(!atCounter)
         {
@@ -96,14 +97,12 @@ public class Customer {
     public void completeOrder()
     {
         orderComplete = true;
+        counter.storedIngredient = null;
+        counter.requiredIngredient = null;
     }
 
     public boolean isWaitTooLong(float mainTime){
         return (mainTime - startTime > reputationLimitTime);
-    }
-
-    public void finishWithThisCustomer() {
-        finished = true;
     }
 
     public CustomerCounter getCounter() {

@@ -21,7 +21,6 @@ import java.util.LinkedList;
  *
  */
 public class SaveGame {
-    private static final int MAX_INGREDIENTS_PER_CHEF = 4;
     private static final int MAX_CUSTOMERS_AT_ALL_COUNTERS = 4;
     private static final int MAX_POWERUPS_ON_SCREEN = 7;
     private static GameScreen gameScreen;
@@ -53,6 +52,7 @@ public class SaveGame {
         prefs.putInteger("pizzaStationCurrentIngredient", InteractEngine.getPizzaCurrentIndex());
         prefs.putInteger("burgerStationCurrentIngredient", InteractEngine.getBurgerCurrentIndex());
         prefs.putInteger("saladStationCurrentIngredient", InteractEngine.getSaladCurrentIndex());
+        prefs.putFloat("mostRecentCustomer", CustomerEngine.getRecentCustomer().counter.getYPos());
 
         // Save chef data
         for (int i = 0; i < PlayerEngine.getAllChefs().size(); i++) {
@@ -61,9 +61,11 @@ public class SaveGame {
             prefs.putFloat(chefKey + "x", chef.getXPos());
             prefs.putFloat(chefKey + "y", chef.getYPos());
 
+            prefs.putInteger(chefKey + "stackSize", chef.getIngredientStack().getSize());
+
             // Save ingredients for each chef
-            for (int j = 0; j < MAX_INGREDIENTS_PER_CHEF; j++) {
-                IngredientName ingredient = chef.getIngredientStack().peekAtDepth(j);
+            for (int j = 0; j < chef.getIngredientStack().getSize(); j++) {
+                IngredientName ingredient = chef.getIngredientStack().view(j);
                 String ingredientKey = chefKey + "ingredient" + j;
                 prefs.putString(ingredientKey, ingredient.toString());
             }
@@ -71,14 +73,16 @@ public class SaveGame {
 
         // Save customers present at the counter
         LinkedList<Customer> customersPresent = CustomerEngine.getCustomers();
-        if (customersPresent.size() == 0){
+        if (customersPresent.size() != 0){
             for (int i = 0; i < customersPresent.size(); i++) {
-                Customer customer = customersPresent.get(i);
-                String customerKey = "customer" + i;
-                prefs.putString(customerKey + "recipe", customer.counter.getRequiredIngredient().toString());
-                prefs.putFloat(customerKey + "startTime", customer.getTimeRemaining());
-                prefs.putFloat(customerKey + "counterY", customer.getCounter().getYPos());
-                prefs.putFloat(customerKey + "reputationLimitTime", customer.getReputationLimitTime());
+                    Customer customer = customersPresent.get(i);
+                    if (!customer.orderComplete && customer.counter != null){
+                        String customerKey = "customer" + i;
+                        prefs.putString(customerKey + "recipe", customer.counter.getRequiredIngredient().toString());
+                        prefs.putFloat(customerKey + "startTime", customer.getTimeRemaining());
+                        prefs.putFloat(customerKey + "counterY", customer.getCounter().getYPos());
+                        prefs.putFloat(customerKey + "reputationLimitTime", customer.getReputationLimitTime());
+                }
             }
         }
 
@@ -147,7 +151,7 @@ public class SaveGame {
             chef.setPosition(x, y);
 
             // Load ingredients for each chef
-            for (int j = 0; j < MAX_INGREDIENTS_PER_CHEF; j++) {
+            for (int j = 0; j < prefs.getInteger(chefKey + "stackSize"); j++) {
                 String ingredientKey = chefKey + "ingredient" + j;
                 String ingredientName = prefs.getString(ingredientKey);
                 if (prefs.getString(ingredientKey) != "NULL_INGREDIENT") {
@@ -162,16 +166,20 @@ public class SaveGame {
             String customerIngredient = prefs.getString(customerKey + "recipe", null);
             if (customerIngredient != null) {
                 float chefStartTime = prefs.getFloat(customerKey + "startTime");
-                float counterNeededXValue = prefs.getFloat(customerKey + "counterY");
+                float counterNeededYValue = prefs.getFloat(customerKey + "counterY");
                 float reputationLimitTime = prefs.getFloat(customerKey + "reputationLimitTime");
 
-                CustomerCounter counter = InteractEngine.getRequiredStation(counterNeededXValue);
+                CustomerCounter counter = InteractEngine.getRequiredStation(counterNeededYValue);
 
 
                 Customer customer = new Customer(counter,IngredientName.valueOf(customerIngredient), chefStartTime, reputationLimitTime);
                 CustomerEngine.getCustomers().add(customer);
+                counter.customer = customer;
             }
+
         }
+
+        CustomerEngine.setRecentCustomer(prefs.getFloat("mostRecentCustomer"));
 
         // Load powerups present on the screen;
         for (int i = 0; i < MAX_POWERUPS_ON_SCREEN; i++) {

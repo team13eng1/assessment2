@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameScreen;
 import com.mygdx.game.ingredient.IngredientName;
+import com.mygdx.game.interact.InteractEngine;
+import com.mygdx.game.interact.InteractableBase;
 import com.mygdx.game.interact.special_stations.CustomerCounter;
 
 import java.util.Iterator;
@@ -85,6 +87,7 @@ public final class CustomerEngine {
     }
 
 
+
     //==========================================================\\
     //                         UPDATE                           \\
     //==========================================================\\
@@ -102,20 +105,30 @@ public final class CustomerEngine {
             mainGameScreen.loseGame();
         }
 
-        // Render the customers
-        for (Customer c : customers) {
+        // Create an iterator to traverse the customers collection
+        Iterator<Customer> iter = customers.iterator();
+
+        while (iter.hasNext()) {
+            Customer c = iter.next();
+
+            // Update the customer
             c.update();
             batch.draw(customerTexture, c.getXPos(), c.getYPos());
-            if (c.isWaitTooLong(mainGameScreen.masterTimer) && !c.finished){
-                c.finishWithThisCustomer();
-                if (c.counter != null){
-                    c.counter.resetCounter();   
-                }
+
+            // Check if the customer has waited too long
+            if (c.isWaitTooLong(mainGameScreen.masterTimer) && !c.orderComplete){
+                c.completeOrder();
                 removeReputationPoint();
             }
-        }
-        if (timer <= 0 && customers.size() < maxCustomers && numberOfCustomers != 0) {
 
+            // Remove the customer if they have completed their order
+            if (c.timeToRemoveMe) {
+                iter.remove();
+                numberOfCustomers--;
+            }
+        }
+
+        if (timer <= 0 && customers.size() < maxCustomers && numberOfCustomers != 0 && getFreeCounter() != null) {
             int random = (int) (Math.random() * recipes.length);
             CustomerCounter freeCounter = getFreeCounter();
             Customer customer = new Customer(freeCounter, recipes[random], mainGameScreen.masterTimer, repTimeLimit);
@@ -126,6 +139,8 @@ public final class CustomerEngine {
 
         timer -= Gdx.graphics.getDeltaTime();
     }
+
+
 
     private static CustomerCounter getFreeCounter(){
         for(CustomerCounter counter : customerCounters){
@@ -144,20 +159,6 @@ public final class CustomerEngine {
     public static void addCustomerCounter(CustomerCounter counter) {
         customerCounters.add(counter);
     }
-
-
-    public static void removeCustomer(Customer customer) {
-        Iterator<Customer> iter = customers.iterator();
-        while (iter.hasNext()) {
-            Customer c = iter.next();
-            if (c == customer) {
-                iter.remove();
-                numberOfCustomers--;
-                break;
-            }
-        }
-    }
-
 
     public static void increasePatience(float patienceBonus) {
         if (customers.size() > 0){
@@ -206,5 +207,14 @@ public final class CustomerEngine {
     public static LinkedList<Customer> getCustomers() {
         return customers;
     }
-}
 
+    public static void setRecentCustomer(float mostRecentCustomerCounterY) {
+        for (InteractableBase interactable : InteractEngine.getInteractables()) {
+            if (interactable instanceof CustomerCounter) {
+                if (interactable.getYPos() == mostRecentCustomerCounterY) {
+                    mostRecentCustomer = ((CustomerCounter) interactable).customer;
+                }
+            }
+        }
+    }
+}

@@ -138,9 +138,11 @@ public final class InteractEngine {
 					}
 				}
 			} else {
-				Sprite ingredientSprite = interactable.getIngredientSprite();
-				ingredientSprite.setPosition(interactable.getXPos(), interactable.getYPos());
-				ingredientSprite.draw(batch);
+				if (interactable.getIngredientSprite() != null){
+					Sprite ingredientSprite = interactable.getIngredientSprite();
+					ingredientSprite.setPosition(interactable.getXPos(), interactable.getYPos());
+					ingredientSprite.draw(batch);
+				}
 
 				// Increment the interactable's timer by the time elapsed between now and the last frame render
 				interactable.incrementTime(Gdx.graphics.getDeltaTime());
