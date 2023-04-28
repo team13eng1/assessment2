@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 public class BurgerStationTest {
 
     @Test
-    public void testBurgerStationCreation() {
+    public void testBurgerStationCreation() throws InterruptedException {
         Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
         BurgerStation burgerStation = new BurgerStation(1, 2);
@@ -23,7 +23,7 @@ public class BurgerStationTest {
     }
 
     @Test
-    public void testSetRecipe() {
+    public void testSetRecipe() throws InterruptedException {
         Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
         BurgerStation burgerStation = new BurgerStation(1, 2);

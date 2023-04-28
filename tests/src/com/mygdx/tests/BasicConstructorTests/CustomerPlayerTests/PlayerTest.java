@@ -18,12 +18,11 @@ import com.mygdx.game.interact.special_stations.CustomerCounter;
 import org.junit.runner.RunWith;
 
 import java.util.LinkedList;
-
 @RunWith(GdxTestRunner.class)
 public class PlayerTest {
 
     @Test
-    public void testConstructor() {
+    public void testConstructor () throws InterruptedException {
         Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
         Player player = new Player(5, 10, 10, "temp_chef_1.png");
@@ -38,18 +37,20 @@ public class PlayerTest {
     }
 
     @Test
-    public void testMovement() {
+    public void testMovement() throws InterruptedException {
         Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
         // test positive x
 
         float actual = PlayerEngine.getActiveChef().getXPos();
         System.out.println(PlayerEngine.getActiveChef().getXPos());
+        Gdx.graphics.setContinuousRendering(true);
         PlayerEngine.getActiveChef().setSpeed(25f);
 
         PlayerEngine.getActiveChef().moveX(1);
 
         System.out.println(PlayerEngine.getActiveChef().getXPos());
+        System.out.println(Gdx.graphics.getDeltaTime());
         Assert.assertNotEquals(actual, PlayerEngine.getActiveChef().getXPos(), 0);
 
         // test negative x

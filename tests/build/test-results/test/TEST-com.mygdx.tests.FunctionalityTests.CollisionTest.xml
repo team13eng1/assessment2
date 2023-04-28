@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mygdx.tests.FunctionalityTests.CollisionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-21T10:27:28" hostname="BAILEY-LAPTOP" time="0.046">
+<testsuite name="com.mygdx.tests.FunctionalityTests.CollisionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-27T17:14:57" hostname="DESKTOP-R9TCM35" time="0.05">
   <properties/>
-  <testcase name="testPlayerCollision" classname="com.mygdx.tests.FunctionalityTests.CollisionTest" time="0.046"/>
+  <testcase name="testPlayerCollision" classname="com.mygdx.tests.FunctionalityTests.CollisionTest" time="0.05"/>
   <system-out><![CDATA[POPPED PATTY_RAW FROM CHEF STACK
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

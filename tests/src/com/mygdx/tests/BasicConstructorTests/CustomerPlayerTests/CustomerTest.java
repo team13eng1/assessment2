@@ -20,7 +20,7 @@ import java.util.LinkedList;
 public class CustomerTest {
 
     @Test
-    public void testConstructor() {
+    public void testConstructor() throws InterruptedException {
         Utility.initialiseGame(); // initialise all engines & fresh start for tests
 
         CustomerCounter counter = new CustomerCounter(50, 50);

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mygdx.tests.BasicConstructorTests.SpecialStationsTests.CounterTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-21T10:27:28" hostname="BAILEY-LAPTOP" time="0.039">
+<testsuite name="com.mygdx.tests.BasicConstructorTests.SpecialStationsTests.CounterTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-27T17:14:57" hostname="DESKTOP-R9TCM35" time="0.128">
   <properties/>
-  <testcase name="testHandleInteraction" classname="com.mygdx.tests.BasicConstructorTests.SpecialStationsTests.CounterTest" time="0.015"/>
-  <testcase name="testConstructor" classname="com.mygdx.tests.BasicConstructorTests.SpecialStationsTests.CounterTest" time="0.022"/>
+  <testcase name="testHandleInteraction" classname="com.mygdx.tests.BasicConstructorTests.SpecialStationsTests.CounterTest" time="0.048"/>
+  <testcase name="testConstructor" classname="com.mygdx.tests.BasicConstructorTests.SpecialStationsTests.CounterTest" time="0.062"/>
   <system-out><![CDATA[POPPED CHEESE FROM CHEF STACK
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

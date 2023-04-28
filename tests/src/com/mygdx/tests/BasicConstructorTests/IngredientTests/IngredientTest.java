@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class IngredientTest {
 
 	@Test
-	public void testIngredientNames() {
+	public void testIngredientNames() throws InterruptedException {
 		Assert.assertEquals("LETTUCE_CUT", IngredientName.LETTUCE_CUT.name());
 		Assert.assertEquals("LETTUCE_UNCUT", IngredientName.LETTUCE_UNCUT.name());
 		Assert.assertEquals("BUNS_UNTOASTED", IngredientName.BUNS_UNTOASTED.name());
@@ -35,7 +35,7 @@ public class IngredientTest {
 	}
 
 	@Test
-	public void testAssembledFoodNames() {
+	public void testAssembledFoodNames() throws InterruptedException {
 		Assert.assertEquals("JACKET_POTATO_FINISHED", IngredientName.JACKET_POTATO_FINISHED.name());
 		Assert.assertEquals("BURGER", IngredientName.BURGER.name());
 		Assert.assertEquals("SALAD", IngredientName.SALAD.name());
