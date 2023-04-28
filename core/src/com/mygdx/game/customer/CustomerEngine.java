@@ -8,7 +8,6 @@ import com.mygdx.game.GameScreen;
 import com.mygdx.game.ingredient.IngredientName;
 import com.mygdx.game.interact.InteractEngine;
 import com.mygdx.game.interact.InteractableBase;
-import com.mygdx.game.interact.cooking_stations.CookingStation;
 import com.mygdx.game.interact.special_stations.CustomerCounter;
 
 import java.util.Iterator;

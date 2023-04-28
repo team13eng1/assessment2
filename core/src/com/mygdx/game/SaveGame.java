@@ -76,7 +76,7 @@ public class SaveGame {
         if (customersPresent.size() != 0){
             for (int i = 0; i < customersPresent.size(); i++) {
                     Customer customer = customersPresent.get(i);
-                    if (customer.orderComplete == false && customer.counter != null){
+                    if (!customer.orderComplete && customer.counter != null){
                         String customerKey = "customer" + i;
                         prefs.putString(customerKey + "recipe", customer.counter.getRequiredIngredient().toString());
                         prefs.putFloat(customerKey + "startTime", customer.getTimeRemaining());

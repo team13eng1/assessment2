@@ -77,7 +77,7 @@ public class EndScreen extends InputAdapter implements Screen {
         Label gameOverLabel = new Label(labelText, labelStyle);
         gameOverLabel.setFontScale(3f);
         gameOverLabel.setAlignment(Align.center);
-        gameOverLabel.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        gameOverLabel.setPosition((float) Gdx.graphics.getWidth() /2, (float) Gdx.graphics.getHeight() /2);
         stage.addActor(gameOverLabel);
 
     }
