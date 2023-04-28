@@ -79,4 +79,8 @@ public class IngredientStack {
     public int getSize(){
         return stack.size();
     }
+
+    public IngredientName view(int j) {
+        return stack.get(j);
+    }
 }
