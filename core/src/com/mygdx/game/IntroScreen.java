@@ -61,7 +61,8 @@ public class IntroScreen extends InputAdapter implements Screen {
 
             Texture nextButton = new Texture("nextButton.png");
             Image nextButtonImage = new Image(nextButton);
-            nextButtonImage.setPosition(500,70);
+            nextButtonImage.setPosition(460,70);
+            nextButtonImage.setSize(128,64);
 
             nextButtonImage.addListener(new ClickListener() {
                 @Override

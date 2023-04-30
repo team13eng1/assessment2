@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 
 /**
  * The main game class for Piazza Panic.
@@ -29,6 +31,8 @@ public class PiazzaPanic extends Game {
 
 	@Override
 	public void create() {
+		Preferences x = Gdx.app.getPreferences("previousSave");
+		x.clear();
 		introScreen = new IntroScreen(this);
 		setScreen(introScreen);
 	}
@@ -41,7 +45,7 @@ public class PiazzaPanic extends Game {
 	 * @version 1.1
 	 */
 
-	public void newGame(String gameMode, String difficulty) {
+	public void newGame(String gameMode, String difficulty, int scenarioNumCustomer) {
 		gameScreen = new GameScreen(this, gameMode, difficulty);
 		gameScreen.scenarioNumCust = menuScreen.customerNumber;
 		setScreen(gameScreen);
@@ -55,7 +59,11 @@ public class PiazzaPanic extends Game {
 
 	public void loadGame() {
 		gameScreen = new GameScreen(this, true);
-		setScreen(gameScreen);
+		if (SaveGame.checkLoadable()){
+			setScreen(gameScreen);
+		} else {
+			setScreen(menuScreen);
+		}
 	}
 
 	/**

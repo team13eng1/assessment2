@@ -74,6 +74,7 @@ public class GameScreen extends InputAdapter implements Screen {
 		super();
 		this.main = main;
 		wantsToBeLoaded = wantsLoaded;
+		SaveGame.initialise(this);
 	}
 
 	//==========================================================\\
@@ -91,9 +92,10 @@ public class GameScreen extends InputAdapter implements Screen {
 		if (shouldCallShow){
 			stage = new Stage();
 
-			SaveGame.initialise(this);
 			if (wantsToBeLoaded){
-				SaveGame.checkLoadable();
+				if (!SaveGame.checkLoadable()){
+
+				}
 				//if its loadable continue
 				//Initial loading procedure
 				SaveGame.setGameMode();
