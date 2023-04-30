@@ -55,10 +55,12 @@ public class PiazzaPanic extends Game {
 
 	public void loadGame() {
 		gameScreen = new GameScreen(this, true);
+		SaveGame.initialise(gameScreen);
 		if (SaveGame.checkLoadable()){
 			setScreen(gameScreen);
 		} else {
 			setScreen(menuScreen);
+			gameScreen.dispose();
 		}
 	}
 
