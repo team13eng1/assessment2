@@ -14,6 +14,7 @@ import com.mygdx.game.player.PowerUps.PowerUpEngine;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Objects;
 
 /**
  *
@@ -78,7 +79,7 @@ public class SaveGame {
                     Customer customer = customersPresent.get(i);
                     if (!customer.orderComplete && customer.counter != null){
                         String customerKey = "customer" + i;
-                        prefs.putString(customerKey + "recipe", customer.counter.getRequiredIngredient().toString());
+                        prefs.putString(customerKey + "recipe", customer.requiredIngredient.toString());
                         prefs.putFloat(customerKey + "startTime", customer.getTimeRemaining());
                         prefs.putFloat(customerKey + "counterY", customer.getCounter().getYPos());
                         prefs.putFloat(customerKey + "reputationLimitTime", customer.getReputationLimitTime());
@@ -154,7 +155,7 @@ public class SaveGame {
             for (int j = 0; j < prefs.getInteger(chefKey + "stackSize"); j++) {
                 String ingredientKey = chefKey + "ingredient" + j;
                 String ingredientName = prefs.getString(ingredientKey);
-                if (prefs.getString(ingredientKey) != "NULL_INGREDIENT") {
+                if (!Objects.equals(prefs.getString(ingredientKey), "NULL_INGREDIENT")) {
                     chef.getIngredientStack().push(IngredientName.valueOf(ingredientName));
                 }
             }
@@ -207,15 +208,12 @@ public class SaveGame {
      * Checks if a saved game is loadable by verifying the presence of key preference values.
      * If the necessary values are missing, it will navigate to the main menu.
      *
-     * @return
+     * @return false if no previous save has been made, true otherwise
      * @version 1.4
      */
 
     static boolean checkLoadable() {
-        if (!prefs.contains("difficulty") || !prefs.contains("startTime") || !prefs.contains("coins") || !prefs.contains("reputationPoints")) {
-            return false;
-        }
-        return true;
+        return prefs.contains("difficulty") && prefs.contains("startTime") && prefs.contains("coins") && prefs.contains("reputationPoints");
     }
 
 /**

@@ -94,7 +94,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
 			if (wantsToBeLoaded){
 				if (!SaveGame.checkLoadable()){
-
+					System.out.printf("hello");
 				}
 				//if its loadable continue
 				//Initial loading procedure

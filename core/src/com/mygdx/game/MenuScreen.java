@@ -21,6 +21,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.Objects;
+
 /**
  * Represents the Main Menu for the game where the user can pick variables to change their experience
  */
@@ -135,7 +137,7 @@ public class MenuScreen extends InputAdapter implements Screen {
         startGameImage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (gameMode == "Scenario"){
+                if (Objects.equals(gameMode, "Scenario")){
                     customerNumber = customerNumberTemp;
                     if (customerNumber == null){
                         customerNumber = 5;
@@ -309,11 +311,11 @@ public class MenuScreen extends InputAdapter implements Screen {
                 easyModeButton.setVisible(false);
                 mediumModeButton.setVisible(false);
                 hardModeButton.setVisible(false);
-                if (gameMode == "Scenario"){
+                if (Objects.equals(gameMode, "Scenario")){
                     customerNumberTextField.setVisible(true);
                 }
                 startGameImage.setVisible(true);
-                if (gameMode == "Scenario"){
+                if (Objects.equals(gameMode, "Scenario")){
                     startGameImage.setPosition(193,20);
                 } else {
                     startGameImage.setPosition(193,70);
@@ -330,11 +332,11 @@ public class MenuScreen extends InputAdapter implements Screen {
                 easyModeButton.setVisible(false);
                 mediumModeButton.setVisible(false);
                 hardModeButton.setVisible(false);
-                if (gameMode == "Scenario"){
+                if (Objects.equals(gameMode, "Scenario")){
                     customerNumberTextField.setVisible(true);
                 }
                 startGameImage.setVisible(true);
-                if (gameMode == "Scenario"){
+                if (Objects.equals(gameMode, "Scenario")){
                     startGameImage.setPosition(193,20);
                 } else {
                     startGameImage.setPosition(193,70);
@@ -351,11 +353,11 @@ public class MenuScreen extends InputAdapter implements Screen {
                 easyModeButton.setVisible(false);
                 mediumModeButton.setVisible(false);
                 hardModeButton.setVisible(false);
-                if (gameMode == "Scenario"){
+                if (Objects.equals(gameMode, "Scenario")){
                     customerNumberTextField.setVisible(true);
                 }
                 startGameImage.setVisible(true);
-                if (gameMode == "Scenario"){
+                if (Objects.equals(gameMode, "Scenario")){
                     startGameImage.setPosition(193,20);
                 } else {
                     startGameImage.setPosition(193,70);
