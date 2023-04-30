@@ -8,7 +8,7 @@ on:
     
 jobs:
   build:
-    name: Java 11 build on
+    name: Java 11 build
     runs-on: ${{ matrix.os }}
     strategy:
       matrix: 
@@ -25,7 +25,7 @@ jobs:
       - name: Allow execute permissions for gradlew
         run: chmod +x gradlew
           
-      - name: Setup Gradle
+      - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
