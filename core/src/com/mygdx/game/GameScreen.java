@@ -91,10 +91,7 @@ public class GameScreen extends InputAdapter implements Screen {
 		if (shouldCallShow){
 			stage = new Stage();
 
-			SaveGame.initialise(this);
 			if (wantsToBeLoaded){
-				SaveGame.checkLoadable();
-				//if its loadable continue
 				//Initial loading procedure
 				SaveGame.setGameMode();
 			}

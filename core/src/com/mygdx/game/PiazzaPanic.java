@@ -41,9 +41,9 @@ public class PiazzaPanic extends Game {
 	 * @version 1.1
 	 */
 
-	public void newGame(String gameMode, String difficulty) {
+	public void newGame(String gameMode, String difficulty, int scenarioNumCustomer) {
 		gameScreen = new GameScreen(this, gameMode, difficulty);
-		gameScreen.scenarioNumCust = menuScreen.customerNumber;
+		gameScreen.scenarioNumCust = scenarioNumCustomer;
 		setScreen(gameScreen);
 	}
 
@@ -55,7 +55,13 @@ public class PiazzaPanic extends Game {
 
 	public void loadGame() {
 		gameScreen = new GameScreen(this, true);
-		setScreen(gameScreen);
+		SaveGame.initialise(gameScreen);
+		if (SaveGame.checkLoadable()){
+			setScreen(gameScreen);
+		} else {
+			setScreen(menuScreen);
+			gameScreen.dispose();
+		}
 	}
 
 	/**

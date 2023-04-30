@@ -11,13 +11,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.Objects;
 
 /**
  * Represents the Main Menu for the game where the user can pick variables to change their experience
@@ -36,11 +40,23 @@ public class MenuScreen extends InputAdapter implements Screen {
     final static float WORLD_WIDTH = 1600;
     final static float WORLD_HEIGHT = 1200;
 
-    Integer customerNumber;
+    Integer customerNumber = null;
+
+    Integer customerNumberTemp = null;
     TextureAtlas buttonAtlas;
     Skin skin;
 
+    String gameMode = null;
     String difficulty = null;
+
+    TextButton easyModeButton;
+    TextButton mediumModeButton;
+    TextButton hardModeButton;
+    Image startGameImage;
+    TextField customerNumberTextField;
+    Image nextButtonImage;
+
+
 
     /**
      * Creates a new instance of MenuScreen with a given PiazzaPanic game object.
@@ -77,139 +93,208 @@ public class MenuScreen extends InputAdapter implements Screen {
         viewport.apply();
         camera.position.set(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, 0);
 
-        try {
+        BitmapFont font = new BitmapFont();
+        font.getData().setScale(2.5f);
+        buttonAtlas = new TextureAtlas();
+        skin = new Skin();
+        skin.addRegions(buttonAtlas);
 
-            BitmapFont font = new BitmapFont();
-            font.getData().setScale(2.5f);
-            buttonAtlas = new TextureAtlas();
-            skin = new Skin();
-            skin.addRegions(buttonAtlas);
-            TextButton.TextButtonStyle textButtonStyleEndless = new TextButton.TextButtonStyle();
-            textButtonStyleEndless.fontColor = Color.PURPLE;
-            textButtonStyleEndless.font = font;
+        loadResetButton();
+        loadLoadButton();
+        loadGameModeSelection(font);
+        loadDifficultyButtons();
+        loadCustomerScaler();
+        loadNextButton();
+        loadStartGame();
 
-            // Create Endless Mode button
-            TextButton endlessModeButton = new TextButton("Endless Mode", textButtonStyleEndless);
-            endlessModeButton.setPosition((stage.getWidth() - endlessModeButton.getWidth()) - 370f, (stage.getHeight() / 2) - 90f);
-            endlessModeButton.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    customerNumber = 0;
-                    main.newGame("Endless", difficulty);
-                }
-            });
-            stage.addActor(endlessModeButton);
-
-            // Create Scenario Mode button
-            TextButton.TextButtonStyle textButtonStyleScenario = new TextButton.TextButtonStyle();
-            textButtonStyleScenario.fontColor = Color.CYAN;
-            textButtonStyleScenario.font = font;
-            TextButton scenarioModeButton = new TextButton("Scenario Mode", textButtonStyleScenario);
-            scenarioModeButton.setPosition((stage.getWidth() - scenarioModeButton.getWidth() - 70f), (stage.getHeight() / 2) - 90f);
-            scenarioModeButton.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    if (customerNumber == null) {
-                        customerNumber = 5;
-                    }
-                    main.newGame("Scenario", difficulty);
-                }
-            });
-            stage.addActor(scenarioModeButton);
-
-
-            TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
-            BitmapFont font1 = new BitmapFont();
-            font1.getData().setScale(1.5f);
-
-
-            textFieldStyle.font = font1;
-            textFieldStyle.fontColor = Color.WHITE;
-            TextField customerNumberTextField = new TextField("", textFieldStyle);
-            customerNumberTextField.setWidth(300);
-            customerNumberTextField.setMessageText("Click me and Enter Customers");
-            customerNumberTextField.setPosition(scenarioModeButton.getX(),
-                    scenarioModeButton.getY() - 75f);
-            stage.addActor(customerNumberTextField);
-
-
-            BitmapFont difficultyFont = new BitmapFont();
-            difficultyFont.getData().setScale(2.5f);
-            loadDifficultyButtons(difficultyFont);
-
-
-            BitmapFont loadGameFont = new BitmapFont();
-            loadGameFont.getData().setScale(2.5f);
-            loadLoadButton(loadGameFont);
-
-
-            // Add listener to update customer number variable
-
-            customerNumberTextField.setTextFieldListener(new TextField.TextFieldListener() {
-                @Override
-                public void keyTyped(TextField textField, char c) {
-                    // Get the current text in the text field
-                    String text = textField.getText();
-                    if (text.length() > 0) {
-                        if (c == '\b') { // check if the pressed key is the delete key
-                            textField.setText(text.substring(0, text.length() - 1));
-                        }
-
-                        // Check if the text contains only digits and has a length of 4 or less
-                        else if (text.matches("\\d{0,4}")) {
-                            try {
-                                // If the text is valid, update the customer number variable
-                                customerNumber = Integer.parseInt(text);
-                            } catch (NumberFormatException e) {
-                                textField.setText("5");
-                            }
-                        } else {
-                            textField.setText("5");
-                        }
-                    }
-                }
-            });
-        } catch (Exception e) {
-            System.out.println(e);
-        }
 
         Gdx.input.setInputProcessor(stage);
 
         batch = new SpriteBatch();
     }
 
+    private void loadResetButton() {
+        Texture resetMenuButton = new Texture("resetButton.png");
+        Image resetMenuImage = new Image(resetMenuButton);
+        resetMenuImage.setSize(128,64);
+        resetMenuImage.setPosition(20,410);
 
-    private void loadLoadButton(BitmapFont loadGameFont) {
+        resetMenuImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                main.goToMenu();
+            }
+        });
+        stage.addActor(resetMenuImage);
+        resetMenuImage.setVisible(true);
+    }
+
+    private void loadStartGame() {
+        Texture startGameButton = new Texture("startGame.png");
+        startGameImage = new Image(startGameButton);
+        startGameImage.setSize(256,128);
+
+        startGameImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (Objects.equals(gameMode, "Scenario")){
+                    customerNumber = customerNumberTemp;
+                    if (customerNumber == null){
+                        customerNumber = 5;
+                    }
+                } else {
+                    customerNumber = -1;
+                }
+                main.newGame(gameMode, difficulty, customerNumber);
+            }
+        });
+        stage.addActor(startGameImage);
+        startGameImage.setVisible(false);
+    }
+
+    private void loadNextButton() {
+        Texture nextButton = new Texture("nextButton.png");
+        nextButtonImage = new Image(nextButton);
+        nextButtonImage.setPosition(500,70);
+
+        nextButtonImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                customerNumber = customerNumberTemp;
+            }
+        });
+        stage.addActor(nextButtonImage);
+        nextButtonImage.setVisible(false);
+    }
+
+    private void loadCustomerScaler() {
+
+        TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
+        BitmapFont font1 = new BitmapFont();
+        font1.getData().setScale(1.5f);
+
+        textFieldStyle.font = font1;
+        textFieldStyle.fontColor = Color.WHITE;
+        customerNumberTextField = new TextField("", textFieldStyle);
+        customerNumberTextField.setWidth(550);
+        customerNumberTextField.setMessageText("Click me, Type Number of Customers, Then Click Start!");
+        customerNumberTextField.setPosition(50, 175);
+        customerNumberTextField.setAlignment(Align.center);
+
+        // Add listener to update customer number variable
+
+        customerNumberTextField.setTextFieldListener(new TextField.TextFieldListener() {
+            @Override
+            public void keyTyped(TextField textField, char c) {
+                // Get the current text in the text field
+                String text = textField.getText();
+                if (text.length() > 0) {
+                    if (c == '\b') { // check if the pressed key is the delete key
+                        textField.setText(text.substring(0, text.length() - 1));
+                    }
+
+                    // Check if the text contains only digits and has a length of 4 or less
+                    else if (text.matches("\\d{0,4}")) {
+                        try {
+                            // If the text is valid, update the customer number variable
+                            customerNumberTemp = Integer.parseInt(text);
+                        } catch (NumberFormatException e) {
+                            textField.setText("5");
+                        }
+                    } else {
+                        textField.setText("5");
+                    }
+                } customerNumberTemp = Integer.valueOf(text);
+            }
+        });
+        stage.addActor(customerNumberTextField);
+        customerNumberTextField.setVisible(false);
+    }
+
+    private void loadGameModeSelection(BitmapFont font){
+        final TextButton.TextButtonStyle textButtonStyleEndless = new TextButton.TextButtonStyle();
+        textButtonStyleEndless.fontColor = Color.GREEN;
+        textButtonStyleEndless.font = font;
+
+        final TextButton.TextButtonStyle textButtonStyleScenario = new TextButton.TextButtonStyle();
+        textButtonStyleScenario.fontColor = Color.GREEN;
+        textButtonStyleScenario.font = font;
+
+        final TextButton scenarioModeButton = new TextButton("Scenario Mode", textButtonStyleScenario);
+
+        // Create Endless Mode button
+        final TextButton endlessModeButton = new TextButton("Endless Mode", textButtonStyleEndless);
+        endlessModeButton.setPosition(370,100);
+        endlessModeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gameMode = "Endless";
+                scenarioModeButton.setVisible(false);
+                endlessModeButton.setVisible(false);
+                easyModeButton.setVisible(true);
+                mediumModeButton.setVisible(true);
+                hardModeButton.setVisible(true);
+            }
+        });
+        stage.addActor(endlessModeButton);
+        endlessModeButton.setVisible(true);
+
+
+        scenarioModeButton.setPosition(35, 100);
+        scenarioModeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gameMode = "Scenario";
+                scenarioModeButton.setVisible(false);
+                endlessModeButton.setVisible(false);
+                easyModeButton.setVisible(true);
+                mediumModeButton.setVisible(true);
+                hardModeButton.setVisible(true);
+            }
+        });
+        stage.addActor(scenarioModeButton);
+        scenarioModeButton.setVisible(true);
+    }
+    
+    
+    private void loadLoadButton() {
+
+        BitmapFont loadGameFont = new BitmapFont();
+        loadGameFont.getData().setScale(2.5f);
+
         final TextButton.TextButtonStyle textButtonStyleLoad = new TextButton.TextButtonStyle();
         textButtonStyleLoad.fontColor = Color.GREEN;
         textButtonStyleLoad.font = loadGameFont;
 
-        TextButton easyModeButton = new TextButton("Load Game", textButtonStyleLoad);
-        easyModeButton.setPosition(410, 430);
-        easyModeButton.addListener(new ClickListener() {
+        TextButton loadGameButton = new TextButton("Load Game", textButtonStyleLoad);
+        loadGameButton.setPosition(410, 430);
+        loadGameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 main.loadGame();
             }
         });
 
-        stage.addActor(easyModeButton);
+        stage.addActor(loadGameButton);
+        loadGameButton.setVisible(true);
     }
 
     /**
      * Loads and configures the difficulty selection buttons using the given font.
      *
-     * @param difficultyFont the font to use for the button labels
      * @version 1.1
      */
 
-    private void loadDifficultyButtons(BitmapFont difficultyFont) {
+    private void loadDifficultyButtons() {
+        BitmapFont difficultyFont = new BitmapFont();
+        difficultyFont.getData().setScale(4f);
+
         final TextButton.TextButtonStyle textButtonStyleEasy = new TextButton.TextButtonStyle();
-        textButtonStyleEasy.fontColor = Color.RED;
+        textButtonStyleEasy.fontColor = Color.GREEN;
         textButtonStyleEasy.font = difficultyFont;
 
         final TextButton.TextButtonStyle textButtonStyleMedium = new TextButton.TextButtonStyle();
-        textButtonStyleMedium.fontColor = Color.RED;
+        textButtonStyleMedium.fontColor = Color.ORANGE;
         textButtonStyleMedium.font = difficultyFont;
 
 
@@ -217,39 +302,66 @@ public class MenuScreen extends InputAdapter implements Screen {
         textButtonStyleHard.fontColor = Color.RED;
         textButtonStyleHard.font = difficultyFont;
 
-        TextButton easyModeButton = new TextButton("Easy", textButtonStyleEasy);
-        easyModeButton.setPosition(113, 105);
+        easyModeButton = new TextButton("Easy", textButtonStyleEasy);
+        easyModeButton.setPosition(40, 105);
         easyModeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 difficulty = "Easy";
-                textButtonStyleEasy.fontColor = Color.GREEN;
-                textButtonStyleMedium.fontColor = Color.RED;
-                textButtonStyleHard.fontColor = Color.RED;
+                easyModeButton.setVisible(false);
+                mediumModeButton.setVisible(false);
+                hardModeButton.setVisible(false);
+                if (Objects.equals(gameMode, "Scenario")){
+                    customerNumberTextField.setVisible(true);
+                }
+                startGameImage.setVisible(true);
+                if (Objects.equals(gameMode, "Scenario")){
+                    startGameImage.setPosition(193,20);
+                } else {
+                    startGameImage.setPosition(193,70);
+                }
             }
         });
 
-        TextButton mediumModeButton = new TextButton("Medium", textButtonStyleMedium);
-        mediumModeButton.setPosition(97, 68);
+        mediumModeButton = new TextButton("Medium", textButtonStyleMedium);
+        mediumModeButton.setPosition(230, 105);
         mediumModeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 difficulty = "Medium";
-                textButtonStyleEasy.fontColor = Color.RED;
-                textButtonStyleMedium.fontColor = Color.GREEN;
-                textButtonStyleHard.fontColor = Color.RED;
+                easyModeButton.setVisible(false);
+                mediumModeButton.setVisible(false);
+                hardModeButton.setVisible(false);
+                if (Objects.equals(gameMode, "Scenario")){
+                    customerNumberTextField.setVisible(true);
+                }
+                startGameImage.setVisible(true);
+                if (Objects.equals(gameMode, "Scenario")){
+                    startGameImage.setPosition(193,20);
+                } else {
+                    startGameImage.setPosition(193,70);
+                }
             }
         });
 
-        TextButton hardModeButton = new TextButton("Hard", textButtonStyleHard);
-        hardModeButton.setPosition(113,31) ;
+        hardModeButton = new TextButton("Hard", textButtonStyleHard);
+        hardModeButton.setPosition(492,105) ;
         hardModeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 difficulty = "Hard";
-                textButtonStyleEasy.fontColor = Color.RED;
-                textButtonStyleMedium.fontColor = Color.RED;
-                textButtonStyleHard.fontColor = Color.GREEN;
+                easyModeButton.setVisible(false);
+                mediumModeButton.setVisible(false);
+                hardModeButton.setVisible(false);
+                if (Objects.equals(gameMode, "Scenario")){
+                    customerNumberTextField.setVisible(true);
+                }
+                startGameImage.setVisible(true);
+                if (Objects.equals(gameMode, "Scenario")){
+                    startGameImage.setPosition(193,20);
+                } else {
+                    startGameImage.setPosition(193,70);
+                }
             }
         });
 
@@ -257,7 +369,9 @@ public class MenuScreen extends InputAdapter implements Screen {
         stage.addActor(mediumModeButton);
         stage.addActor(hardModeButton);
 
-
+        easyModeButton.setVisible(false);
+        mediumModeButton.setVisible(false);
+        hardModeButton.setVisible(false);
     }
 
     @Override
