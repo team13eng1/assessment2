@@ -71,6 +71,7 @@ public class PauseScreen extends InputAdapter implements Screen {
             saveButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    SaveGame.initialise(gameScreen);
                     SaveGame.saveGame();
                 }
             });
